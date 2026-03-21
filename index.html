@@ -21,7 +21,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 #loadingBar{display:none;position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));z-index:9999;animation:slide 1s infinite linear;}
 @keyframes slide{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
 
-/* ── Auth ── */
+/* Auth */
 #authScreen{display:flex;min-height:100vh;align-items:center;justify-content:center;padding:20px;}
 .auth-box{background:var(--surface);border:1.5px solid var(--border);border-radius:20px;padding:36px 32px;width:100%;max-width:420px;box-shadow:var(--shadow-lg);}
 .auth-logo{font-family:'Gowun Dodum',sans-serif;font-size:26px;color:var(--accent);text-align:center;margin-bottom:4px;}
@@ -35,28 +35,14 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 .auth-btn{width:100%;padding:11px;border:none;border-radius:9px;font-size:14px;font-family:inherit;cursor:pointer;font-weight:700;transition:all .2s;margin-top:4px;background:var(--accent);color:white;}
 .auth-btn:hover{background:var(--accent-h);}
 .auth-error{color:var(--danger);font-size:12px;margin-top:8px;text-align:center;min-height:18px;}
-.auth-notice{font-size:11px;color:var(--text-muted);margin-top:16px;line-height:1.8;padding:14px 14px;background:var(--surface2);border-radius:10px;border-left:3px solid var(--accent2);}
+.auth-notice{font-size:11px;color:var(--text-muted);margin-top:16px;line-height:1.8;padding:14px;background:var(--surface2);border-radius:10px;border-left:3px solid var(--accent2);}
 .auth-notice strong{color:var(--text);}
 .auth-notice .warn{color:var(--danger);font-weight:700;}
 
-/* ── App ── */
+/* App */
 #appScreen{display:none;min-height:100vh;}
 .layout{display:flex;min-height:100vh;width:100%;}
-
-.sidebar{
-  width:260px;
-  min-width:260px;
-  flex-shrink:0;
-  background:var(--surface);
-  border-right:1.5px solid var(--border);
-  display:flex;
-  flex-direction:column;
-  padding:28px 18px 20px;
-  position:sticky;
-  top:0;
-  height:100vh;
-  overflow-y:auto;
-}
+.sidebar{width:260px;min-width:260px;flex-shrink:0;background:var(--surface);border-right:1.5px solid var(--border);display:flex;flex-direction:column;padding:28px 18px 20px;position:sticky;top:0;height:100vh;overflow-y:auto;}
 .sidebar-logo{font-family:'Gowun Dodum',sans-serif;font-size:18px;color:var(--accent);margin-bottom:2px;}
 .sidebar-year{font-size:11px;color:var(--text-muted);margin-bottom:18px;}
 .user-chip{background:var(--surface2);border-radius:9px;padding:10px 12px;margin-bottom:20px;}
@@ -71,25 +57,24 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 .sidebar-spacer{flex:1;}
 .sidebar-privacy{font-size:11px;color:var(--danger);padding:10px 12px;background:#fff5f5;border-radius:8px;line-height:1.7;border:1px solid #fcc;}
 .sidebar-info{font-size:11px;color:var(--text-muted);padding:10px 12px;background:var(--surface2);border-radius:8px;line-height:1.7;margin-top:8px;}
-
 .main{flex:1;min-width:0;padding:32px 40px;}
 
-/* ── Stats ── */
+/* Stats */
 .stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px;margin-bottom:24px;}
 .stat-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:14px 16px;text-align:center;}
 .stat-num{font-size:28px;font-weight:700;font-family:'Gowun Dodum',sans-serif;color:var(--accent);line-height:1;}
 .stat-label{font-size:11px;color:var(--text-muted);margin-top:5px;}
 
-/* ── Page Header ── */
+/* Page Header */
 .page-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px;flex-wrap:wrap;gap:12px;}
 .page-title{font-family:'Gowun Dodum',sans-serif;font-size:22px;}
 .page-desc{font-size:12px;color:var(--text-muted);margin-top:3px;}
 .btn-primary{display:inline-flex;align-items:center;gap:6px;background:var(--accent);color:white;border:none;padding:10px 20px;border-radius:9px;font-size:13px;font-family:inherit;cursor:pointer;font-weight:600;transition:all .2s;}
 .btn-primary:hover{background:var(--accent-h);transform:translateY(-1px);}
-.btn-primary.blue{background:var(--accent4);}
-.btn-primary.blue:hover{background:#326876;}
+.btn-primary.blue{background:var(--accent4);} .btn-primary.blue:hover{background:#326876;}
+.btn-primary.orange{background:var(--accent2);} .btn-primary.orange:hover{background:#a86a30;}
 
-/* ── Controls ── */
+/* Controls */
 .controls-bar{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;align-items:center;}
 .search-wrap{position:relative;flex:1;min-width:200px;}
 .search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:14px;color:var(--text-muted);pointer-events:none;}
@@ -102,7 +87,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 .pill.on-생활{background:#fef3e2;border-color:var(--accent2);color:var(--accent2);font-weight:700;}
 .pill.on-교우관계{background:#ede8f8;border-color:var(--accent3);color:var(--accent3);font-weight:700;}
 
-/* ── Cards ── */
+/* Cards */
 .record-grid{display:flex;flex-direction:column;gap:10px;}
 .record-card,.parent-card{background:var(--surface);border-radius:var(--radius);padding:16px 18px;cursor:pointer;transition:all .18s;position:relative;animation:fadeUp .2s ease;}
 .record-card{border:1.5px solid var(--border);}
@@ -126,7 +111,18 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 .tag-학부모{background:#e2f0f5;color:var(--accent4);}
 .method-badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;padding:3px 10px;border-radius:20px;background:#e2f0f5;color:var(--accent4);font-weight:600;}
 
-/* ── Student Grid ── */
+/* Roster */
+.roster-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;}
+.roster-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:14px 16px;display:flex;align-items:center;gap:12px;transition:all .18s;}
+.roster-card:hover{border-color:var(--accent);box-shadow:var(--shadow);}
+.roster-card.watch{border-color:#ffb74d;background:#fffbf5;}
+.roster-avatar{width:38px;height:38px;border-radius:50%;background:var(--surface2);font-size:18px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.roster-info{flex:1;min-width:0;}
+.roster-name{font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.roster-meta{font-size:11px;color:var(--text-muted);margin-top:1px;}
+.roster-actions{display:flex;gap:3px;flex-shrink:0;}
+
+/* Student Grid */
 .student-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;}
 .student-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:18px 14px;text-align:center;cursor:pointer;transition:all .18s;}
 .student-card:hover{border-color:var(--accent);box-shadow:var(--shadow);transform:translateY(-1px);}
@@ -135,10 +131,10 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 .mini-tags{display:flex;gap:3px;justify-content:center;flex-wrap:wrap;}
 .mini-tag{font-size:10px;padding:2px 6px;border-radius:10px;}
 
-/* ── Modal ── */
+/* Modal */
 .overlay{display:none;position:fixed;inset:0;background:rgba(44,36,22,.45);z-index:500;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(3px);}
 .overlay.open{display:flex;}
-.modal{background:var(--surface);border-radius:18px;width:100%;max-width:540px;max-height:90vh;overflow-y:auto;padding:30px;box-shadow:var(--shadow-lg);animation:popIn .2s cubic-bezier(.34,1.56,.64,1);}
+.modal{background:var(--surface);border-radius:18px;width:100%;max-width:580px;max-height:90vh;overflow-y:auto;padding:30px;box-shadow:var(--shadow-lg);animation:popIn .2s cubic-bezier(.34,1.56,.64,1);}
 @keyframes popIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
 .modal-title{font-family:'Gowun Dodum',sans-serif;font-size:18px;color:var(--accent);margin-bottom:22px;}
 .form-group{margin-bottom:16px;}
@@ -155,20 +151,61 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 .chip.on-생활{background:#fef3e2;border-color:var(--accent2);color:var(--accent2);font-weight:700;}
 .chip.on-교우관계{background:#ede8f8;border-color:var(--accent3);color:var(--accent3);font-weight:700;}
 .chip.on-전화,.chip.on-대면,.chip.on-문자{background:#e2f0f5;border-color:var(--accent4);color:var(--accent4);font-weight:700;}
+.chip.on-남,.chip.on-여{background:#e8f2e5;border-color:var(--accent);color:var(--accent);font-weight:700;}
 .modal-footer{display:flex;gap:8px;justify-content:flex-end;margin-top:22px;padding-top:18px;border-top:1.5px solid var(--border);}
 .btn-ghost{padding:9px 18px;border:1.5px solid var(--border);border-radius:9px;background:none;font-size:13px;font-family:inherit;cursor:pointer;color:var(--text-muted);transition:all .15s;}
 .btn-ghost:hover{background:var(--surface2);color:var(--text);}
 .detail-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--text-muted);margin-bottom:5px;}
 .detail-value{font-size:14px;line-height:1.75;color:var(--text);margin-bottom:18px;padding:12px 14px;background:var(--bg);border-radius:9px;border:1px solid var(--border);white-space:pre-wrap;}
 
-/* ── Toast ── */
+/* AI Guide */
+.ai-guide-box{background:linear-gradient(135deg,#faf7ff,#f5f8ff);border:1.5px solid #c4b0e8;border-radius:12px;padding:18px;margin-top:4px;animation:fadeUp .3s ease;}
+.ai-guide-header{display:flex;align-items:center;gap:8px;margin-bottom:12px;}
+.ai-guide-title{font-size:14px;font-weight:700;color:var(--accent3);}
+.ai-guide-disclaimer{font-size:11px;color:var(--text-muted);background:rgba(255,255,255,.7);border-radius:7px;padding:7px 10px;margin-bottom:14px;line-height:1.6;border:1px solid #e0d5f5;}
+.ai-section{margin-bottom:14px;}
+.ai-section:last-child{margin-bottom:0;}
+.ai-section-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;margin-bottom:7px;display:flex;align-items:center;gap:5px;}
+.ai-section-title.green{color:var(--accent);}
+.ai-section-title.red{color:var(--danger);}
+.ai-section-title.blue{color:var(--accent4);}
+.ai-section-title.orange{color:var(--accent2);}
+.ai-item{font-size:13px;color:var(--text);line-height:1.7;padding:3px 0 3px 14px;position:relative;}
+.ai-item::before{content:'•';position:absolute;left:2px;color:var(--text-muted);}
+.ai-loading-box{background:linear-gradient(135deg,#faf7ff,#f5f8ff);border:1.5px solid #c4b0e8;border-radius:12px;padding:18px;margin-top:4px;}
+.ai-loading{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--accent3);}
+.ai-dot{width:6px;height:6px;border-radius:50%;background:var(--accent3);animation:blink 1.2s infinite;}
+.ai-dot:nth-child(2){animation-delay:.2s;}
+.ai-dot:nth-child(3){animation-delay:.4s;}
+@keyframes blink{0%,100%{opacity:.2}50%{opacity:1}}
+.ai-divider{border:none;border-top:1.5px solid #e0d5f5;margin:16px 0;}
+
+/* Autocomplete */
+.autocomplete-wrap{position:relative;}
+.autocomplete-list{position:absolute;top:100%;left:0;right:0;background:var(--surface);border:1.5px solid var(--accent);border-radius:9px;box-shadow:var(--shadow);z-index:200;max-height:200px;overflow-y:auto;margin-top:3px;}
+.autocomplete-item{padding:10px 14px;cursor:pointer;font-size:13px;display:flex;align-items:center;gap:8px;transition:background .15s;}
+.autocomplete-item:hover{background:var(--surface2);}
+.autocomplete-item .ac-gender{font-size:11px;color:var(--text-muted);}
+.autocomplete-item .ac-watch{font-size:10px;color:#e65100;font-weight:700;}
+
+/* Toggle */
+.toggle-wrap{display:flex;align-items:center;gap:10px;}
+.toggle{position:relative;width:40px;height:22px;flex-shrink:0;}
+.toggle input{opacity:0;width:0;height:0;}
+.toggle-slider{position:absolute;inset:0;background:var(--border);border-radius:11px;cursor:pointer;transition:background .2s;}
+.toggle-slider::before{content:'';position:absolute;width:16px;height:16px;left:3px;top:3px;background:white;border-radius:50%;transition:transform .2s;}
+.toggle input:checked+.toggle-slider{background:var(--accent2);}
+.toggle input:checked+.toggle-slider::before{transform:translateX(18px);}
+.toggle-label{font-size:13px;color:var(--text-muted);cursor:pointer;}
+
+/* Toast */
 .toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(60px);background:#2c2416;color:white;padding:10px 22px;border-radius:22px;font-size:13px;z-index:999;transition:transform .28s cubic-bezier(.34,1.3,.64,1);white-space:nowrap;}
 .toast.show{transform:translateX(-50%) translateY(0);}
 .empty{text-align:center;padding:60px 20px;color:var(--text-muted);}
 .empty-icon{font-size:40px;margin-bottom:12px;}
 .empty p{font-size:14px;}
+.empty-action{margin-top:14px;}
 
-/* ── Responsive ── */
 @media(max-width:700px){
   .sidebar{display:none;}
   .main{padding:16px;}
@@ -184,7 +221,6 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 <body>
 <div id="loadingBar"></div>
 
-<!-- 로그인/회원가입 -->
 <div id="authScreen">
   <div class="auth-box">
     <div class="auth-logo">📋 상담일지</div>
@@ -221,7 +257,6 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
   </div>
 </div>
 
-<!-- 앱 -->
 <div id="appScreen">
   <div class="layout">
     <aside class="sidebar">
@@ -235,24 +270,21 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
       <button class="nav-item active" id="nav-all" onclick="gotoTab('all')"><span class="nav-icon">📄</span> 전체 기록</button>
       <button class="nav-item" id="nav-parent" onclick="gotoTab('parent')"><span class="nav-icon">👨‍👩‍👧</span> 학부모 상담</button>
       <button class="nav-item" id="nav-student" onclick="gotoTab('student')"><span class="nav-icon">👦</span> 학생별 보기</button>
+      <button class="nav-item" id="nav-roster" onclick="gotoTab('roster')"><span class="nav-icon">📋</span> 학생 명부</button>
       <div class="sidebar-spacer"></div>
-      <div class="sidebar-privacy">
-        ⚠️ <strong>개인정보 보호</strong><br>
-        학생 실명 입력 금지<br>
-        번호·이니셜만 사용하세요<br>
-        <span style="opacity:.8;">예: 3번, K.M., 홍○○</span>
-      </div>
+      <div class="sidebar-privacy">⚠️ <strong>개인정보 보호</strong><br>학생 실명 입력 금지<br>번호·이니셜만 사용하세요<br><span style="opacity:.8;">예: 3번, K.M., 홍○○</span></div>
       <div class="sidebar-info">💾 저장 즉시 클라우드에 반영돼요.<br>어느 기기에서 로그인해도 기록이 그대로 있어요.</div>
     </aside>
+
     <main class="main">
       <div class="mobile-nav">
         <button class="mobile-tab active" id="mnav-all" onclick="gotoTab('all')">전체</button>
         <button class="mobile-tab" id="mnav-parent" onclick="gotoTab('parent')">학부모</button>
         <button class="mobile-tab" id="mnav-student" onclick="gotoTab('student')">학생별</button>
+        <button class="mobile-tab" id="mnav-roster" onclick="gotoTab('roster')">명부</button>
       </div>
       <div class="stats-grid" id="statsGrid"></div>
 
-      <!-- 전체 기록 -->
       <div id="tab-all">
         <div class="page-header">
           <div><div class="page-title">전체 상담 기록</div><div class="page-desc">학습 · 생활 · 교우관계 상담 기록을 관리합니다</div></div>
@@ -270,7 +302,6 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
         <div class="record-grid" id="allList"></div>
       </div>
 
-      <!-- 학부모 상담 -->
       <div id="tab-parent" style="display:none">
         <div class="page-header">
           <div><div class="page-title">학부모 상담</div><div class="page-desc">전화 · 대면 · 문자 상담을 별도 관리합니다</div></div>
@@ -280,10 +311,17 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
         <div class="record-grid" id="parentList"></div>
       </div>
 
-      <!-- 학생별 보기 -->
       <div id="tab-student" style="display:none">
         <div class="page-header"><div><div class="page-title">학생별 보기</div><div class="page-desc">카드를 클릭하면 해당 학생 기록만 볼 수 있어요</div></div></div>
         <div class="student-grid" id="studentGrid"></div>
+      </div>
+
+      <div id="tab-roster" style="display:none">
+        <div class="page-header">
+          <div><div class="page-title">학생 명부</div><div class="page-desc">번호·이니셜·성별을 등록해두면 상담 기록 작성 시 바로 선택할 수 있어요</div></div>
+          <button class="btn-primary orange" onclick="openRosterModal()">+ 학생 추가</button>
+        </div>
+        <div class="roster-grid" id="rosterGrid"></div>
       </div>
     </main>
   </div>
@@ -295,8 +333,11 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
     <div class="modal-title" id="modal-add-title">새 상담 기록</div>
     <div class="form-row">
       <div class="form-group">
-        <label class="form-label">학생 식별</label>
-        <input class="form-input" id="f_name" placeholder="번호 또는 이니셜 (예: 3번, K.M.)">
+        <label class="form-label">학생 선택</label>
+        <div class="autocomplete-wrap">
+          <input class="form-input" id="f_name" placeholder="번호·이니셜 입력 또는 선택" autocomplete="off" oninput="acInput('f_name','f_ac')" onfocus="acInput('f_name','f_ac')">
+          <div class="autocomplete-list" id="f_ac" style="display:none"></div>
+        </div>
         <div class="form-hint">⚠️ 실명 입력 금지 — 번호나 이니셜을 사용해주세요</div>
       </div>
       <div class="form-group"><label class="form-label">상담 날짜</label><input class="form-input" id="f_date" type="date"></div>
@@ -312,7 +353,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
     <div class="form-group"><label class="form-label">후속 조치 / 추후 관찰</label><textarea class="form-textarea sm" id="f_followup" placeholder="향후 지도 방향, 추이 관찰 사항 등..."></textarea></div>
     <div class="modal-footer">
       <button class="btn-ghost" onclick="closeModal('modal-add')">취소</button>
-      <button class="btn-primary" onclick="saveRecord()">저장</button>
+      <button class="btn-primary" id="btn-save-record" onclick="saveRecord()">저장</button>
     </div>
   </div>
 </div>
@@ -323,8 +364,11 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
     <div class="modal-title" id="modal-parent-title">학부모 상담 기록</div>
     <div class="form-row">
       <div class="form-group">
-        <label class="form-label">학생 식별</label>
-        <input class="form-input" id="p_name" placeholder="번호 또는 이니셜 (예: 3번, K.M.)">
+        <label class="form-label">학생 선택</label>
+        <div class="autocomplete-wrap">
+          <input class="form-input" id="p_name" placeholder="번호·이니셜 입력 또는 선택" autocomplete="off" oninput="acInput('p_name','p_ac')" onfocus="acInput('p_name','p_ac')">
+          <div class="autocomplete-list" id="p_ac" style="display:none"></div>
+        </div>
         <div class="form-hint">⚠️ 실명 입력 금지 — 번호나 이니셜을 사용해주세요</div>
       </div>
       <div class="form-group"><label class="form-label">상담 날짜</label><input class="form-input" id="p_date" type="date"></div>
@@ -345,7 +389,34 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
   </div>
 </div>
 
-<!-- 상세 보기 -->
+<!-- 학생 명부 -->
+<div class="overlay" id="modal-roster">
+  <div class="modal">
+    <div class="modal-title" id="modal-roster-title">학생 추가</div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">번호</label><input class="form-input" id="r_num" type="number" placeholder="1" min="1" max="50"></div>
+      <div class="form-group"><label class="form-label">이니셜 / 별칭</label><input class="form-input" id="r_alias" placeholder="K.M. 또는 홍○○"></div>
+    </div>
+    <div class="form-group"><label class="form-label">성별</label>
+      <div class="chip-group" id="genderChips">
+        <button class="chip" onclick="pickGender(this)">남</button>
+        <button class="chip" onclick="pickGender(this)">여</button>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="toggle-wrap">
+        <label class="toggle"><input type="checkbox" id="r_watch"><span class="toggle-slider"></span></label>
+        <span class="toggle-label">주목 학생으로 표시</span>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-ghost" onclick="closeModal('modal-roster')">취소</button>
+      <button class="btn-primary orange" onclick="saveRoster()">저장</button>
+    </div>
+  </div>
+</div>
+
+<!-- 상세 보기 (AI 가이드 포함) -->
 <div class="overlay" id="modal-detail">
   <div class="modal">
     <div id="detail-body"></div>
@@ -373,7 +444,6 @@ const firebaseConfig = {
   messagingSenderId: "545003777825",
   appId:             "1:545003777825:web:084730dc91388509ab5860"
 };
-
 const INVITE_CODE = "선생님2025";
 
 const app  = initializeApp(firebaseConfig);
@@ -381,9 +451,10 @@ const auth = getAuth(app);
 const db   = getFirestore(app);
 
 const EMOJIS = ['🌱','🌟','🐣','🦋','🌈','🍀','✨','🐥','🌻','🎈','🦊','🐬','🌺','🎀','🐸','🍁','🌙','⭐','🦜','🦔'];
-let currentUser=null, records=[], parents=[];
-let filter='all', selType='', selMethod='';
-let editId=null, editPId=null, detailId=null, detailIsParent=false;
+let currentUser=null, records=[], parents=[], roster=[];
+let filter='all', selType='', selMethod='', selGender='';
+let editId=null, editPId=null, editRId=null;
+let detailId=null, detailIsParent=false;
 
 const $   = id => document.getElementById(id);
 const emo = n  => { let c=0; for(let ch of n) c+=ch.charCodeAt(0); return EMOJIS[c%EMOJIS.length]; };
@@ -393,11 +464,14 @@ const esc = s  => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/
 function toast(msg){ const e=$('toast'); e.textContent=msg; e.classList.add('show'); clearTimeout(e._t); e._t=setTimeout(()=>e.classList.remove('show'),2500); }
 function loading(v){ $('loadingBar').style.display=v?'block':'none'; }
 function openModal(id){ $(id).classList.add('open'); }
-window.closeModal = id => $(id).classList.remove('open');
+window.closeModal = id => {
+  $(id).classList.remove('open');
+  ['f_ac','p_ac'].forEach(i=>{ const el=$(i); if(el) el.style.display='none'; });
+};
 
 window.switchAuthTab = tab => {
-  $('form-login').style.display  = tab==='login'  ? 'block' : 'none';
-  $('form-signup').style.display = tab==='signup' ? 'block' : 'none';
+  $('form-login').style.display  = tab==='login'  ? 'block':'none';
+  $('form-signup').style.display = tab==='signup' ? 'block':'none';
   $('tab-login').className  = 'auth-tab'+(tab==='login' ?' active':'');
   $('tab-signup').className = 'auth-tab'+(tab==='signup'?' active':'');
   $('authError').textContent='';
@@ -412,7 +486,7 @@ onAuthStateChanged(auth, async user => {
     $('sideYear').textContent=new Date().getFullYear()+'학년도 학급 상담';
     await loadData(); render();
   } else {
-    currentUser=null; records=[]; parents=[];
+    currentUser=null; records=[]; parents=[]; roster=[];
     $('authScreen').style.display='flex';
     $('appScreen').style.display='none';
   }
@@ -440,20 +514,121 @@ window.doSignup = async () => {
 
 window.doLogout = async () => { if(!confirm('로그아웃 할까요?')) return; await signOut(auth); };
 
-const rCol = () => collection(db,'users',currentUser.uid,'records');
-const pCol = () => collection(db,'users',currentUser.uid,'parents');
+const rCol  = () => collection(db,'users',currentUser.uid,'records');
+const pCol  = () => collection(db,'users',currentUser.uid,'parents');
+const roCol = () => collection(db,'users',currentUser.uid,'roster');
 
 async function loadData(){
   loading(true);
   try{
-    const [rs,ps]=await Promise.all([getDocs(query(rCol(),orderBy('date','desc'))),getDocs(query(pCol(),orderBy('date','desc')))]);
+    const [rs,ps,ros]=await Promise.all([
+      getDocs(query(rCol(),orderBy('date','desc'))),
+      getDocs(query(pCol(),orderBy('date','desc'))),
+      getDocs(roCol())
+    ]);
     records=rs.docs.map(d=>({id:d.id,...d.data()}));
     parents=ps.docs.map(d=>({id:d.id,...d.data()}));
+    roster=ros.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>Number(a.num)-Number(b.num));
   }catch(e){toast('데이터 로드 실패: '+e.message);}
   finally{loading(false);}
 }
 
-function render(){ renderStats(); renderAll(); renderParent(); renderStudentGrid(); }
+// ── AI 지도 가이드 ──
+async function generateAiGuide(record) {
+  const prompt = `당신은 대한민국 초등학교 생활지도 전문가입니다.
+아래 상담 내용을 바탕으로 담임교사에게 실질적인 지도 가이드를 제공해주세요.
+
+상담 유형: ${record.type || '일반'}
+상담 내용: ${record.content}
+후속 조치: ${record.followup || '없음'}
+
+다음 4가지 항목을 각각 2~3가지씩 간결하게 제시해주세요.
+반드시 아래 JSON 형식으로만 응답하고, 다른 텍스트는 절대 포함하지 마세요:
+
+{
+  "approach": ["지도 방향/접근 방법 1", "지도 방향/접근 방법 2", "지도 방향/접근 방법 3"],
+  "avoid": ["절대 하지 말아야 할 행동 1", "절대 하지 말아야 할 행동 2", "절대 하지 말아야 할 행동 3"],
+  "parent": ["학부모 소통 시 유의사항 1", "학부모 소통 시 유의사항 2"],
+  "observe": ["후속 관찰 포인트 1", "후속 관찰 포인트 2", "후속 관찰 포인트 3"]
+}`;
+
+  const res = await fetch("https://api.anthropic.com/v1/messages", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      model: "claude-sonnet-4-20250514",
+      max_tokens: 1000,
+      messages: [{ role: "user", content: prompt }]
+    })
+  });
+  const data = await res.json();
+  const text = data.content?.[0]?.text || '';
+  const clean = text.replace(/```json|```/g,'').trim();
+  return JSON.parse(clean);
+}
+
+function renderAiGuide(guide) {
+  return `
+    <div class="ai-guide-box">
+      <div class="ai-guide-header">
+        <span style="font-size:18px;">🤖</span>
+        <span class="ai-guide-title">AI 지도 가이드</span>
+      </div>
+      <div class="ai-guide-disclaimer">
+        ⚠️ AI가 제안하는 참고 자료입니다. 최종 판단은 반드시 교사가 직접 하세요.
+      </div>
+      <div class="ai-section">
+        <div class="ai-section-title green">✅ 지도 방향 / 접근 방법</div>
+        ${guide.approach.map(i=>`<div class="ai-item">${esc(i)}</div>`).join('')}
+      </div>
+      <div class="ai-section">
+        <div class="ai-section-title red">🚫 절대 하지 말아야 할 행동</div>
+        ${guide.avoid.map(i=>`<div class="ai-item">${esc(i)}</div>`).join('')}
+      </div>
+      <div class="ai-section">
+        <div class="ai-section-title blue">💬 학부모 소통 시 유의사항</div>
+        ${guide.parent.map(i=>`<div class="ai-item">${esc(i)}</div>`).join('')}
+      </div>
+      <div class="ai-section">
+        <div class="ai-section-title orange">👁️ 후속 관찰 포인트</div>
+        ${guide.observe.map(i=>`<div class="ai-item">${esc(i)}</div>`).join('')}
+      </div>
+    </div>`;
+}
+
+function buildDetailHtml(r, isParent, aiHtml='') {
+  const badge = isParent
+    ? `<span class="method-badge">${esc(r.method)}</span>`
+    : `<span class="tag tag-${r.type}">${r.type}</span>`;
+  return `
+    <div class="modal-title">${emo(r.name)} ${esc(r.name)}${isParent?' 학부모':''} 상담</div>
+    <div style="display:flex;gap:8px;align-items:center;margin-bottom:20px;">${badge}<span style="font-size:12px;color:var(--text-muted);">${r.date}</span></div>
+    <div class="detail-label">상담 내용</div>
+    <div class="detail-value">${esc(r.content)}</div>
+    ${r.followup?`<div class="detail-label">후속 조치</div><div class="detail-value">${esc(r.followup)}</div>`:''}
+    ${!isParent ? `<hr class="ai-divider">${aiHtml}` : ''}
+  `;
+}
+
+// ── Autocomplete ──
+window.acInput = (inputId, listId) => {
+  const val=$(inputId).value.toLowerCase().trim();
+  const list=$(listId);
+  if(!roster.length){ list.style.display='none'; return; }
+  const filtered = val ? roster.filter(s=>s.label.toLowerCase().includes(val)) : roster;
+  if(!filtered.length){ list.style.display='none'; return; }
+  list.innerHTML=filtered.map(s=>`
+    <div class="autocomplete-item" onclick="acSelect('${inputId}','${listId}','${esc(s.label)}')">
+      <span>${emo(s.label)}</span><span>${esc(s.label)}</span>
+      <span class="ac-gender">${s.gender||''}</span>
+      ${s.watch?'<span class="ac-watch">⭐주목</span>':''}
+    </div>`).join('');
+  list.style.display='block';
+};
+window.acSelect = (inputId, listId, val) => { $(inputId).value=val; $(listId).style.display='none'; };
+
+// ── Render ──
+function render(){ renderStats(); renderAll(); renderParent(); renderStudentGrid(); renderRoster(); }
 
 function renderStats(){
   const total=records.length+parents.length;
@@ -471,7 +646,10 @@ window.renderAll = () => {
   const q=($('searchAll').value||'').toLowerCase().trim();
   const list=records.filter(r=>(filter==='all'||r.type===filter)&&(!q||r.name.includes(q)||r.content.toLowerCase().includes(q)));
   const el=$('allList');
-  if(!list.length){el.innerHTML=`<div class="empty"><div class="empty-icon">📭</div><p>기록이 없어요</p></div>`;return;}
+  if(!list.length){
+    el.innerHTML=`<div class="empty"><div class="empty-icon">📭</div><p>기록이 없어요</p>${!roster.length?`<div class="empty-action"><button class="btn-primary orange" onclick="gotoTab('roster')" style="margin:0 auto;">먼저 학생 명부를 등록해보세요</button></div>`:''}</div>`;
+    return;
+  }
   el.innerHTML=list.map(r=>`
     <div class="record-card" onclick="openDetail('${r.id}',false)">
       <div class="rc-actions">
@@ -513,15 +691,36 @@ function renderStudentGrid(){
   }).join('');
 }
 
+function renderRoster(){
+  const el=$('rosterGrid');
+  if(!roster.length){
+    el.innerHTML=`<div class="empty" style="grid-column:1/-1"><div class="empty-icon">📋</div><p>등록된 학생이 없어요</p><div class="empty-action"><button class="btn-primary orange" onclick="openRosterModal()" style="margin:0 auto;">+ 학생 추가</button></div></div>`;
+    return;
+  }
+  el.innerHTML=roster.map(s=>`
+    <div class="roster-card${s.watch?' watch':''}">
+      <div class="roster-avatar">${emo(s.label)}</div>
+      <div class="roster-info">
+        <div class="roster-name">${esc(s.label)} ${s.watch?'⭐':''}</div>
+        <div class="roster-meta">${s.num}번 · ${s.gender||'-'}</div>
+      </div>
+      <div class="roster-actions">
+        <button class="btn-icon" onclick="openEditRoster('${s.id}')">✏️</button>
+        <button class="btn-icon del" onclick="delRoster('${s.id}')">🗑️</button>
+      </div>
+    </div>`).join('');
+}
+
+// ── Tabs / Filter / Chips ──
 window.gotoTab = tab => {
-  ['all','parent','student'].forEach(t=>{
+  ['all','parent','student','roster'].forEach(t=>{
     $(`tab-${t}`).style.display=t===tab?'block':'none';
     const nb=$(`nav-${t}`); if(nb) nb.className='nav-item'+(t===tab?' active':'');
     const mb=$(`mnav-${t}`); if(mb) mb.className='mobile-tab'+(t===tab?' active':'');
   });
 };
 
-window.setFilter = (f,btn) => {
+window.setFilter = (f) => {
   filter=f;
   document.querySelectorAll('#filterPills .pill').forEach(b=>{
     const bf=b.dataset.f||'all';
@@ -536,12 +735,20 @@ window.pickChip = (el,kind) => {
   else { selMethod=val; document.querySelectorAll('#methodChips .chip').forEach(b=>{ const v=b.textContent.trim().replace(/📞\s*|🤝\s*|💬\s*/,''); b.className=v===val?`chip on-${val}`:'chip'; }); }
 };
 
+window.pickGender = el => {
+  selGender=el.textContent.trim();
+  document.querySelectorAll('#genderChips .chip').forEach(b=>b.className=b.textContent.trim()===selGender?'chip on-남':'chip');
+};
+
+// ── Record CRUD ──
 window.openAddModal = () => {
   editId=null; selType='';
   $('modal-add-title').textContent='새 상담 기록';
   ['f_name','f_content','f_followup'].forEach(id=>$(id).value='');
   $('f_date').value=td();
   document.querySelectorAll('#typeChips .chip').forEach(b=>b.className='chip');
+  const btn=$('btn-save-record');
+  btn.textContent='저장'; btn.disabled=false;
   openModal('modal-add'); setTimeout(()=>$('f_name').focus(),60);
 };
 
@@ -551,19 +758,64 @@ window.openEdit = id => {
   $('modal-add-title').textContent='상담 기록 수정';
   $('f_name').value=r.name; $('f_date').value=r.date; $('f_content').value=r.content; $('f_followup').value=r.followup||'';
   document.querySelectorAll('#typeChips .chip').forEach(b=>b.className=b.textContent.trim()===r.type?`chip on-${r.type}`:'chip');
+  const btn=$('btn-save-record');
+  btn.textContent='저장'; btn.disabled=false;
   openModal('modal-add');
 };
 
 window.saveRecord = async () => {
   const name=$('f_name').value.trim(), date=$('f_date').value, content=$('f_content').value.trim();
-  if(!name||!date||!content||!selType){toast('⚠️ 식별, 날짜, 유형, 내용을 모두 입력해주세요');return;}
+  if(!name||!date||!content||!selType){toast('⚠️ 학생, 날짜, 유형, 내용을 모두 입력해주세요');return;}
   const followup=$('f_followup').value.trim();
+
+  const btn=$('btn-save-record');
+  btn.disabled=true; btn.textContent='저장 중...';
+
   loading(true);
+  let savedRecord = null;
   try{
-    if(editId){ await updateDoc(doc(rCol(),editId),{name,date,type:selType,content,followup}); const i=records.findIndex(r=>r.id===editId); records[i]={...records[i],name,date,type:selType,content,followup}; toast('✅ 수정했어요'); }
-    else{ const ref=await addDoc(rCol(),{name,date,type:selType,content,followup}); records.unshift({id:ref.id,name,date,type:selType,content,followup}); toast('✅ 저장했어요'); }
-    render(); closeModal('modal-add');
-  }catch(e){toast('저장 실패: '+e.message);}finally{loading(false);}
+    if(editId){
+      await updateDoc(doc(rCol(),editId),{name,date,type:selType,content,followup});
+      const i=records.findIndex(r=>r.id===editId);
+      records[i]={...records[i],name,date,type:selType,content,followup};
+      savedRecord=records[i];
+      toast('✅ 수정했어요');
+    } else {
+      const ref=await addDoc(rCol(),{name,date,type:selType,content,followup});
+      savedRecord={id:ref.id,name,date,type:selType,content,followup};
+      records.unshift(savedRecord);
+      toast('✅ 저장했어요');
+    }
+    render();
+    closeModal('modal-add');
+
+    // 저장 후 상세보기 자동 오픈 + AI 가이드 자동 생성
+    if(savedRecord){
+      detailId=savedRecord.id; detailIsParent=false;
+      // 로딩 상태로 상세보기 먼저 열기
+      $('detail-body').innerHTML = buildDetailHtml(savedRecord, false, `
+        <div class="ai-loading-box">
+          <div class="ai-loading">
+            <div class="ai-dot"></div><div class="ai-dot"></div><div class="ai-dot"></div>
+            <span>🤖 AI 지도 가이드 생성 중...</span>
+          </div>
+        </div>`);
+      $('detail-edit-btn').style.background='var(--accent2)';
+      openModal('modal-detail');
+
+      // AI 가이드 비동기 생성
+      try{
+        const guide = await generateAiGuide(savedRecord);
+        $('detail-body').innerHTML = buildDetailHtml(savedRecord, false, renderAiGuide(guide));
+      } catch(e){
+        $('detail-body').innerHTML = buildDetailHtml(savedRecord, false,
+          `<div style="font-size:13px;color:var(--text-muted);padding:10px 0;">🤖 AI 가이드 생성 실패 (${e.message})</div>`);
+      }
+    }
+  }catch(e){
+    toast('저장 실패: '+e.message);
+    btn.disabled=false; btn.textContent='저장';
+  }finally{loading(false);}
 };
 
 window.delRecord = async id => {
@@ -573,6 +825,7 @@ window.delRecord = async id => {
   catch(e){toast('삭제 실패: '+e.message);}finally{loading(false);}
 };
 
+// ── Parent CRUD ──
 window.openParentModal = () => {
   editPId=null; selMethod='';
   $('modal-parent-title').textContent='학부모 상담 기록';
@@ -593,7 +846,7 @@ window.openEditParent = id => {
 
 window.saveParent = async () => {
   const name=$('p_name').value.trim(), date=$('p_date').value, content=$('p_content').value.trim();
-  if(!name||!date||!content||!selMethod){toast('⚠️ 식별, 날짜, 방법, 내용을 모두 입력해주세요');return;}
+  if(!name||!date||!content||!selMethod){toast('⚠️ 학생, 날짜, 방법, 내용을 모두 입력해주세요');return;}
   const followup=$('p_followup').value.trim();
   loading(true);
   try{
@@ -610,17 +863,76 @@ window.delParent = async id => {
   catch(e){toast('삭제 실패: '+e.message);}finally{loading(false);}
 };
 
-window.openDetail = (id,isParent) => {
+// ── Roster CRUD ──
+window.openRosterModal = () => {
+  editRId=null; selGender='';
+  $('modal-roster-title').textContent='학생 추가';
+  $('r_num').value=''; $('r_alias').value=''; $('r_watch').checked=false;
+  document.querySelectorAll('#genderChips .chip').forEach(b=>b.className='chip');
+  openModal('modal-roster'); setTimeout(()=>$('r_num').focus(),60);
+};
+
+window.openEditRoster = id => {
+  const s=roster.find(s=>s.id===id); if(!s) return;
+  editRId=id; selGender=s.gender||'';
+  $('modal-roster-title').textContent='학생 수정';
+  $('r_num').value=s.num; $('r_alias').value=s.alias||''; $('r_watch').checked=!!s.watch;
+  document.querySelectorAll('#genderChips .chip').forEach(b=>b.className=b.textContent.trim()===selGender?'chip on-남':'chip');
+  openModal('modal-roster');
+};
+
+window.saveRoster = async () => {
+  const num=$('r_num').value.trim(), alias=$('r_alias').value.trim();
+  if(!num){toast('⚠️ 번호를 입력해주세요');return;}
+  const label=alias?`${num}번 (${alias})`:`${num}번`;
+  const watch=$('r_watch').checked;
+  const data={num:Number(num),alias,label,gender:selGender,watch};
+  loading(true);
+  try{
+    if(editRId){ await updateDoc(doc(roCol(),editRId),data); const i=roster.findIndex(s=>s.id===editRId); roster[i]={...roster[i],...data}; toast('✅ 수정했어요'); }
+    else{ const ref=await addDoc(roCol(),data); roster.push({id:ref.id,...data}); toast('✅ 학생 추가했어요'); }
+    roster.sort((a,b)=>Number(a.num)-Number(b.num));
+    render(); closeModal('modal-roster');
+  }catch(e){toast('저장 실패: '+e.message);}finally{loading(false);}
+};
+
+window.delRoster = async id => {
+  if(!confirm('이 학생을 명부에서 삭제할까요?')) return;
+  loading(true);
+  try{ await deleteDoc(doc(roCol(),id)); roster=roster.filter(s=>s.id!==id); render(); }
+  catch(e){toast('삭제 실패: '+e.message);}finally{loading(false);}
+};
+
+// ── Detail (기존 기록 열어볼 때) ──
+window.openDetail = async (id, isParent) => {
   detailId=id; detailIsParent=isParent;
   const r=isParent?parents.find(p=>p.id===id):records.find(r=>r.id===id); if(!r) return;
-  const badge=isParent?`<span class="method-badge">${esc(r.method)}</span>`:`<span class="tag tag-${r.type}">${r.type}</span>`;
-  $('detail-body').innerHTML=`
-    <div class="modal-title">${emo(r.name)} ${esc(r.name)}${isParent?' 학부모':''} 상담</div>
-    <div style="display:flex;gap:8px;align-items:center;margin-bottom:20px;">${badge}<span style="font-size:12px;color:var(--text-muted);">${r.date}</span></div>
-    <div class="detail-label">상담 내용</div><div class="detail-value">${esc(r.content)}</div>
-    ${r.followup?`<div class="detail-label">후속 조치</div><div class="detail-value">${esc(r.followup)}</div>`:''}`;
-  $('detail-edit-btn').style.background=isParent?'var(--accent4)':'var(--accent2)';
+
+  if(isParent){
+    $('detail-body').innerHTML = buildDetailHtml(r, true);
+    $('detail-edit-btn').style.background='var(--accent4)';
+    openModal('modal-detail');
+    return;
+  }
+
+  // 일반 상담: AI 가이드 자동 생성
+  $('detail-body').innerHTML = buildDetailHtml(r, false, `
+    <div class="ai-loading-box">
+      <div class="ai-loading">
+        <div class="ai-dot"></div><div class="ai-dot"></div><div class="ai-dot"></div>
+        <span>🤖 AI 지도 가이드 생성 중...</span>
+      </div>
+    </div>`);
+  $('detail-edit-btn').style.background='var(--accent2)';
   openModal('modal-detail');
+
+  try{
+    const guide = await generateAiGuide(r);
+    $('detail-body').innerHTML = buildDetailHtml(r, false, renderAiGuide(guide));
+  } catch(e){
+    $('detail-body').innerHTML = buildDetailHtml(r, false,
+      `<div style="font-size:13px;color:var(--text-muted);padding:10px 0;">🤖 AI 가이드 생성 실패 (${e.message})</div>`);
+  }
 };
 
 window.editFromDetail = () => { closeModal('modal-detail'); if(detailIsParent) openEditParent(detailId); else openEdit(detailId); };
@@ -632,7 +944,8 @@ window.filterByStudent = name => {
 };
 
 document.querySelectorAll('.overlay').forEach(ov=>ov.addEventListener('click',e=>{ if(e.target===ov) ov.classList.remove('open'); }));
-document.addEventListener('keydown',e=>{ if(e.key==='Escape') ['modal-detail','modal-add','modal-parent'].forEach(id=>$(id).classList.remove('open')); });
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') ['modal-detail','modal-add','modal-parent','modal-roster'].forEach(id=>$(id).classList.remove('open')); });
+document.addEventListener('click',e=>{ if(!e.target.closest('.autocomplete-wrap')){ ['f_ac','p_ac'].forEach(i=>{const el=$(i);if(el)el.style.display='none';}); }});
 $('l_pw').addEventListener('keydown',e=>{ if(e.key==='Enter') doLogin(); });
 $('s_pw').addEventListener('keydown',e=>{ if(e.key==='Enter') doSignup(); });
 </script>
