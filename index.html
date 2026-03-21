@@ -218,7 +218,12 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
       <button class="auth-btn" onclick="doSignup()">가입하기</button>
     </div>
     <div class="auth-error" id="authError"></div>
-    <div class="auth-notice">🔒 내 데이터는 나만 볼 수 있어요<br>다른 선생님 기록에는 접근할 수 없습니다</div>
+    <div class="auth-notice">
+  🔒 내 데이터는 나만 볼 수 있어요. 다른 선생님 기록에는 접근할 수 없습니다.<br><br>
+  ⚠️ <strong>개인정보 보호 안내</strong><br>
+  상담 내용은 Google 클라우드에 저장됩니다.<br>
+  학생 이름 대신 <strong>번호 또는 이니셜</strong>로 기록해주세요.<br>
+  <span style="color:#c17f3e;">예: 3번, K.M., 홍○○</span>
   </div>
 </div>
 
@@ -281,7 +286,11 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
   <div class="modal">
     <div class="modal-title" id="modal-add-title">새 상담 기록</div>
     <div class="form-row">
-      <div class="form-group"><label class="form-label">학생 이름</label><input class="form-input" id="f_name" placeholder="홍길동"></div>
+      <div class="form-group">
+        <label class="form-label">학생 식별</label>
+        <input class="form-input" id="f_name" placeholder="번호 또는 이니셜 (예: 3번, K.M., 홍○○)">
+        <div style="font-size:11px;color:#c0392b;margin-top:5px;">⚠️ 실명 입력 금지 — 번호나 이니셜을 사용해주세요</div>
+      </div>
       <div class="form-group"><label class="form-label">상담 날짜</label><input class="form-input" id="f_date" type="date"></div>
     </div>
     <div class="form-group"><label class="form-label">상담 유형</label>
@@ -304,7 +313,11 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
   <div class="modal">
     <div class="modal-title" id="modal-parent-title">학부모 상담 기록</div>
     <div class="form-row">
-      <div class="form-group"><label class="form-label">학생 이름</label><input class="form-input" id="p_name" placeholder="홍길동"></div>
+      <div class="form-group">
+        <label class="form-label">학생 식별</label>
+        <input class="form-input" id="p_name" placeholder="번호 또는 이니셜 (예: 3번, K.M., 홍○○)">
+        <div style="font-size:11px;color:#c0392b;margin-top:5px;">⚠️ 실명 입력 금지 — 번호나 이니셜을 사용해주세요</div>
+      </div>
       <div class="form-group"><label class="form-label">상담 날짜</label><input class="form-input" id="p_date" type="date"></div>
     </div>
     <div class="form-group"><label class="form-label">상담 방법</label>
