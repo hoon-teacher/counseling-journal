@@ -13,6 +13,7 @@
   --accent2:#c17f3e; --accent3:#7b5ea7; --accent4:#3e7c8a;
   --shadow:0 2px 14px rgba(0,0,0,.09); --shadow-lg:0 8px 40px rgba(0,0,0,.14);
   --radius:12px;
+  --sidebar-w: 240px;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line-height:1.6;}
@@ -20,6 +21,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 #loadingBar{display:none;position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));z-index:9999;animation:slide 1s infinite linear;}
 @keyframes slide{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
 
+/* ── Auth ── */
 #authScreen{display:flex;min-height:100vh;align-items:center;justify-content:center;padding:20px;}
 .auth-box{background:var(--surface);border:1.5px solid var(--border);border-radius:20px;padding:36px 32px;width:100%;max-width:400px;box-shadow:var(--shadow-lg);}
 .auth-logo{font-family:'Gowun Dodum',sans-serif;font-size:26px;color:var(--accent);text-align:center;margin-bottom:4px;}
@@ -35,9 +37,24 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 .auth-error{color:#c0392b;font-size:12px;margin-top:8px;text-align:center;min-height:18px;}
 .auth-notice{font-size:11px;color:var(--text-muted);text-align:center;margin-top:16px;line-height:1.7;padding:10px 12px;background:var(--surface2);border-radius:8px;}
 
+/* ── App Layout ── */
 #appScreen{display:none;min-height:100vh;}
 .layout{display:flex;min-height:100vh;}
-.sidebar{width:224px;min-width:224px;background:var(--surface);border-right:1.5px solid var(--border);display:flex;flex-direction:column;padding:28px 16px 20px;position:sticky;top:0;height:100vh;overflow-y:auto;}
+
+.sidebar{
+  width: var(--sidebar-w);
+  min-width: var(--sidebar-w);
+  background:var(--surface);
+  border-right:1.5px solid var(--border);
+  display:flex;
+  flex-direction:column;
+  padding:28px 18px 20px;
+  position:sticky;
+  top:0;
+  height:100vh;
+  overflow-y:auto;
+  flex-shrink: 0;
+}
 .sidebar-logo{font-family:'Gowun Dodum',sans-serif;font-size:18px;color:var(--accent);margin-bottom:2px;}
 .sidebar-year{font-size:11px;color:var(--text-muted);margin-bottom:18px;}
 .user-chip{background:var(--surface2);border-radius:9px;padding:10px 12px;margin-bottom:20px;}
@@ -52,67 +69,86 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 .sidebar-spacer{flex:1;}
 .sidebar-info{font-size:11px;color:var(--text-muted);padding:10px 12px;background:var(--surface2);border-radius:8px;line-height:1.7;}
 
-.main{flex:1;padding:28px 32px;min-width:0;}
+/* ── Main ── */
+.main{
+  flex:1;
+  min-width:0;
+  padding:36px 48px;
+  max-width: 900px;        /* 콘텐츠 최대 너비 */
+}
 
-.stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:10px;margin-bottom:22px;}
-.stat-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:12px 14px;text-align:center;}
-.stat-num{font-size:26px;font-weight:700;font-family:'Gowun Dodum',sans-serif;color:var(--accent);line-height:1;}
-.stat-label{font-size:11px;color:var(--text-muted);margin-top:4px;}
+/* 전체 앱을 화면 중앙에 */
+.layout {
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: 100vh;
+}
 
+/* ── Stats ── */
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px;margin-bottom:24px;}
+.stat-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:14px 16px;text-align:center;}
+.stat-num{font-size:28px;font-weight:700;font-family:'Gowun Dodum',sans-serif;color:var(--accent);line-height:1;}
+.stat-label{font-size:11px;color:var(--text-muted);margin-top:5px;}
+
+/* ── Page Header ── */
 .page-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px;flex-wrap:wrap;gap:12px;}
-.page-title{font-family:'Gowun Dodum',sans-serif;font-size:20px;}
+.page-title{font-family:'Gowun Dodum',sans-serif;font-size:22px;}
 .page-desc{font-size:12px;color:var(--text-muted);margin-top:3px;}
-.btn-primary{display:inline-flex;align-items:center;gap:6px;background:var(--accent);color:white;border:none;padding:9px 18px;border-radius:9px;font-size:13px;font-family:inherit;cursor:pointer;font-weight:600;transition:all .2s;}
+.btn-primary{display:inline-flex;align-items:center;gap:6px;background:var(--accent);color:white;border:none;padding:10px 20px;border-radius:9px;font-size:13px;font-family:inherit;cursor:pointer;font-weight:600;transition:all .2s;}
 .btn-primary:hover{background:var(--accent-h);transform:translateY(-1px);}
 .btn-primary.blue{background:var(--accent4);}
 .btn-primary.blue:hover{background:#326876;}
 
-.controls-bar{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;align-items:center;}
-.search-wrap{position:relative;flex:1;min-width:180px;}
-.search-icon{position:absolute;left:11px;top:50%;transform:translateY(-50%);font-size:14px;color:var(--text-muted);pointer-events:none;}
-.search-input{width:100%;padding:9px 12px 9px 34px;border:1.5px solid var(--border);border-radius:9px;font-size:13px;font-family:inherit;background:var(--surface);color:var(--text);outline:none;transition:border-color .2s;}
+/* ── Controls ── */
+.controls-bar{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;align-items:center;}
+.search-wrap{position:relative;flex:1;min-width:200px;}
+.search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:14px;color:var(--text-muted);pointer-events:none;}
+.search-input{width:100%;padding:10px 12px 10px 36px;border:1.5px solid var(--border);border-radius:9px;font-size:13px;font-family:inherit;background:var(--surface);color:var(--text);outline:none;transition:border-color .2s;}
 .search-input:focus{border-color:var(--accent);}
 .filter-pills{display:flex;gap:6px;flex-wrap:wrap;}
-.pill{padding:6px 13px;border-radius:20px;border:1.5px solid var(--border);background:var(--surface);font-size:12px;font-family:inherit;cursor:pointer;transition:all .18s;color:var(--text-muted);font-weight:500;}
+.pill{padding:7px 14px;border-radius:20px;border:1.5px solid var(--border);background:var(--surface);font-size:12px;font-family:inherit;cursor:pointer;transition:all .18s;color:var(--text-muted);font-weight:500;}
 .pill.on-all{background:var(--surface2);color:var(--text);font-weight:700;border-color:var(--text-muted);}
 .pill.on-학습{background:#e8f4e8;border-color:var(--accent);color:var(--accent);font-weight:700;}
 .pill.on-생활{background:#fef3e2;border-color:var(--accent2);color:var(--accent2);font-weight:700;}
 .pill.on-교우관계{background:#ede8f8;border-color:var(--accent3);color:var(--accent3);font-weight:700;}
 
-.record-grid{display:flex;flex-direction:column;gap:9px;}
-.record-card,.parent-card{background:var(--surface);border-radius:var(--radius);padding:15px 16px;cursor:pointer;transition:all .18s;position:relative;animation:fadeUp .2s ease;}
+/* ── Cards ── */
+.record-grid{display:flex;flex-direction:column;gap:10px;}
+.record-card,.parent-card{background:var(--surface);border-radius:var(--radius);padding:16px 18px;cursor:pointer;transition:all .18s;position:relative;animation:fadeUp .2s ease;}
 .record-card{border:1.5px solid var(--border);}
 .parent-card{border:1.5px solid #b8d8e0;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 .record-card:hover{border-color:var(--accent);box-shadow:var(--shadow);transform:translateY(-1px);}
 .parent-card:hover{border-color:var(--accent4);box-shadow:var(--shadow);transform:translateY(-1px);}
-.rc-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:7px;}
+.rc-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;}
 .rc-name{font-size:15px;font-weight:700;}
 .rc-date{font-size:11px;color:var(--text-muted);margin-top:2px;}
 .rc-preview{font-size:13px;color:var(--text-muted);line-height:1.55;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;}
-.rc-actions{position:absolute;top:11px;right:11px;display:flex;gap:4px;opacity:0;transition:opacity .15s;}
+.rc-actions{position:absolute;top:12px;right:12px;display:flex;gap:4px;opacity:0;transition:opacity .15s;}
 .record-card:hover .rc-actions,.parent-card:hover .rc-actions{opacity:1;}
 .btn-icon{width:28px;height:28px;border:1.5px solid var(--border);background:var(--surface);border-radius:7px;cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;transition:all .15s;}
 .btn-icon:hover{background:var(--surface2);}
 .btn-icon.del:hover{background:#fee;border-color:#f99;}
-.tag{font-size:11px;padding:3px 9px;border-radius:20px;font-weight:600;white-space:nowrap;}
+.tag{font-size:11px;padding:3px 10px;border-radius:20px;font-weight:600;white-space:nowrap;}
 .tag-학습{background:#e8f4e8;color:var(--accent);}
 .tag-생활{background:#fef3e2;color:var(--accent2);}
 .tag-교우관계{background:#ede8f8;color:var(--accent3);}
 .tag-학부모{background:#e2f0f5;color:var(--accent4);}
-.method-badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;padding:3px 9px;border-radius:20px;background:#e2f0f5;color:var(--accent4);font-weight:600;}
+.method-badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;padding:3px 10px;border-radius:20px;background:#e2f0f5;color:var(--accent4);font-weight:600;}
 
-.student-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;}
-.student-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:16px 12px;text-align:center;cursor:pointer;transition:all .18s;}
+/* ── Student Grid ── */
+.student-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;}
+.student-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:18px 14px;text-align:center;cursor:pointer;transition:all .18s;}
 .student-card:hover{border-color:var(--accent);box-shadow:var(--shadow);transform:translateY(-1px);}
-.s-avatar{width:46px;height:46px;border-radius:50%;background:var(--surface2);margin:0 auto 10px;font-size:22px;display:flex;align-items:center;justify-content:center;}
+.s-avatar{width:48px;height:48px;border-radius:50%;background:var(--surface2);margin:0 auto 10px;font-size:22px;display:flex;align-items:center;justify-content:center;}
 .s-name{font-size:14px;font-weight:700;margin-bottom:8px;}
 .mini-tags{display:flex;gap:3px;justify-content:center;flex-wrap:wrap;}
 .mini-tag{font-size:10px;padding:2px 6px;border-radius:10px;}
 
+/* ── Modal ── */
 .overlay{display:none;position:fixed;inset:0;background:rgba(44,36,22,.45);z-index:500;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(3px);}
 .overlay.open{display:flex;}
-.modal{background:var(--surface);border-radius:18px;width:100%;max-width:530px;max-height:90vh;overflow-y:auto;padding:28px;box-shadow:var(--shadow-lg);animation:popIn .2s cubic-bezier(.34,1.56,.64,1);}
+.modal{background:var(--surface);border-radius:18px;width:100%;max-width:540px;max-height:90vh;overflow-y:auto;padding:30px;box-shadow:var(--shadow-lg);animation:popIn .2s cubic-bezier(.34,1.56,.64,1);}
 @keyframes popIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
 .modal-title{font-family:'Gowun Dodum',sans-serif;font-size:18px;color:var(--accent);margin-bottom:22px;}
 .form-group{margin-bottom:16px;}
@@ -123,7 +159,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 .form-textarea.sm{min-height:72px;}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
 .chip-group{display:flex;gap:7px;flex-wrap:wrap;}
-.chip{padding:6px 15px;border-radius:20px;border:1.5px solid var(--border);background:none;font-size:13px;font-family:inherit;cursor:pointer;transition:all .15s;color:var(--text-muted);}
+.chip{padding:6px 16px;border-radius:20px;border:1.5px solid var(--border);background:none;font-size:13px;font-family:inherit;cursor:pointer;transition:all .15s;color:var(--text-muted);}
 .chip.on-학습{background:#e8f4e8;border-color:var(--accent);color:var(--accent);font-weight:700;}
 .chip.on-생활{background:#fef3e2;border-color:var(--accent2);color:var(--accent2);font-weight:700;}
 .chip.on-교우관계{background:#ede8f8;border-color:var(--accent3);color:var(--accent3);font-weight:700;}
@@ -134,12 +170,17 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 .detail-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--text-muted);margin-bottom:5px;}
 .detail-value{font-size:14px;line-height:1.75;color:var(--text);margin-bottom:18px;padding:12px 14px;background:var(--bg);border-radius:9px;border:1px solid var(--border);white-space:pre-wrap;}
 
+/* ── Toast ── */
 .toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(60px);background:#2c2416;color:white;padding:10px 22px;border-radius:22px;font-size:13px;z-index:999;transition:transform .28s cubic-bezier(.34,1.3,.64,1);white-space:nowrap;}
 .toast.show{transform:translateX(-50%) translateY(0);}
-.empty{text-align:center;padding:52px 20px;color:var(--text-muted);}
+.empty{text-align:center;padding:60px 20px;color:var(--text-muted);}
 .empty-icon{font-size:40px;margin-bottom:12px;}
 .empty p{font-size:14px;}
 
+/* ── Responsive ── */
+@media(max-width:900px){
+  .main{ padding:24px 24px; }
+}
 @media(max-width:700px){
   .sidebar{display:none;}
   .main{padding:16px;}
@@ -313,7 +354,6 @@ const firebaseConfig = {
   appId:             "1:545003777825:web:084730dc91388509ab5860"
 };
 
-// ★ 초대 코드 — 원하는 코드로 변경하세요
 const INVITE_CODE = "선생님2025";
 
 const app  = initializeApp(firebaseConfig);
