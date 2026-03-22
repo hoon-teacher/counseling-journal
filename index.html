@@ -965,8 +965,8 @@ function renderRoster(){
   if(!roster.length){el.innerHTML=`<div class="empty" style="grid-column:1/-1"><div class="empty-icon">📋</div><p>등록된 학생이 없어요</p><div class="empty-action"><button class="btn-primary orange" onclick="openRosterModal()" style="margin:0 auto;">+ 학생 추가</button></div></div>`;return;}
   el.innerHTML=roster.map(s=>`
     <div class="roster-card${s.watch?' watch':''}">
-      <div class="roster-avatar">${emo(s.label)}</div>
-      <div class="roster-info"><div class="roster-name">${esc(s.label)} ${s.watch?'⭐':''}</div><div class="roster-meta">${s.num}번 · ${s.gender||'-'}</div></div>
+      <div class="roster-avatar">${emo(s.label||String(s.num))}</div>
+      <div class="roster-info"><div class="roster-name">${s.num}번 ${s.alias?'('+esc(s.alias)+')':''} ${s.watch?'⭐':''}</div><div class="roster-meta">${s.gender||'-'}</div></div>
       <div class="roster-actions">
         <button class="btn-icon" onclick="openEditRoster('${s.id}')">✏️</button>
         <button class="btn-icon del" onclick="delRoster('${s.id}')">🗑️</button>
