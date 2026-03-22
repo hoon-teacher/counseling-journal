@@ -6,267 +6,210 @@
 <title>📋 상담일지</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Gowun+Dodum&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg:#f5f0eb; --surface:#fffdf9; --surface2:#f0ebe3; --border:#ddd5c8;
-  --text:#2c2416; --text-muted:#8a7d6e;
-  --accent:#5c7a4e; --accent-h:#4a6840;
-  --accent2:#c17f3e; --accent3:#7b5ea7; --accent4:#3e7c8a;
-  --danger:#c0392b;
-  --shadow:0 2px 14px rgba(0,0,0,.09); --shadow-lg:0 8px 40px rgba(0,0,0,.14);
-  --radius:12px;
-}
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line-height:1.6;}
-
-#loadingBar{display:none;position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));z-index:9999;animation:slide 1s infinite linear;}
+:root{--bg:#f5f0eb;--surface:#fffdf9;--surface2:#f0ebe3;--border:#ddd5c8;--text:#2c2416;--text-muted:#8a7d6e;--accent:#5c7a4e;--accent-h:#4a6840;--accent2:#c17f3e;--accent3:#7b5ea7;--accent4:#3e7c8a;--danger:#c0392b;--shadow:0 2px 14px rgba(0,0,0,.09);--shadow-lg:0 8px 40px rgba(0,0,0,.14);--radius:12px}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line-height:1.6}
+#loadingBar{display:none;position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));z-index:9999;animation:slide 1s infinite linear}
 @keyframes slide{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
-
-/* Auth */
-#authScreen{display:flex;min-height:100vh;align-items:center;justify-content:center;padding:20px;}
-.auth-box{background:var(--surface);border:1.5px solid var(--border);border-radius:20px;padding:36px 32px;width:100%;max-width:420px;box-shadow:var(--shadow-lg);}
-.auth-logo{font-family:'Gowun Dodum',sans-serif;font-size:26px;color:var(--accent);text-align:center;margin-bottom:4px;}
-.auth-sub{text-align:center;font-size:12px;color:var(--text-muted);margin-bottom:24px;line-height:1.7;}
-.auth-tabs{display:flex;gap:4px;background:var(--surface2);border-radius:10px;padding:4px;margin-bottom:22px;}
-.auth-tab{flex:1;padding:8px;border:none;background:none;border-radius:7px;font-size:13px;font-family:inherit;cursor:pointer;color:var(--text-muted);font-weight:500;transition:all .18s;}
-.auth-tab.active{background:var(--surface);color:var(--text);box-shadow:0 1px 4px rgba(0,0,0,.07);}
-.auth-label{display:block;font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:6px;}
-.auth-input{width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:9px;font-size:14px;font-family:inherit;background:var(--bg);color:var(--text);outline:none;transition:border-color .2s;margin-bottom:12px;}
-.auth-input:focus{border-color:var(--accent);background:var(--surface);}
-.auth-btn{width:100%;padding:11px;border:none;border-radius:9px;font-size:14px;font-family:inherit;cursor:pointer;font-weight:700;transition:all .2s;margin-top:4px;background:var(--accent);color:white;}
-.auth-btn:hover{background:var(--accent-h);}
-.auth-error{color:var(--danger);font-size:12px;margin-top:8px;text-align:center;min-height:18px;}
-.auth-notice{font-size:11px;color:var(--text-muted);margin-top:16px;line-height:1.8;padding:14px;background:var(--surface2);border-radius:10px;border-left:3px solid var(--accent2);}
-.auth-notice strong{color:var(--text);} .auth-notice .warn{color:var(--danger);font-weight:700;}
-
-/* App */
-#appScreen{display:none;min-height:100vh;}
-.layout{display:flex;min-height:100vh;width:100%;}
-.sidebar{width:260px;min-width:260px;flex-shrink:0;background:var(--surface);border-right:1.5px solid var(--border);display:flex;flex-direction:column;padding:28px 18px 20px;position:sticky;top:0;height:100vh;overflow-y:auto;}
-.sidebar-logo{font-family:'Gowun Dodum',sans-serif;font-size:18px;color:var(--accent);margin-bottom:2px;}
-.sidebar-year{font-size:11px;color:var(--text-muted);margin-bottom:18px;}
-.user-chip{background:var(--surface2);border-radius:9px;padding:10px 12px;margin-bottom:20px;}
-.user-email{font-size:11px;color:var(--text-muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-bottom:6px;}
-.btn-logout{font-size:11px;color:var(--text-muted);background:none;border:1px solid var(--border);cursor:pointer;padding:4px 10px;border-radius:6px;font-family:inherit;width:100%;transition:all .18s;}
-.btn-logout:hover{background:var(--border);color:var(--text);}
-.nav-label{font-size:10px;font-weight:700;letter-spacing:1px;color:var(--text-muted);text-transform:uppercase;margin:16px 0 6px 4px;}
-.nav-item{display:flex;align-items:center;gap:9px;padding:9px 12px;border-radius:9px;cursor:pointer;font-size:13px;font-weight:500;color:var(--text-muted);transition:all .18s;border:none;background:none;width:100%;text-align:left;font-family:inherit;}
-.nav-item:hover{background:var(--surface2);color:var(--text);}
-.nav-item.active{background:#e8f2e5;color:var(--accent);font-weight:700;}
-.nav-icon{font-size:15px;width:20px;text-align:center;}
-.sidebar-spacer{flex:1;}
-.sidebar-privacy{font-size:11px;color:var(--danger);padding:10px 12px;background:#fff5f5;border-radius:8px;line-height:1.7;border:1px solid #fcc;}
-.sidebar-info{font-size:11px;color:var(--text-muted);padding:10px 12px;background:var(--surface2);border-radius:8px;line-height:1.7;margin-top:8px;}
-.main{flex:1;min-width:0;padding:32px 40px;}
-
-/* Stats */
-.stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px;margin-bottom:24px;}
-.stat-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:14px 16px;text-align:center;}
-.stat-num{font-size:28px;font-weight:700;font-family:'Gowun Dodum',sans-serif;color:var(--accent);line-height:1;}
-.stat-label{font-size:11px;color:var(--text-muted);margin-top:5px;}
-
-/* Page Header */
-.page-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px;flex-wrap:wrap;gap:12px;}
-.page-title{font-family:'Gowun Dodum',sans-serif;font-size:22px;}
-.page-desc{font-size:12px;color:var(--text-muted);margin-top:3px;}
-.btn-primary{display:inline-flex;align-items:center;gap:6px;background:var(--accent);color:white;border:none;padding:10px 20px;border-radius:9px;font-size:13px;font-family:inherit;cursor:pointer;font-weight:600;transition:all .2s;}
-.btn-primary:hover{background:var(--accent-h);transform:translateY(-1px);}
-.btn-primary.blue{background:var(--accent4);} .btn-primary.blue:hover{background:#326876;}
-.btn-primary.orange{background:var(--accent2);} .btn-primary.orange:hover{background:#a86a30;}
-.btn-primary.purple{background:var(--accent3);} .btn-primary.purple:hover{background:#6a4f92;}
-
-/* Controls */
-.controls-bar{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;align-items:center;}
-.search-wrap{position:relative;flex:1;min-width:200px;}
-.search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:14px;color:var(--text-muted);pointer-events:none;}
-.search-input{width:100%;padding:10px 12px 10px 36px;border:1.5px solid var(--border);border-radius:9px;font-size:13px;font-family:inherit;background:var(--surface);color:var(--text);outline:none;transition:border-color .2s;}
-.search-input:focus{border-color:var(--accent);}
-.filter-pills{display:flex;gap:6px;flex-wrap:wrap;}
-.pill{padding:7px 14px;border-radius:20px;border:1.5px solid var(--border);background:var(--surface);font-size:12px;font-family:inherit;cursor:pointer;transition:all .18s;color:var(--text-muted);font-weight:500;}
-.pill.on-all{background:var(--surface2);color:var(--text);font-weight:700;border-color:var(--text-muted);}
-.pill.on-학습{background:#e8f4e8;border-color:var(--accent);color:var(--accent);font-weight:700;}
-.pill.on-생활{background:#fef3e2;border-color:var(--accent2);color:var(--accent2);font-weight:700;}
-.pill.on-교우관계{background:#ede8f8;border-color:var(--accent3);color:var(--accent3);font-weight:700;}
-
-/* Cards */
-.record-grid{display:flex;flex-direction:column;gap:10px;}
-.record-card,.parent-card{background:var(--surface);border-radius:var(--radius);padding:16px 18px;cursor:pointer;transition:all .18s;position:relative;animation:fadeUp .2s ease;}
-.record-card{border:1.5px solid var(--border);}
-.parent-card{border:1.5px solid #b8d8e0;}
+#authScreen{display:flex;min-height:100vh;align-items:center;justify-content:center;padding:20px}
+.auth-box{background:var(--surface);border:1.5px solid var(--border);border-radius:20px;padding:36px 32px;width:100%;max-width:420px;box-shadow:var(--shadow-lg)}
+.auth-logo{font-family:'Gowun Dodum',sans-serif;font-size:26px;color:var(--accent);text-align:center;margin-bottom:4px}
+.auth-sub{text-align:center;font-size:12px;color:var(--text-muted);margin-bottom:24px;line-height:1.7}
+.auth-tabs{display:flex;gap:4px;background:var(--surface2);border-radius:10px;padding:4px;margin-bottom:22px}
+.auth-tab{flex:1;padding:8px;border:none;background:none;border-radius:7px;font-size:13px;font-family:inherit;cursor:pointer;color:var(--text-muted);font-weight:500;transition:all .18s}
+.auth-tab.active{background:var(--surface);color:var(--text);box-shadow:0 1px 4px rgba(0,0,0,.07)}
+.auth-label{display:block;font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:6px}
+.auth-input{width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:9px;font-size:14px;font-family:inherit;background:var(--bg);color:var(--text);outline:none;transition:border-color .2s;margin-bottom:12px}
+.auth-input:focus{border-color:var(--accent);background:var(--surface)}
+.auth-btn{width:100%;padding:11px;border:none;border-radius:9px;font-size:14px;font-family:inherit;cursor:pointer;font-weight:700;transition:all .2s;margin-top:4px;background:var(--accent);color:white}
+.auth-btn:hover{background:var(--accent-h)}
+.auth-error{color:var(--danger);font-size:12px;margin-top:8px;text-align:center;min-height:18px}
+.auth-notice{font-size:11px;color:var(--text-muted);margin-top:16px;line-height:1.8;padding:14px;background:var(--surface2);border-radius:10px;border-left:3px solid var(--accent2)}
+.auth-notice strong{color:var(--text)}.auth-notice .warn{color:var(--danger);font-weight:700}
+#appScreen{display:none;min-height:100vh}
+.layout{display:flex;min-height:100vh;width:100%}
+.sidebar{width:260px;min-width:260px;flex-shrink:0;background:var(--surface);border-right:1.5px solid var(--border);display:flex;flex-direction:column;padding:28px 18px 20px;position:sticky;top:0;height:100vh;overflow-y:auto}
+.sidebar-logo{font-family:'Gowun Dodum',sans-serif;font-size:18px;color:var(--accent);margin-bottom:2px;text-align:center}
+.sidebar-year{font-size:11px;color:var(--text-muted);margin-bottom:18px;text-align:center}
+.user-chip{background:var(--surface2);border-radius:9px;padding:10px 12px;margin-bottom:20px;text-align:center}
+.user-email{font-size:11px;color:var(--text-muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-bottom:6px;text-align:center}
+.btn-logout{font-size:11px;color:var(--text-muted);background:none;border:1px solid var(--border);cursor:pointer;padding:6px 10px;border-radius:6px;font-family:inherit;width:100%;transition:all .18s}
+.btn-logout:hover{background:var(--border);color:var(--text)}
+.btn-withdraw{font-size:11px;color:var(--danger);background:none;border:1px solid #fcc;cursor:pointer;padding:6px 10px;border-radius:6px;font-family:inherit;width:100%;transition:all .18s;margin-top:5px}
+.btn-withdraw:hover{background:#fff5f5}
+.nav-label{font-size:10px;font-weight:700;letter-spacing:1px;color:var(--text-muted);text-transform:uppercase;margin:16px 0 6px 4px}
+.nav-item{display:flex;align-items:center;gap:9px;padding:9px 12px;border-radius:9px;cursor:pointer;font-size:13px;font-weight:500;color:var(--text-muted);transition:all .18s;border:none;background:none;width:100%;text-align:left;font-family:inherit}
+.nav-item:hover{background:var(--surface2);color:var(--text)}
+.nav-item.active{background:#e8f2e5;color:var(--accent);font-weight:700}
+.nav-icon{font-size:15px;width:20px;text-align:center}
+.sidebar-spacer{flex:1}
+.sidebar-privacy{font-size:11px;color:var(--danger);padding:10px 12px;background:#fff5f5;border-radius:8px;line-height:1.7;border:1px solid #fcc}
+.sidebar-info{font-size:11px;color:var(--text-muted);padding:10px 12px;background:var(--surface2);border-radius:8px;line-height:1.7;margin-top:8px}
+.main{flex:1;min-width:0;padding:32px 40px}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px;margin-bottom:24px}
+.stat-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:14px 16px;text-align:center}
+.stat-num{font-size:28px;font-weight:700;font-family:'Gowun Dodum',sans-serif;color:var(--accent);line-height:1}
+.stat-label{font-size:11px;color:var(--text-muted);margin-top:5px}
+.page-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px;flex-wrap:wrap;gap:12px}
+.page-title{font-family:'Gowun Dodum',sans-serif;font-size:22px}
+.page-desc{font-size:12px;color:var(--text-muted);margin-top:3px}
+.btn-primary{display:inline-flex;align-items:center;gap:6px;background:var(--accent);color:white;border:none;padding:10px 20px;border-radius:9px;font-size:13px;font-family:inherit;cursor:pointer;font-weight:600;transition:all .2s}
+.btn-primary:hover{background:var(--accent-h);transform:translateY(-1px)}
+.btn-primary.blue{background:var(--accent4)}.btn-primary.blue:hover{background:#326876}
+.btn-primary.orange{background:var(--accent2)}.btn-primary.orange:hover{background:#a86a30}
+.btn-primary.purple{background:var(--accent3)}.btn-primary.purple:hover{background:#6a4f92}
+.controls-bar{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;align-items:center}
+.search-wrap{position:relative;flex:1;min-width:200px}
+.search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:14px;color:var(--text-muted);pointer-events:none}
+.search-input{width:100%;padding:10px 12px 10px 36px;border:1.5px solid var(--border);border-radius:9px;font-size:13px;font-family:inherit;background:var(--surface);color:var(--text);outline:none;transition:border-color .2s}
+.search-input:focus{border-color:var(--accent)}
+.filter-pills{display:flex;gap:6px;flex-wrap:wrap}
+.pill{padding:7px 14px;border-radius:20px;border:1.5px solid var(--border);background:var(--surface);font-size:12px;font-family:inherit;cursor:pointer;transition:all .18s;color:var(--text-muted);font-weight:500}
+.pill.on-all{background:var(--surface2);color:var(--text);font-weight:700;border-color:var(--text-muted)}
+.pill.on-학습{background:#e8f4e8;border-color:var(--accent);color:var(--accent);font-weight:700}
+.pill.on-생활{background:#fef3e2;border-color:var(--accent2);color:var(--accent2);font-weight:700}
+.pill.on-교우관계{background:#ede8f8;border-color:var(--accent3);color:var(--accent3);font-weight:700}
+.record-grid{display:flex;flex-direction:column;gap:10px}
+.record-card,.parent-card{background:var(--surface);border-radius:var(--radius);padding:16px 18px;cursor:pointer;transition:all .18s;position:relative;animation:fadeUp .2s ease}
+.record-card{border:1.5px solid var(--border)}.parent-card{border:1.5px solid #b8d8e0}
 @keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
-.record-card:hover{border-color:var(--accent);box-shadow:var(--shadow);transform:translateY(-1px);}
-.parent-card:hover{border-color:var(--accent4);box-shadow:var(--shadow);transform:translateY(-1px);}
-.rc-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;}
-.rc-name{font-size:15px;font-weight:700;}
-.rc-date{font-size:11px;color:var(--text-muted);margin-top:2px;}
-.rc-preview{font-size:13px;color:var(--text-muted);line-height:1.55;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;}
-.rc-actions{position:absolute;top:12px;right:12px;display:flex;gap:4px;opacity:0;transition:opacity .15s;}
-.record-card:hover .rc-actions,.parent-card:hover .rc-actions{opacity:1;}
-.btn-icon{width:28px;height:28px;border:1.5px solid var(--border);background:var(--surface);border-radius:7px;cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;transition:all .15s;}
-.btn-icon:hover{background:var(--surface2);}
-.btn-icon.del:hover{background:#fee;border-color:#f99;}
-.tag{font-size:11px;padding:3px 10px;border-radius:20px;font-weight:600;white-space:nowrap;}
-.tag-학습{background:#e8f4e8;color:var(--accent);}
-.tag-생활{background:#fef3e2;color:var(--accent2);}
-.tag-교우관계{background:#ede8f8;color:var(--accent3);}
-.tag-학부모{background:#e2f0f5;color:var(--accent4);}
-.method-badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;padding:3px 10px;border-radius:20px;background:#e2f0f5;color:var(--accent4);font-weight:600;}
-
-/* Roster */
-.roster-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;}
-.roster-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:14px 16px;display:flex;align-items:center;gap:12px;transition:all .18s;}
-.roster-name{font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:120px;}
-.roster-card:hover{border-color:var(--accent);box-shadow:var(--shadow);}
-.roster-card.watch{border-color:#ffb74d;background:#fffbf5;}
-.roster-avatar{width:38px;height:38px;border-radius:50%;background:var(--surface2);font-size:18px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.roster-info{flex:1;min-width:0;}
-.roster-meta{font-size:11px;color:var(--text-muted);margin-top:1px;}
-.roster-actions{display:flex;gap:3px;flex-shrink:0;}
-
-/* Student Grid */
-.student-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;}
-.student-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:18px 14px;text-align:center;cursor:pointer;transition:all .18s;}
-.student-card:hover{border-color:var(--accent);box-shadow:var(--shadow);transform:translateY(-2px);}
-.s-avatar{width:48px;height:48px;border-radius:50%;background:var(--surface2);margin:0 auto 10px;font-size:22px;display:flex;align-items:center;justify-content:center;}
-.s-name{font-size:14px;font-weight:700;margin-bottom:8px;}
-.mini-tags{display:flex;gap:3px;justify-content:center;flex-wrap:wrap;}
-.mini-tag{font-size:10px;padding:2px 6px;border-radius:10px;}
-
-/* Student Detail */
-.student-detail-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:12px;}
-.student-history-item{padding:11px 0;border-bottom:1px solid var(--border);font-size:13px;}
-.student-history-item:last-child{border-bottom:none;}
-
-/* 생기부 */
-.segibu-box{background:linear-gradient(135deg,#f0f7ff,#f5fff5);border:1.5px solid #a8c8e8;border-radius:14px;padding:22px;margin-top:4px;}
-.segibu-header{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
-.segibu-title{font-size:15px;font-weight:700;color:var(--accent4);font-family:'Gowun Dodum',sans-serif;}
-.segibu-notice{font-size:11px;color:var(--text-muted);background:rgba(255,255,255,.8);border-radius:8px;padding:9px 12px;margin-bottom:18px;line-height:1.7;border:1px solid #c8dff0;}
-.segibu-section{margin-bottom:18px;}
-.segibu-section-label{font-size:11px;font-weight:700;color:var(--accent4);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;display:flex;align-items:center;gap:5px;}
-.segibu-textarea{width:100%;min-height:90px;padding:13px 15px;border:1.5px solid #c8dff0;border-radius:9px;font-size:13px;font-family:inherit;background:white;color:var(--text);outline:none;resize:vertical;line-height:1.8;transition:border-color .2s;}
-.segibu-textarea:focus{border-color:var(--accent4);}
-.segibu-char{font-size:11px;color:var(--text-muted);text-align:right;margin-top:4px;}
-.segibu-copy-btn{margin-top:7px;padding:7px 16px;background:var(--accent4);color:white;border:none;border-radius:7px;font-size:12px;font-family:inherit;cursor:pointer;font-weight:600;transition:all .2s;}
-.segibu-copy-btn:hover{background:#326876;}
-.segibu-copy-btn.done{background:var(--accent);}
-.segibu-divider{border:none;border-top:1.5px solid #c8dff0;margin:16px 0;}
-.segibu-prompt-box{font-size:12px;color:var(--text-muted);padding:10px 12px;background:var(--bg);border-radius:8px;border:1px solid var(--border);max-height:100px;overflow-y:auto;white-space:pre-wrap;margin-bottom:10px;font-family:inherit;}
-.segibu-open-btn{display:inline-flex;align-items:center;gap:5px;padding:8px 16px;background:var(--surface);color:var(--accent4);border:1.5px solid #a8c8e8;border-radius:8px;font-size:12px;font-family:inherit;cursor:pointer;font-weight:600;transition:all .2s;}
-.segibu-open-btn:hover{background:#e8f4ff;}
-.segibu-placeholder{font-size:12px;color:var(--text-muted);font-style:italic;}
-
-/* Report */
-.report-toolbar{display:flex;gap:10px;align-items:center;margin-bottom:24px;flex-wrap:wrap;}
-.report-select{padding:9px 14px;border:1.5px solid var(--border);border-radius:9px;font-size:13px;font-family:inherit;background:var(--surface);color:var(--text);outline:none;cursor:pointer;appearance:none;}
-.report-select:focus{border-color:var(--accent);}
-.report-btn-group{display:flex;gap:8px;margin-left:auto;flex-wrap:wrap;}
-.dash-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-bottom:28px;}
-.dash-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:18px 20px;}
-.dash-card-label{font-size:11px;color:var(--text-muted);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;}
-.dash-card-num{font-size:32px;font-weight:700;font-family:'Gowun Dodum',sans-serif;color:var(--accent);line-height:1;}
-.dash-card-sub{font-size:12px;color:var(--text-muted);margin-top:4px;}
-.bar-section{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:16px;}
-.bar-section-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:16px;}
-.bar-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
-.bar-label{font-size:12px;color:var(--text-muted);width:80px;flex-shrink:0;text-align:right;}
-.bar-track{flex:1;height:10px;background:var(--surface2);border-radius:5px;overflow:hidden;}
-.bar-fill{height:100%;border-radius:5px;transition:width .5s ease;}
-.bar-fill.학습{background:var(--accent);} .bar-fill.생활{background:var(--accent2);}
-.bar-fill.교우관계{background:var(--accent3);} .bar-fill.학부모{background:var(--accent4);}
-.bar-fill.month{background:var(--accent);}
-.bar-count{font-size:12px;font-weight:700;color:var(--text);width:24px;flex-shrink:0;}
-.summary-table{width:100%;border-collapse:collapse;font-size:13px;}
-.summary-table th{text-align:left;padding:10px 14px;background:var(--surface2);color:var(--text-muted);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;border-bottom:1.5px solid var(--border);}
-.summary-table td{padding:11px 14px;border-bottom:1px solid var(--border);vertical-align:middle;}
-.summary-table tr:last-child td{border-bottom:none;}
-.summary-table tr:hover td{background:var(--surface2);}
-.section-title{font-family:'Gowun Dodum',sans-serif;font-size:16px;color:var(--text);margin:24px 0 12px;}
-
-/* Modal */
-.overlay{display:none;position:fixed;inset:0;background:rgba(44,36,22,.45);z-index:500;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(3px);}
-.overlay.open{display:flex;}
-.modal{background:var(--surface);border-radius:18px;width:100%;max-width:580px;max-height:90vh;overflow-y:auto;padding:30px;box-shadow:var(--shadow-lg);animation:popIn .2s cubic-bezier(.34,1.56,.64,1);}
+.record-card:hover{border-color:var(--accent);box-shadow:var(--shadow);transform:translateY(-1px)}
+.parent-card:hover{border-color:var(--accent4);box-shadow:var(--shadow);transform:translateY(-1px)}
+.rc-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
+.rc-name{font-size:15px;font-weight:700}.rc-date{font-size:11px;color:var(--text-muted);margin-top:2px}
+.rc-preview{font-size:13px;color:var(--text-muted);line-height:1.55;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.rc-actions{position:absolute;top:12px;right:12px;display:flex;gap:4px;opacity:0;transition:opacity .15s}
+.record-card:hover .rc-actions,.parent-card:hover .rc-actions{opacity:1}
+.btn-icon{width:28px;height:28px;border:1.5px solid var(--border);background:var(--surface);border-radius:7px;cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.btn-icon:hover{background:var(--surface2)}.btn-icon.del:hover{background:#fee;border-color:#f99}
+.tag{font-size:11px;padding:3px 10px;border-radius:20px;font-weight:600;white-space:nowrap}
+.tag-학습{background:#e8f4e8;color:var(--accent)}.tag-생활{background:#fef3e2;color:var(--accent2)}
+.tag-교우관계{background:#ede8f8;color:var(--accent3)}.tag-학부모{background:#e2f0f5;color:var(--accent4)}
+.method-badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;padding:3px 10px;border-radius:20px;background:#e2f0f5;color:var(--accent4);font-weight:600}
+.roster-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px}
+.roster-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:14px 16px;display:flex;align-items:center;gap:12px;transition:all .18s}
+.roster-card:hover{border-color:var(--accent);box-shadow:var(--shadow)}.roster-card.watch{border-color:#ffb74d;background:#fffbf5}
+.roster-avatar{width:38px;height:38px;border-radius:50%;background:var(--surface2);font-size:18px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.roster-info{flex:1;min-width:0}
+.roster-name{font-size:13px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.roster-meta{font-size:11px;color:var(--text-muted);margin-top:2px}
+.roster-actions{display:flex;gap:3px;flex-shrink:0}
+.student-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+.student-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:18px 14px;text-align:center;cursor:pointer;transition:all .18s}
+.student-card:hover{border-color:var(--accent);box-shadow:var(--shadow);transform:translateY(-2px)}
+.s-avatar{width:48px;height:48px;border-radius:50%;background:var(--surface2);margin:0 auto 10px;font-size:22px;display:flex;align-items:center;justify-content:center}
+.s-name{font-size:14px;font-weight:700;margin-bottom:8px}
+.mini-tags{display:flex;gap:3px;justify-content:center;flex-wrap:wrap}
+.mini-tag{font-size:10px;padding:2px 6px;border-radius:10px}
+.student-detail-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:12px}
+.student-history-item{padding:11px 0;border-bottom:1px solid var(--border);font-size:13px}
+.student-history-item:last-child{border-bottom:none}
+.segibu-box{background:linear-gradient(135deg,#f0f7ff,#f5fff5);border:1.5px solid #a8c8e8;border-radius:14px;padding:22px;margin-top:4px}
+.segibu-header{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.segibu-title{font-size:15px;font-weight:700;color:var(--accent4);font-family:'Gowun Dodum',sans-serif}
+.segibu-notice{font-size:11px;color:var(--text-muted);background:rgba(255,255,255,.8);border-radius:8px;padding:9px 12px;margin-bottom:18px;line-height:1.7;border:1px solid #c8dff0}
+.segibu-section{margin-bottom:18px}
+.segibu-section-label{font-size:11px;font-weight:700;color:var(--accent4);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;display:flex;align-items:center;gap:5px}
+.segibu-textarea{width:100%;min-height:90px;padding:13px 15px;border:1.5px solid #c8dff0;border-radius:9px;font-size:13px;font-family:inherit;background:white;color:var(--text);outline:none;resize:vertical;line-height:1.8;transition:border-color .2s}
+.segibu-textarea:focus{border-color:var(--accent4)}
+.segibu-char{font-size:11px;color:var(--text-muted);text-align:right;margin-top:4px}
+.segibu-copy-btn{margin-top:7px;padding:7px 16px;background:var(--accent4);color:white;border:none;border-radius:7px;font-size:12px;font-family:inherit;cursor:pointer;font-weight:600;transition:all .2s}
+.segibu-copy-btn:hover{background:#326876}.segibu-copy-btn.done{background:var(--accent)}
+.segibu-divider{border:none;border-top:1.5px solid #c8dff0;margin:16px 0}
+.segibu-prompt-box{font-size:12px;color:var(--text-muted);padding:10px 12px;background:var(--bg);border-radius:8px;border:1px solid var(--border);max-height:100px;overflow-y:auto;white-space:pre-wrap;margin-bottom:10px;font-family:inherit}
+.segibu-open-btn{display:inline-flex;align-items:center;gap:5px;padding:8px 16px;background:var(--surface);color:var(--accent4);border:1.5px solid #a8c8e8;border-radius:8px;font-size:12px;font-family:inherit;cursor:pointer;font-weight:600;transition:all .2s}
+.segibu-open-btn:hover{background:#e8f4ff}
+.report-toolbar{display:flex;gap:10px;align-items:center;margin-bottom:24px;flex-wrap:wrap}
+.report-select{padding:9px 14px;border:1.5px solid var(--border);border-radius:9px;font-size:13px;font-family:inherit;background:var(--surface);color:var(--text);outline:none;cursor:pointer;appearance:none}
+.report-btn-group{display:flex;gap:8px;margin-left:auto;flex-wrap:wrap}
+.dash-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-bottom:28px}
+.dash-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:18px 20px}
+.dash-card-label{font-size:11px;color:var(--text-muted);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.dash-card-num{font-size:32px;font-weight:700;font-family:'Gowun Dodum',sans-serif;color:var(--accent);line-height:1}
+.dash-card-sub{font-size:12px;color:var(--text-muted);margin-top:4px}
+.bar-section{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:16px}
+.bar-section-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:16px}
+.bar-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.bar-label{font-size:12px;color:var(--text-muted);width:80px;flex-shrink:0;text-align:right}
+.bar-track{flex:1;height:10px;background:var(--surface2);border-radius:5px;overflow:hidden}
+.bar-fill{height:100%;border-radius:5px;transition:width .5s ease}
+.bar-fill.학습{background:var(--accent)}.bar-fill.생활{background:var(--accent2)}
+.bar-fill.교우관계{background:var(--accent3)}.bar-fill.학부모{background:var(--accent4)}.bar-fill.month{background:var(--accent)}
+.bar-count{font-size:12px;font-weight:700;color:var(--text);width:24px;flex-shrink:0}
+.summary-table{width:100%;border-collapse:collapse;font-size:13px}
+.summary-table th{text-align:left;padding:10px 14px;background:var(--surface2);color:var(--text-muted);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;border-bottom:1.5px solid var(--border)}
+.summary-table td{padding:11px 14px;border-bottom:1px solid var(--border);vertical-align:middle}
+.summary-table tr:last-child td{border-bottom:none}.summary-table tr:hover td{background:var(--surface2)}
+.section-title{font-family:'Gowun Dodum',sans-serif;font-size:16px;color:var(--text);margin:24px 0 12px}
+.overlay{display:none;position:fixed;inset:0;background:rgba(44,36,22,.45);z-index:500;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(3px)}
+.overlay.open{display:flex}
+.modal{background:var(--surface);border-radius:18px;width:100%;max-width:580px;max-height:90vh;overflow-y:auto;padding:30px;box-shadow:var(--shadow-lg);animation:popIn .2s cubic-bezier(.34,1.56,.64,1)}
 @keyframes popIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
-.modal-title{font-family:'Gowun Dodum',sans-serif;font-size:18px;color:var(--accent);margin-bottom:22px;}
-.form-group{margin-bottom:16px;}
-.form-label{display:block;font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:6px;}
-.form-input,.form-textarea{width:100%;padding:10px 13px;border:1.5px solid var(--border);border-radius:9px;font-size:14px;font-family:inherit;background:var(--bg);color:var(--text);outline:none;transition:border-color .18s;}
-.form-input:focus,.form-textarea:focus{border-color:var(--accent);background:var(--surface);}
-.form-textarea{min-height:100px;resize:vertical;line-height:1.65;}
-.form-textarea.sm{min-height:72px;}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-.form-hint{font-size:11px;color:var(--danger);margin-top:5px;font-weight:600;}
-.chip-group{display:flex;gap:7px;flex-wrap:wrap;}
-.chip{padding:6px 16px;border-radius:20px;border:1.5px solid var(--border);background:none;font-size:13px;font-family:inherit;cursor:pointer;transition:all .15s;color:var(--text-muted);}
-.chip.on-학습{background:#e8f4e8;border-color:var(--accent);color:var(--accent);font-weight:700;}
-.chip.on-생활{background:#fef3e2;border-color:var(--accent2);color:var(--accent2);font-weight:700;}
-.chip.on-교우관계{background:#ede8f8;border-color:var(--accent3);color:var(--accent3);font-weight:700;}
-.chip.on-전화,.chip.on-대면,.chip.on-문자{background:#e2f0f5;border-color:var(--accent4);color:var(--accent4);font-weight:700;}
-.chip.on-남,.chip.on-여{background:#e8f2e5;border-color:var(--accent);color:var(--accent);font-weight:700;}
-.modal-footer{display:flex;gap:8px;justify-content:flex-end;margin-top:22px;padding-top:18px;border-top:1.5px solid var(--border);}
-.btn-ghost{padding:9px 18px;border:1.5px solid var(--border);border-radius:9px;background:none;font-size:13px;font-family:inherit;cursor:pointer;color:var(--text-muted);transition:all .15s;}
-.btn-ghost:hover{background:var(--surface2);color:var(--text);}
-.detail-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--text-muted);margin-bottom:5px;}
-.detail-value{font-size:14px;line-height:1.75;color:var(--text);margin-bottom:18px;padding:12px 14px;background:var(--bg);border-radius:9px;border:1px solid var(--border);white-space:pre-wrap;}
-.ai-guide-box{background:linear-gradient(135deg,#faf7ff,#f5f8ff);border:1.5px solid #c4b0e8;border-radius:12px;padding:18px;margin-top:4px;}
-.ai-guide-header{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
-.ai-guide-title{font-size:14px;font-weight:700;color:var(--accent3);}
-.ai-guide-desc{font-size:12px;color:var(--text-muted);line-height:1.65;margin-bottom:12px;}
-.ai-prompt-box{background:var(--bg);border:1.5px solid var(--border);border-radius:9px;padding:12px 14px;font-size:12px;color:var(--text-muted);line-height:1.7;margin-bottom:12px;max-height:120px;overflow-y:auto;white-space:pre-wrap;font-family:inherit;}
-.ai-btn-row{display:flex;gap:8px;flex-wrap:wrap;}
-.btn-copy{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;background:var(--accent3);color:white;border:none;border-radius:9px;font-size:13px;font-family:inherit;cursor:pointer;font-weight:600;transition:all .2s;}
-.btn-copy:hover{background:#6a4f92;}
-.btn-open-claude{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;background:var(--surface);color:var(--accent3);border:1.5px solid #c4b0e8;border-radius:9px;font-size:13px;font-family:inherit;cursor:pointer;font-weight:600;transition:all .2s;}
-.btn-open-claude:hover{background:#f3e8ff;}
-.copy-done{background:#4a6840 !important;}
-.ai-divider{border:none;border-top:1.5px solid #e0d5f5;margin:16px 0;}
-
-/* Autocomplete */
-.autocomplete-wrap{position:relative;}
-.autocomplete-list{position:absolute;top:100%;left:0;right:0;background:var(--surface);border:1.5px solid var(--accent);border-radius:9px;box-shadow:var(--shadow);z-index:200;max-height:200px;overflow-y:auto;margin-top:3px;}
-.autocomplete-item{padding:10px 14px;cursor:pointer;font-size:13px;display:flex;align-items:center;gap:8px;transition:background .15s;}
-.autocomplete-item:hover{background:var(--surface2);}
-.autocomplete-item .ac-gender{font-size:11px;color:var(--text-muted);}
-.autocomplete-item .ac-watch{font-size:10px;color:#e65100;font-weight:700;}
-
-/* Toggle */
-.toggle-wrap{display:flex;align-items:center;gap:10px;}
-.toggle{position:relative;width:40px;height:22px;flex-shrink:0;}
-.toggle input{opacity:0;width:0;height:0;}
-.toggle-slider{position:absolute;inset:0;background:var(--border);border-radius:11px;cursor:pointer;transition:background .2s;}
-.toggle-slider::before{content:'';position:absolute;width:16px;height:16px;left:3px;top:3px;background:white;border-radius:50%;transition:transform .2s;}
-.toggle input:checked+.toggle-slider{background:var(--accent2);}
-.toggle input:checked+.toggle-slider::before{transform:translateX(18px);}
-.toggle-label{font-size:13px;color:var(--text-muted);cursor:pointer;}
-
-/* Toast */
-.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(60px);background:#2c2416;color:white;padding:10px 22px;border-radius:22px;font-size:13px;z-index:999;transition:transform .28s cubic-bezier(.34,1.3,.64,1);white-space:nowrap;}
-.toast.show{transform:translateX(-50%) translateY(0);}
-.empty{text-align:center;padding:60px 20px;color:var(--text-muted);}
-.empty-icon{font-size:40px;margin-bottom:12px;}
-.empty p{font-size:14px;}
-.empty-action{margin-top:14px;}
-
-/* Print */
-@media print{
-  .sidebar,.mobile-nav,.report-toolbar,.no-print{display:none !important;}
-  .main{padding:0;}
-  body{background:white;}
-}
+.modal-title{font-family:'Gowun Dodum',sans-serif;font-size:18px;color:var(--accent);margin-bottom:22px}
+.form-group{margin-bottom:16px}
+.form-label{display:block;font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:6px}
+.form-input,.form-textarea{width:100%;padding:10px 13px;border:1.5px solid var(--border);border-radius:9px;font-size:14px;font-family:inherit;background:var(--bg);color:var(--text);outline:none;transition:border-color .18s}
+.form-input:focus,.form-textarea:focus{border-color:var(--accent);background:var(--surface)}
+.form-textarea{min-height:100px;resize:vertical;line-height:1.65}.form-textarea.sm{min-height:72px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.form-hint{font-size:11px;color:var(--danger);margin-top:5px;font-weight:600}
+.chip-group{display:flex;gap:7px;flex-wrap:wrap}
+.chip{padding:6px 16px;border-radius:20px;border:1.5px solid var(--border);background:none;font-size:13px;font-family:inherit;cursor:pointer;transition:all .15s;color:var(--text-muted)}
+.chip.on-학습{background:#e8f4e8;border-color:var(--accent);color:var(--accent);font-weight:700}
+.chip.on-생활{background:#fef3e2;border-color:var(--accent2);color:var(--accent2);font-weight:700}
+.chip.on-교우관계{background:#ede8f8;border-color:var(--accent3);color:var(--accent3);font-weight:700}
+.chip.on-전화,.chip.on-대면,.chip.on-문자{background:#e2f0f5;border-color:var(--accent4);color:var(--accent4);font-weight:700}
+.chip.on-남,.chip.on-여{background:#e8f2e5;border-color:var(--accent);color:var(--accent);font-weight:700}
+.modal-footer{display:flex;gap:8px;justify-content:flex-end;margin-top:22px;padding-top:18px;border-top:1.5px solid var(--border)}
+.btn-ghost{padding:9px 18px;border:1.5px solid var(--border);border-radius:9px;background:none;font-size:13px;font-family:inherit;cursor:pointer;color:var(--text-muted);transition:all .15s}
+.btn-ghost:hover{background:var(--surface2);color:var(--text)}
+.detail-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--text-muted);margin-bottom:5px}
+.detail-value{font-size:14px;line-height:1.75;color:var(--text);margin-bottom:18px;padding:12px 14px;background:var(--bg);border-radius:9px;border:1px solid var(--border);white-space:pre-wrap}
+.ai-guide-box{background:linear-gradient(135deg,#faf7ff,#f5f8ff);border:1.5px solid #c4b0e8;border-radius:12px;padding:18px;margin-top:4px}
+.ai-guide-header{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.ai-guide-title{font-size:14px;font-weight:700;color:var(--accent3)}
+.ai-guide-desc{font-size:12px;color:var(--text-muted);line-height:1.65;margin-bottom:12px}
+.ai-prompt-box{background:var(--bg);border:1.5px solid var(--border);border-radius:9px;padding:12px 14px;font-size:12px;color:var(--text-muted);line-height:1.7;margin-bottom:12px;max-height:120px;overflow-y:auto;white-space:pre-wrap;font-family:inherit}
+.ai-btn-row{display:flex;gap:8px;flex-wrap:wrap}
+.btn-copy{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;background:var(--accent3);color:white;border:none;border-radius:9px;font-size:13px;font-family:inherit;cursor:pointer;font-weight:600;transition:all .2s}
+.btn-copy:hover{background:#6a4f92}
+.btn-open-claude{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;background:var(--surface);color:var(--accent3);border:1.5px solid #c4b0e8;border-radius:9px;font-size:13px;font-family:inherit;cursor:pointer;font-weight:600;transition:all .2s}
+.btn-open-claude:hover{background:#f3e8ff}
+.copy-done{background:#4a6840 !important}
+.ai-divider{border:none;border-top:1.5px solid #e0d5f5;margin:16px 0}
+.autocomplete-wrap{position:relative}
+.autocomplete-list{position:absolute;top:100%;left:0;right:0;background:var(--surface);border:1.5px solid var(--accent);border-radius:9px;box-shadow:var(--shadow);z-index:200;max-height:200px;overflow-y:auto;margin-top:3px}
+.autocomplete-item{padding:10px 14px;cursor:pointer;font-size:13px;display:flex;align-items:center;gap:8px;transition:background .15s}
+.autocomplete-item:hover{background:var(--surface2)}
+.autocomplete-item .ac-gender{font-size:11px;color:var(--text-muted)}
+.autocomplete-item .ac-watch{font-size:10px;color:#e65100;font-weight:700}
+.toggle-wrap{display:flex;align-items:center;gap:10px}
+.toggle{position:relative;width:40px;height:22px;flex-shrink:0}
+.toggle input{opacity:0;width:0;height:0}
+.toggle-slider{position:absolute;inset:0;background:var(--border);border-radius:11px;cursor:pointer;transition:background .2s}
+.toggle-slider::before{content:'';position:absolute;width:16px;height:16px;left:3px;top:3px;background:white;border-radius:50%;transition:transform .2s}
+.toggle input:checked+.toggle-slider{background:var(--accent2)}
+.toggle input:checked+.toggle-slider::before{transform:translateX(18px)}
+.toggle-label{font-size:13px;color:var(--text-muted);cursor:pointer}
+.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(60px);background:#2c2416;color:white;padding:10px 22px;border-radius:22px;font-size:13px;z-index:999;transition:transform .28s cubic-bezier(.34,1.3,.64,1);white-space:nowrap}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.empty{text-align:center;padding:60px 20px;color:var(--text-muted)}
+.empty-icon{font-size:40px;margin-bottom:12px}
+.empty p{font-size:14px}.empty-action{margin-top:14px}
+@media print{.sidebar,.mobile-nav,.report-toolbar,.no-print{display:none !important}.main{padding:0}body{background:white}}
 @media(max-width:700px){
-  .sidebar{display:none;} .main{padding:16px;}
-  .form-row{grid-template-columns:1fr;} .stats-grid{grid-template-columns:repeat(3,1fr);}
-  .dash-grid{grid-template-columns:repeat(2,1fr);}
-  .mobile-nav{display:flex;gap:2px;background:var(--surface2);border-radius:10px;padding:4px;margin-bottom:18px;}
-  .mobile-tab{flex:1;padding:8px 4px;border:none;background:none;border-radius:7px;font-size:10px;font-family:inherit;cursor:pointer;color:var(--text-muted);font-weight:500;transition:all .18s;}
-  .mobile-tab.active{background:var(--surface);color:var(--text);box-shadow:0 1px 4px rgba(0,0,0,.07);}
+  .sidebar{display:none}.main{padding:16px}
+  .form-row{grid-template-columns:1fr}.stats-grid{grid-template-columns:repeat(3,1fr)}
+  .dash-grid{grid-template-columns:repeat(2,1fr)}
+  .mobile-nav{display:flex;gap:2px;background:var(--surface2);border-radius:10px;padding:4px;margin-bottom:18px}
+  .mobile-tab{flex:1;padding:8px 4px;border:none;background:none;border-radius:7px;font-size:10px;font-family:inherit;cursor:pointer;color:var(--text-muted);font-weight:500;transition:all .18s}
+  .mobile-tab.active{background:var(--surface);color:var(--text);box-shadow:0 1px 4px rgba(0,0,0,.07)}
 }
-@media(min-width:701px){.mobile-nav{display:none;}}
+@media(min-width:701px){.mobile-nav{display:none}}
 </style>
 </head>
 <body>
 <div id="loadingBar"></div>
-
 <div id="authScreen">
   <div class="auth-box">
     <div class="auth-logo">📋 상담일지</div>
@@ -302,7 +245,6 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
     </div>
   </div>
 </div>
-
 <div id="appScreen">
   <div class="layout">
     <aside class="sidebar">
@@ -311,7 +253,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
       <div class="user-chip">
         <div class="user-email" id="userEmail"></div>
         <button class="btn-logout" onclick="doLogout()">로그아웃</button>
-        <button class="btn-logout" onclick="doWithdraw()" style="margin-top:5px;color:var(--danger);border-color:#fcc;">회원탈퇴 및 데이터 삭제</button>
+        <button class="btn-withdraw" onclick="doWithdraw()">회원탈퇴 및 데이터 삭제</button>
       </div>
       <div class="nav-label">메뉴</div>
       <button class="nav-item active" id="nav-all" onclick="gotoTab('all')"><span class="nav-icon">📄</span> 전체 기록</button>
@@ -323,7 +265,6 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
       <div class="sidebar-privacy">⚠️ <strong>개인정보 보호</strong><br>학생 실명 입력 금지<br>번호·이니셜만 사용하세요<br><span style="opacity:.8;">예: 3번, K.M., 홍○○</span></div>
       <div class="sidebar-info">💾 저장 즉시 클라우드에 반영돼요.<br>어느 기기에서 로그인해도 기록이 그대로 있어요.</div>
     </aside>
-
     <main class="main">
       <div class="mobile-nav">
         <button class="mobile-tab active" id="mnav-all" onclick="gotoTab('all')">전체</button>
@@ -333,8 +274,6 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
         <button class="mobile-tab" id="mnav-report" onclick="gotoTab('report')">리포트</button>
       </div>
       <div class="stats-grid" id="statsGrid"></div>
-
-      <!-- 전체 기록 -->
       <div id="tab-all">
         <div class="page-header">
           <div><div class="page-title">전체 상담 기록</div><div class="page-desc">학습 · 생활 · 교우관계 상담 기록을 관리합니다</div></div>
@@ -351,8 +290,6 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
         </div>
         <div class="record-grid" id="allList"></div>
       </div>
-
-      <!-- 학부모 상담 -->
       <div id="tab-parent" style="display:none">
         <div class="page-header">
           <div><div class="page-title">학부모 상담</div><div class="page-desc">전화 · 대면 · 문자 상담을 별도 관리합니다</div></div>
@@ -361,31 +298,19 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
         <div class="controls-bar"><div class="search-wrap"><span class="search-icon">🔍</span><input class="search-input" id="searchParent" placeholder="번호·이니셜 검색..." oninput="renderParent()"></div></div>
         <div class="record-grid" id="parentList"></div>
       </div>
-
-      <!-- 학생별 보기 -->
       <div id="tab-student" style="display:none">
         <div id="student-grid-view">
-          <div class="page-header">
-            <div>
-              <div class="page-title">학생별 보기</div>
-              <div class="page-desc">카드를 클릭하면 상담 이력과 생기부 문구 초안을 확인할 수 있어요</div>
-            </div>
-          </div>
+          <div class="page-header"><div><div class="page-title">학생별 보기</div><div class="page-desc">카드를 클릭하면 상담 이력과 생기부 문구 초안을 확인할 수 있어요</div></div></div>
           <div class="student-grid" id="studentGrid"></div>
         </div>
         <div id="student-detail-view" style="display:none">
           <div class="page-header">
-            <div>
-              <div class="page-title" id="student-detail-title"></div>
-              <div class="page-desc">상담 이력 종합 및 생기부 문구 초안</div>
-            </div>
+            <div><div class="page-title" id="student-detail-title"></div><div class="page-desc">상담 이력 종합 및 생기부 문구 초안</div></div>
             <button class="btn-ghost" onclick="backToGrid()">← 목록으로</button>
           </div>
           <div id="student-detail-body"></div>
         </div>
       </div>
-
-      <!-- 학생 명부 -->
       <div id="tab-roster" style="display:none">
         <div class="page-header">
           <div><div class="page-title">학생 명부</div><div class="page-desc">번호·이니셜·성별을 등록해두면 상담 기록 작성 시 바로 선택할 수 있어요</div></div>
@@ -393,18 +318,12 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
         </div>
         <div class="roster-grid" id="rosterGrid"></div>
       </div>
-
-      <!-- 리포트 -->
       <div id="tab-report" style="display:none">
-        <div class="page-header">
-          <div><div class="page-title">리포트</div><div class="page-desc">상담 데이터 요약 · 통계 · 내보내기</div></div>
-        </div>
+        <div class="page-header"><div><div class="page-title">리포트</div><div class="page-desc">상담 데이터 요약 · 통계 · 내보내기</div></div></div>
         <div class="report-toolbar no-print">
           <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
             <span style="font-size:13px;color:var(--text-muted);font-weight:600;">기간</span>
-            <select class="report-select" id="report-filter" onchange="renderReport()">
-              <option value="all">전체 기간</option>
-            </select>
+            <select class="report-select" id="report-filter" onchange="renderReport()"><option value="all">전체 기간</option></select>
           </div>
           <div class="report-btn-group">
             <button class="btn-primary purple" onclick="exportCSV()">📥 CSV 내보내기</button>
@@ -417,8 +336,6 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
     </main>
   </div>
 </div>
-
-<!-- 상담 추가/수정 -->
 <div class="overlay" id="modal-add">
   <div class="modal">
     <div class="modal-title" id="modal-add-title">새 상담 기록</div>
@@ -448,8 +365,6 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
     </div>
   </div>
 </div>
-
-<!-- 학부모 상담 -->
 <div class="overlay" id="modal-parent">
   <div class="modal">
     <div class="modal-title" id="modal-parent-title">학부모 상담 기록</div>
@@ -479,8 +394,6 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
     </div>
   </div>
 </div>
-
-<!-- 학생 명부 -->
 <div class="overlay" id="modal-roster">
   <div class="modal">
     <div class="modal-title" id="modal-roster-title">학생 추가</div>
@@ -506,8 +419,6 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
     </div>
   </div>
 </div>
-
-<!-- 상세 보기 -->
 <div class="overlay" id="modal-detail">
   <div class="modal">
     <div id="detail-body"></div>
@@ -517,667 +428,371 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
     </div>
   </div>
 </div>
-
 <div class="toast" id="toast"></div>
-
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged }
-  from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-import { getFirestore, collection, doc, addDoc, updateDoc, deleteDoc, getDocs, query, orderBy }
-  from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
-const firebaseConfig = {
-  apiKey:            "AIzaSyAr1hGM5K_lOPQmdoBGFB5dOuuRmvfGng4",
-  authDomain:        "counseling-journal.firebaseapp.com",
-  projectId:         "counseling-journal",
-  storageBucket:     "counseling-journal.firebasestorage.app",
-  messagingSenderId: "545003777825",
-  appId:             "1:545003777825:web:084730dc91388509ab5860"
-};
-const INVITE_CODE = "선생님2025";
-
-const app  = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db   = getFirestore(app);
-
+import{initializeApp}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import{getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword,signOut,onAuthStateChanged}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import{getFirestore,collection,doc,addDoc,updateDoc,deleteDoc,getDocs,query,orderBy}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+const firebaseConfig={apiKey:"AIzaSyAr1hGM5K_lOPQmdoBGFB5dOuuRmvfGng4",authDomain:"counseling-journal.firebaseapp.com",projectId:"counseling-journal",storageBucket:"counseling-journal.firebasestorage.app",messagingSenderId:"545003777825",appId:"1:545003777825:web:084730dc91388509ab5860"};
+const INVITE_CODE="선생님2025";
+const app=initializeApp(firebaseConfig);
+const auth=getAuth(app);
+const db=getFirestore(app);
 const EMOJIS=['🌱','🌟','🐣','🦋','🌈','🍀','✨','🐥','🌻','🎈','🦊','🐬','🌺','🎀','🐸','🍁','🌙','⭐','🦜','🦔'];
-let currentUser=null, records=[], parents=[], roster=[];
-let filter='all', selType='', selMethod='', selGender='';
-let editId=null, editPId=null, editRId=null, detailId=null, detailIsParent=false;
-
-const $   = id => document.getElementById(id);
-const emo = n  => { let c=0; for(let ch of n) c+=ch.charCodeAt(0); return EMOJIS[c%EMOJIS.length]; };
-const td  = () => new Date().toISOString().slice(0,10);
-const esc = s  => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-
-function toast(msg){ const e=$('toast'); e.textContent=msg; e.classList.add('show'); clearTimeout(e._t); e._t=setTimeout(()=>e.classList.remove('show'),2500); }
-function loading(v){ $('loadingBar').style.display=v?'block':'none'; }
-function openModal(id){ $(id).classList.add('open'); }
-window.closeModal = id => { $(id).classList.remove('open'); ['f_ac','p_ac'].forEach(i=>{ const el=$(i); if(el) el.style.display='none'; }); };
-
-window.switchAuthTab = tab => {
-  $('form-login').style.display  = tab==='login'  ? 'block':'none';
-  $('form-signup').style.display = tab==='signup' ? 'block':'none';
-  $('tab-login').className  = 'auth-tab'+(tab==='login' ?' active':'');
-  $('tab-signup').className = 'auth-tab'+(tab==='signup'?' active':'');
+let currentUser=null,records=[],parents=[],roster=[];
+let filter='all',selType='',selMethod='',selGender='';
+let editId=null,editPId=null,editRId=null,detailId=null,detailIsParent=false;
+const $=id=>document.getElementById(id);
+const emo=n=>{let c=0;for(let ch of(n||''))c+=ch.charCodeAt(0);return EMOJIS[c%EMOJIS.length]};
+const td=()=>new Date().toISOString().slice(0,10);
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+function toast(msg){const e=$('toast');e.textContent=msg;e.classList.add('show');clearTimeout(e._t);e._t=setTimeout(()=>e.classList.remove('show'),2500)}
+function loading(v){$('loadingBar').style.display=v?'block':'none'}
+function openModal(id){$(id).classList.add('open')}
+window.closeModal=id=>{$(id).classList.remove('open');['f_ac','p_ac'].forEach(i=>{const el=$(i);if(el)el.style.display='none'})};
+window.switchAuthTab=tab=>{
+  $('form-login').style.display=tab==='login'?'block':'none';
+  $('form-signup').style.display=tab==='signup'?'block':'none';
+  $('tab-login').className='auth-tab'+(tab==='login'?' active':'');
+  $('tab-signup').className='auth-tab'+(tab==='signup'?' active':'');
   $('authError').textContent='';
 };
-
-onAuthStateChanged(auth, async user => {
+onAuthStateChanged(auth,async user=>{
   if(user){
     currentUser=user;
     $('authScreen').style.display='none';
     $('appScreen').style.display='flex';
     $('userEmail').textContent=user.email;
     $('sideYear').textContent=new Date().getFullYear()+'학년도 학급 상담';
-    await loadData(); render();
-  } else {
-    currentUser=null; records=[]; parents=[]; roster=[];
+    await loadData();render();
+  }else{
+    currentUser=null;records=[];parents=[];roster=[];
     $('authScreen').style.display='flex';
     $('appScreen').style.display='none';
   }
 });
-
-window.doLogin = async () => {
-  const email=$('l_email').value.trim(), pw=$('l_pw').value;
+window.doLogin=async()=>{
+  const email=$('l_email').value.trim(),pw=$('l_pw').value;
   $('authError').textContent='';
-  if(!email||!pw){$('authError').textContent='이메일과 비밀번호를 입력해주세요';return;}
-  try{ loading(true); await signInWithEmailAndPassword(auth,email,pw); }
-  catch(e){ $('authError').textContent=(e.code==='auth/invalid-credential'||e.code==='auth/wrong-password')?'이메일 또는 비밀번호가 틀렸어요':'로그인 오류: '+e.message; }
-  finally{ loading(false); }
+  if(!email||!pw){$('authError').textContent='이메일과 비밀번호를 입력해주세요';return}
+  try{loading(true);await signInWithEmailAndPassword(auth,email,pw)}
+  catch(e){$('authError').textContent=(e.code==='auth/invalid-credential'||e.code==='auth/wrong-password')?'이메일 또는 비밀번호가 틀렸어요':'로그인 오류: '+e.message}
+  finally{loading(false)}
 };
-
-window.doSignup = async () => {
-  const code=$('s_code').value.trim(), email=$('s_email').value.trim(), pw=$('s_pw').value;
+window.doSignup=async()=>{
+  const code=$('s_code').value.trim(),email=$('s_email').value.trim(),pw=$('s_pw').value;
   $('authError').textContent='';
-  if(code!==INVITE_CODE){$('authError').textContent='초대 코드가 올바르지 않아요';return;}
-  if(!email||!pw){$('authError').textContent='이메일과 비밀번호를 입력해주세요';return;}
-  if(pw.length<6){$('authError').textContent='비밀번호는 6자 이상이어야 해요';return;}
-  try{ loading(true); await createUserWithEmailAndPassword(auth,email,pw); toast('✅ 가입 완료!'); }
-  catch(e){ $('authError').textContent=e.code==='auth/email-already-in-use'?'이미 가입된 이메일이에요':'가입 오류: '+e.message; }
-  finally{ loading(false); }
+  if(code!==INVITE_CODE){$('authError').textContent='초대 코드가 올바르지 않아요';return}
+  if(!email||!pw){$('authError').textContent='이메일과 비밀번호를 입력해주세요';return}
+  if(pw.length<6){$('authError').textContent='비밀번호는 6자 이상이어야 해요';return}
+  try{loading(true);await createUserWithEmailAndPassword(auth,email,pw);toast('✅ 가입 완료!')}
+  catch(e){$('authError').textContent=e.code==='auth/email-already-in-use'?'이미 가입된 이메일이에요':'가입 오류: '+e.message}
+  finally{loading(false)}
 };
-
-window.doLogout = async () => { if(!confirm('로그아웃 할까요?')) return; await signOut(auth); };
-window.doWithdraw = async () => {
-  const confirm1 = confirm('탈퇴하면 모든 상담 기록과 학생 명부가 영구 삭제됩니다.\n정말 탈퇴하시겠어요?');
-  if(!confirm1) return;
-  const confirm2 = confirm('⚠️ 이 작업은 되돌릴 수 없습니다.\n삭제를 최종 확인하시겠어요?');
-  if(!confirm2) return;
-
+window.doLogout=async()=>{if(!confirm('로그아웃 할까요?'))return;await signOut(auth)};
+window.doWithdraw=async()=>{
+  const c1=confirm('탈퇴하면 모든 상담 기록과 학생 명부가 영구 삭제됩니다.\n정말 탈퇴하시겠어요?');
+  if(!c1)return;
+  const c2=confirm('⚠️ 이 작업은 되돌릴 수 없습니다.\n삭제를 최종 확인하시겠어요?');
+  if(!c2)return;
   loading(true);
-  try {
-    const deleteAll = async (col) => {
-      const snap = await getDocs(col);
-      await Promise.all(snap.docs.map(d => deleteDoc(d.ref)));
-    };
-    await deleteAll(rCol());
-    await deleteAll(pCol());
-    await deleteAll(roCol());
+  try{
+    const deleteAll=async col=>{const snap=await getDocs(col);await Promise.all(snap.docs.map(d=>deleteDoc(d.ref)))};
+    await deleteAll(rCol());await deleteAll(pCol());await deleteAll(roCol());
     await currentUser.delete();
     toast('✅ 탈퇴 완료. 모든 데이터가 삭제되었습니다.');
-  } catch(e) {
-    if(e.code === 'auth/requires-recent-login') {
-      toast('⚠️ 보안을 위해 로그아웃 후 다시 로그인하고 시도해주세요');
-      await signOut(auth);
-    } else {
-      toast('오류: ' + e.message);
-    }
-  } finally {
-    loading(false);
-  }
+  }catch(e){
+    if(e.code==='auth/requires-recent-login'){toast('⚠️ 보안을 위해 로그아웃 후 다시 로그인하고 시도해주세요');await signOut(auth)}
+    else toast('오류: '+e.message)
+  }finally{loading(false)}
 };
-
-const rCol  = () => collection(db,'users',currentUser.uid,'records');
-const pCol  = () => collection(db,'users',currentUser.uid,'parents');
-const roCol = () => collection(db,'users',currentUser.uid,'roster');
-
+const rCol=()=>collection(db,'users',currentUser.uid,'records');
+const pCol=()=>collection(db,'users',currentUser.uid,'parents');
+const roCol=()=>collection(db,'users',currentUser.uid,'roster');
 async function loadData(){
   loading(true);
   try{
-    const [rs,ps,ros]=await Promise.all([
-      getDocs(query(rCol(),orderBy('date','desc'))),
-      getDocs(query(pCol(),orderBy('date','desc'))),
-      getDocs(roCol())
-    ]);
+    const[rs,ps,ros]=await Promise.all([getDocs(query(rCol(),orderBy('date','desc'))),getDocs(query(pCol(),orderBy('date','desc'))),getDocs(roCol())]);
     records=rs.docs.map(d=>({id:d.id,...d.data()}));
     parents=ps.docs.map(d=>({id:d.id,...d.data()}));
     roster=ros.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>Number(a.num)-Number(b.num));
-  }catch(e){toast('데이터 로드 실패: '+e.message);}
-  finally{loading(false);}
+  }catch(e){toast('데이터 로드 실패: '+e.message)}
+  finally{loading(false)}
 }
-
-// ── 생기부 문구 생성 ──
-window.openStudentDetail = function(name) {
-  const recs = records.filter(r=>r.name===name).sort((a,b)=>a.date.localeCompare(b.date));
-  const pars = parents.filter(p=>p.name===name).sort((a,b)=>a.date.localeCompare(b.date));
-  const all  = [...recs,...pars].sort((a,b)=>a.date.localeCompare(b.date));
-
-  $('student-grid-view').style.display   = 'none';
-  $('student-detail-view').style.display = 'block';
-  $('student-detail-title').textContent  = `${emo(name)} ${name} 상담 이력`;
-
-  const historyHtml = all.length === 0
-    ? `<div class="empty"><div class="empty-icon">📭</div><p>상담 기록이 없어요</p></div>`
-    : all.map(r => {
-        const badge = r.method
-          ? `<span class="method-badge">${esc(r.method)}</span>`
-          : `<span class="tag tag-${r.type}">${r.type}</span>`;
-        return `<div class="student-history-item">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;">
-            ${badge}<span style="font-size:11px;color:var(--text-muted);">${r.date}</span>
-          </div>
-          <div style="font-size:13px;line-height:1.65;">${esc(r.content)}</div>
-          ${r.followup?`<div style="font-size:12px;color:var(--text-muted);margin-top:4px;">→ ${esc(r.followup)}</div>`:''}
-        </div>`;
-      }).join('');
-
-  const summary = recs.map(r =>
-    `[${r.date}][${r.type}] ${r.content}${r.followup?' / 후속: '+r.followup:''}`
-  ).join('\n');
-
-  const prompt = `당신은 대한민국 초등학교 담임교사입니다. 아래 학생 상담 기록을 종합 분석하여 학교생활기록부 문구 초안을 작성해주세요.
-
-[상담 기록]
-${summary || '기록 없음'}
-
-[작성 규칙]
-1. 부정적 표현 절대 금지 (예: 산만함→활동적이고 에너지가 넘침, 다툼→또래와의 갈등 상황에서도 성장의 기회를 찾음)
-2. 학생의 성장 가능성과 긍정적 변화에 초점
-3. 구체적 행동과 노력 중심 서술, 담임 지도 내용 포함 가능
-4. 각 항목 2~3문장, 자연스러운 서술체
-5. 글자수: 자율활동 100자 내외, 행동특성 150자 내외
-
-[출력 형식 — 반드시 아래 JSON만 출력, 다른 텍스트 없음]
-{
-  "자율": "자율활동상황 문구 (학습태도·수업참여·자기주도적 학습 중심)",
-  "행동": "행동특성및종합의견 문구 (생활태도·대인관계·성격특성·성장가능성 중심)"
-}`;
-
-  const claudeUrl = `https://claude.ai/new?q=${encodeURIComponent(prompt)}`;
-
-  $('student-detail-body').innerHTML = `
-    <div class="student-detail-card">
-      <div style="font-size:12px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:14px;">
-        📝 상담 이력 (총 ${all.length}건 · 일반 ${recs.length}건 · 학부모 ${pars.length}건)
-      </div>
-      ${historyHtml}
-    </div>
-
-    <div class="segibu-box">
-      <div class="segibu-header">
-        <span style="font-size:20px;">📄</span>
-        <span class="segibu-title">생활기록부 문구 초안 생성</span>
-      </div>
-      <div class="segibu-notice">
-        ⚠️ 상담 기록 기반 AI 초안입니다. 반드시 교사가 검토·수정 후 사용하세요.<br>
-        부정적 표현 없이 성장 중심으로 작성되며, 아래 텍스트 박스에서 직접 편집할 수 있어요.
-      </div>
-
-      <div class="segibu-section">
-        <div class="segibu-section-label">✅ 자율활동상황 <span style="font-weight:400;color:var(--text-muted);">(학습태도 · 수업참여 · 자기주도성)</span></div>
-        <textarea class="segibu-textarea" id="segibu-자율" placeholder="Claude에서 프롬프트 실행 후 결과를 여기에 붙여넣어 편집하세요." oninput="updateChar('자율')"></textarea>
-        <div class="segibu-char" id="char-자율">0자</div>
-        <button class="segibu-copy-btn" onclick="copySegibu('자율')">📋 복사</button>
-      </div>
-
-      <div class="segibu-section">
-        <div class="segibu-section-label">✅ 행동특성 및 종합의견 <span style="font-weight:400;color:var(--text-muted);">(생활태도 · 대인관계 · 성장가능성)</span></div>
-        <textarea class="segibu-textarea" id="segibu-행동" placeholder="Claude에서 프롬프트 실행 후 결과를 여기에 붙여넣어 편집하세요." oninput="updateChar('행동')"></textarea>
-        <div class="segibu-char" id="char-행동">0자</div>
-        <button class="segibu-copy-btn" onclick="copySegibu('행동')">📋 복사</button>
-      </div>
-
-      <hr class="segibu-divider">
-
-      <div style="font-size:12px;font-weight:700;color:var(--text-muted);margin-bottom:8px;">🤖 Claude 프롬프트</div>
-      <div style="font-size:11px;color:var(--text-muted);margin-bottom:8px;line-height:1.6;">
-        아래 프롬프트를 복사해 Claude에 붙여넣으면 자율활동상황·행동특성 문구 초안이 생성됩니다.<br>
-        결과를 위 텍스트 박스에 붙여넣어 수정하세요.
-      </div>
-      <div class="segibu-prompt-box" id="segibu-prompt">${esc(prompt)}</div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap;">
-        <button class="segibu-copy-btn" id="segibu-prompt-copy-btn" onclick="copySegibuPrompt()">📋 프롬프트 복사</button>
-        <button class="segibu-open-btn" onclick="window.open('${claudeUrl}','_blank')">↗ Claude에서 바로 열기</button>
-      </div>
-    </div>
-  `;
+window.openStudentDetail=function(name){
+  const recs=records.filter(r=>r.name===name).sort((a,b)=>a.date.localeCompare(b.date));
+  const pars=parents.filter(p=>p.name===name).sort((a,b)=>a.date.localeCompare(b.date));
+  const all=[...recs,...pars].sort((a,b)=>a.date.localeCompare(b.date));
+  $('student-grid-view').style.display='none';
+  $('student-detail-view').style.display='block';
+  $('student-detail-title').textContent=emo(name)+' '+name+' 상담 이력';
+  const historyHtml=all.length===0?'<div class="empty"><div class="empty-icon">📭</div><p>상담 기록이 없어요</p></div>':all.map(r=>{
+    const badge=r.method?'<span class="method-badge">'+esc(r.method)+'</span>':'<span class="tag tag-'+r.type+'">'+r.type+'</span>';
+    return'<div class="student-history-item"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;">'+badge+'<span style="font-size:11px;color:var(--text-muted);">'+r.date+'</span></div><div style="font-size:13px;line-height:1.65;">'+esc(r.content)+'</div>'+(r.followup?'<div style="font-size:12px;color:var(--text-muted);margin-top:4px;">→ '+esc(r.followup)+'</div>':'')+'</div>';
+  }).join('');
+  const summary=recs.map(r=>'['+r.date+']['+r.type+'] '+r.content+(r.followup?' / 후속: '+r.followup:'')).join('\n');
+  const prompt='당신은 대한민국 초등학교 담임교사입니다. 아래 학생 상담 기록을 종합 분석하여 학교생활기록부 문구 초안을 작성해주세요.\n\n[상담 기록]\n'+(summary||'기록 없음')+'\n\n[작성 규칙]\n1. 부정적 표현 절대 금지\n2. 학생의 성장 가능성과 긍정적 변화에 초점\n3. 구체적 행동과 노력 중심 서술\n4. 각 항목 2~3문장, 자연스러운 서술체\n5. 글자수: 자율활동 100자 내외, 행동특성 150자 내외\n\n[출력 형식 — 반드시 아래 JSON만 출력]\n{\n  "자율": "자율활동상황 문구 (학습태도·수업참여·자기주도적 학습 중심)",\n  "행동": "행동특성및종합의견 문구 (생활태도·대인관계·성격특성·성장가능성 중심)"\n}';
+  const claudeUrl='https://claude.ai/new?q='+encodeURIComponent(prompt);
+  $('student-detail-body').innerHTML='<div class="student-detail-card"><div style="font-size:12px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:14px;">📝 상담 이력 (총 '+all.length+'건 · 일반 '+recs.length+'건 · 학부모 '+pars.length+'건)</div>'+historyHtml+'</div><div class="segibu-box"><div class="segibu-header"><span style="font-size:20px;">📄</span><span class="segibu-title">생활기록부 문구 초안 생성</span></div><div class="segibu-notice">⚠️ 상담 기록 기반 AI 초안입니다. 반드시 교사가 검토·수정 후 사용하세요.<br>아래 텍스트 박스에서 직접 편집할 수 있어요.</div><div class="segibu-section"><div class="segibu-section-label">✅ 자율활동상황 <span style="font-weight:400;color:var(--text-muted);">(학습태도 · 수업참여 · 자기주도성)</span></div><textarea class="segibu-textarea" id="segibu-자율" placeholder="Claude에서 생성된 결과를 여기에 붙여넣어 편집하세요." oninput="updateChar(\'자율\')"></textarea><div class="segibu-char" id="char-자율">0자</div><button class="segibu-copy-btn" onclick="copySegibu(\'자율\')">📋 복사</button></div><div class="segibu-section"><div class="segibu-section-label">✅ 행동특성 및 종합의견 <span style="font-weight:400;color:var(--text-muted);">(생활태도 · 대인관계 · 성장가능성)</span></div><textarea class="segibu-textarea" id="segibu-행동" placeholder="Claude에서 생성된 결과를 여기에 붙여넣어 편집하세요." oninput="updateChar(\'행동\')"></textarea><div class="segibu-char" id="char-행동">0자</div><button class="segibu-copy-btn" onclick="copySegibu(\'행동\')">📋 복사</button></div><hr class="segibu-divider"><div style="font-size:12px;font-weight:700;color:var(--text-muted);margin-bottom:8px;">🤖 Claude 프롬프트</div><div style="font-size:11px;color:var(--text-muted);margin-bottom:8px;line-height:1.6;">아래 프롬프트를 복사해 Claude에 붙여넣으면 초안이 생성됩니다.</div><div class="segibu-prompt-box" id="segibu-prompt">'+esc(prompt)+'</div><div style="display:flex;gap:8px;flex-wrap:wrap;"><button class="segibu-copy-btn" id="segibu-prompt-copy-btn" onclick="copySegibuPrompt()">📋 프롬프트 복사</button><button class="segibu-open-btn" onclick="window.open(\''+claudeUrl+'\',\'_blank\')">↗ Claude에서 바로 열기</button></div></div>';
 };
-
-window.updateChar = (id) => {
-  const el = $(`segibu-${id}`);
-  const charEl = $(`char-${id}`);
-  if(el && charEl) charEl.textContent = el.value.length + '자';
+window.updateChar=id=>{const el=$('segibu-'+id),charEl=$('char-'+id);if(el&&charEl)charEl.textContent=el.value.length+'자'};
+window.copySegibu=async id=>{
+  const el=$('segibu-'+id);
+  if(!el||!el.value.trim()){toast('내용을 먼저 입력해주세요');return}
+  try{await navigator.clipboard.writeText(el.value);const btn=el.nextElementSibling.nextElementSibling;btn.textContent='✅ 복사됨!';btn.classList.add('done');setTimeout(()=>{btn.textContent='📋 복사';btn.classList.remove('done')},2000)}
+  catch{toast('직접 선택해서 복사해주세요')}
 };
-
-window.copySegibu = async (id) => {
-  const el = $(`segibu-${id}`);
-  if(!el || !el.value.trim()) { toast('내용을 먼저 입력해주세요'); return; }
-  try {
-    await navigator.clipboard.writeText(el.value);
-    const btn = el.nextElementSibling.nextElementSibling;
-    btn.textContent='✅ 복사됨!'; btn.classList.add('done');
-    setTimeout(()=>{ btn.textContent='📋 복사'; btn.classList.remove('done'); },2000);
-  } catch { toast('직접 선택해서 복사해주세요'); }
+window.copySegibuPrompt=async()=>{
+  const el=$('segibu-prompt');if(!el)return;
+  try{await navigator.clipboard.writeText(el.innerText);const btn=$('segibu-prompt-copy-btn');btn.textContent='✅ 복사됨!';btn.classList.add('done');setTimeout(()=>{btn.textContent='📋 프롬프트 복사';btn.classList.remove('done')},2000)}
+  catch{toast('직접 선택해서 복사해주세요')}
 };
-
-window.copySegibuPrompt = async () => {
-  const el = $('segibu-prompt');
-  if(!el) return;
-  try {
-    await navigator.clipboard.writeText(el.innerText);
-    const btn = $('segibu-prompt-copy-btn');
-    btn.textContent='✅ 복사됨!'; btn.classList.add('done');
-    setTimeout(()=>{ btn.textContent='📋 프롬프트 복사'; btn.classList.remove('done'); },2000);
-  } catch { toast('직접 선택해서 복사해주세요'); }
-};
-
-window.backToGrid = () => {
-  $('student-grid-view').style.display   = 'block';
-  $('student-detail-view').style.display = 'none';
-};
-
-// ── AI Guide (상담 상세 보기) ──
-function makePrompt(r) {
-  return `당신은 대한민국 초등학교 생활지도 전문가입니다. 아래 학생 상담 내용을 바탕으로 담임교사에게 실질적인 지도 가이드를 제시해주세요.
-
-[상담 유형] ${r.type}
-[상담 내용] ${r.content}
-[후속 조치] ${r.followup || '없음'}
-
-다음 4가지 항목을 각각 2~3가지씩 구체적으로 답변해주세요:
-1. ✅ 지도 방향 / 접근 방법
-2. 🚫 절대 하지 말아야 할 행동
-3. 💬 학부모 소통 시 유의사항
-4. 👁️ 후속 관찰 포인트`;
+window.backToGrid=()=>{$('student-grid-view').style.display='block';$('student-detail-view').style.display='none'};
+function makePrompt(r){return'당신은 대한민국 초등학교 생활지도 전문가입니다. 아래 학생 상담 내용을 바탕으로 담임교사에게 실질적인 지도 가이드를 제시해주세요.\n\n[상담 유형] '+r.type+'\n[상담 내용] '+r.content+'\n[후속 조치] '+(r.followup||'없음')+'\n\n다음 4가지 항목을 각각 2~3가지씩 구체적으로 답변해주세요:\n1. ✅ 지도 방향 / 접근 방법\n2. 🚫 절대 하지 말아야 할 행동\n3. 💬 학부모 소통 시 유의사항\n4. 👁️ 후속 관찰 포인트'}
+function buildAiGuideHtml(r){
+  const prompt=makePrompt(r);
+  const claudeUrl='https://claude.ai/new?q='+encodeURIComponent(prompt);
+  return'<div class="ai-guide-box"><div class="ai-guide-header"><span style="font-size:18px;">🤖</span><span class="ai-guide-title">AI 지도 가이드</span></div><div class="ai-guide-desc">아래 프롬프트를 Claude에 붙여넣으면 지도 방향, 금지 행동, 학부모 소통 유의사항, 후속 관찰 포인트를 안내받을 수 있어요.<br><strong style="color:var(--danger);">⚠️ AI 제안은 참고용이며, 최종 판단은 반드시 교사가 하세요.</strong></div><div class="ai-prompt-box" id="ai-prompt-text">'+esc(prompt)+'</div><div class="ai-btn-row"><button class="btn-copy" id="btn-copy-prompt" onclick="copyPrompt()">📋 프롬프트 복사</button><button class="btn-open-claude" onclick="window.open(\''+claudeUrl+'\',\'_blank\')">↗ Claude에서 바로 열기</button></div></div>';
 }
-
-function buildAiGuideHtml(r) {
-  const prompt = makePrompt(r);
-  const claudeUrl = `https://claude.ai/new?q=${encodeURIComponent(prompt)}`;
-  return `
-    <div class="ai-guide-box">
-      <div class="ai-guide-header"><span style="font-size:18px;">🤖</span><span class="ai-guide-title">AI 지도 가이드</span></div>
-      <div class="ai-guide-desc">
-        아래 프롬프트를 Claude에 붙여넣으면 지도 방향, 금지 행동, 학부모 소통 유의사항, 후속 관찰 포인트를 안내받을 수 있어요.<br>
-        <strong style="color:var(--danger);">⚠️ AI 제안은 참고용이며, 최종 판단은 반드시 교사가 하세요.</strong>
-      </div>
-      <div class="ai-prompt-box" id="ai-prompt-text">${esc(prompt)}</div>
-      <div class="ai-btn-row">
-        <button class="btn-copy" id="btn-copy-prompt" onclick="copyPrompt()">📋 프롬프트 복사</button>
-        <button class="btn-open-claude" onclick="window.open('${claudeUrl}','_blank')">↗ Claude에서 바로 열기</button>
-      </div>
-    </div>`;
-}
-
-window.copyPrompt = async () => {
-  const text = $('ai-prompt-text')?.innerText;
-  if(!text) return;
-  try {
-    await navigator.clipboard.writeText(text);
-    const btn=$('btn-copy-prompt'); btn.textContent='✅ 복사됨!'; btn.classList.add('copy-done');
-    setTimeout(()=>{ btn.textContent='📋 프롬프트 복사'; btn.classList.remove('copy-done'); },2000);
-  } catch { toast('직접 선택해서 복사해주세요'); }
+window.copyPrompt=async()=>{
+  const text=$('ai-prompt-text')?.innerText;if(!text)return;
+  try{await navigator.clipboard.writeText(text);const btn=$('btn-copy-prompt');btn.textContent='✅ 복사됨!';btn.classList.add('copy-done');setTimeout(()=>{btn.textContent='📋 프롬프트 복사';btn.classList.remove('copy-done')},2000)}
+  catch{toast('직접 선택해서 복사해주세요')}
 };
-
-function buildDetailHtml(r, isParent) {
-  const badge = isParent ? `<span class="method-badge">${esc(r.method)}</span>` : `<span class="tag tag-${r.type}">${r.type}</span>`;
-  return `
-    <div class="modal-title">${emo(r.name)} ${esc(r.name)}${isParent?' 학부모':''} 상담</div>
-    <div style="display:flex;gap:8px;align-items:center;margin-bottom:20px;">${badge}<span style="font-size:12px;color:var(--text-muted);">${r.date}</span></div>
-    <div class="detail-label">상담 내용</div><div class="detail-value">${esc(r.content)}</div>
-    ${r.followup?`<div class="detail-label">후속 조치</div><div class="detail-value">${esc(r.followup)}</div>`:''}
-    ${!isParent?`<hr class="ai-divider">${buildAiGuideHtml(r)}`:''}`;
+function buildDetailHtml(r,isParent){
+  const badge=isParent?'<span class="method-badge">'+esc(r.method)+'</span>':'<span class="tag tag-'+r.type+'">'+r.type+'</span>';
+  return'<div class="modal-title">'+emo(r.name)+' '+esc(r.name)+(isParent?' 학부모':'')+' 상담</div><div style="display:flex;gap:8px;align-items:center;margin-bottom:20px;">'+badge+'<span style="font-size:12px;color:var(--text-muted);">'+r.date+'</span></div><div class="detail-label">상담 내용</div><div class="detail-value">'+esc(r.content)+'</div>'+(r.followup?'<div class="detail-label">후속 조치</div><div class="detail-value">'+esc(r.followup)+'</div>':'')+(isParent?'':'<hr class="ai-divider">'+buildAiGuideHtml(r));
 }
-
-// ── 리포트 ──
-function getFilteredData() {
-  const val = $('report-filter')?.value || 'all';
-  if(val==='all') return {recs:records,pars:parents};
-  return { recs:records.filter(r=>r.date?.slice(0,7)===val), pars:parents.filter(p=>p.date?.slice(0,7)===val) };
+function getFilteredData(){
+  const val=$('report-filter')?.value||'all';
+  if(val==='all')return{recs:records,pars:parents};
+  return{recs:records.filter(r=>r.date?.slice(0,7)===val),pars:parents.filter(p=>p.date?.slice(0,7)===val)};
 }
-
-function buildMonthOptions() {
-  const months = new Set([...records.map(r=>r.date?.slice(0,7)),...parents.map(p=>p.date?.slice(0,7))].filter(Boolean));
-  const sel=$('report-filter'), cur=sel.value;
+function buildMonthOptions(){
+  const months=new Set([...records.map(r=>r.date?.slice(0,7)),...parents.map(p=>p.date?.slice(0,7))].filter(Boolean));
+  const sel=$('report-filter'),cur=sel.value;
   sel.innerHTML='<option value="all">전체 기간</option>';
-  [...months].sort().reverse().forEach(m=>{
-    const [y,mo]=m.split('-');
-    const opt=document.createElement('option');
-    opt.value=m; opt.textContent=`${y}년 ${parseInt(mo)}월`;
-    sel.appendChild(opt);
-  });
+  [...months].sort().reverse().forEach(m=>{const[y,mo]=m.split('-');const opt=document.createElement('option');opt.value=m;opt.textContent=y+'년 '+parseInt(mo)+'월';sel.appendChild(opt)});
   sel.value=cur;
 }
-
-window.renderReport = function() {
+window.renderReport=function(){
   buildMonthOptions();
-  const {recs,pars}=getFilteredData();
+  const{recs,pars}=getFilteredData();
   const total=recs.length+pars.length;
   const students=new Set([...recs.map(r=>r.name),...pars.map(p=>p.name)]).size;
   const typeCounts={학습:0,생활:0,교우관계:0};
-  recs.forEach(r=>{if(typeCounts[r.type]!==undefined) typeCounts[r.type]++;});
+  recs.forEach(r=>{if(typeCounts[r.type]!==undefined)typeCounts[r.type]++});
   const maxType=Math.max(...Object.values(typeCounts),1);
   const monthMap={};
-  [...recs,...pars].forEach(r=>{const m=r.date?.slice(0,7);if(!m)return;monthMap[m]=(monthMap[m]||0)+1;});
+  [...recs,...pars].forEach(r=>{const m=r.date?.slice(0,7);if(!m)return;monthMap[m]=(monthMap[m]||0)+1});
   const monthEntries=Object.entries(monthMap).sort();
   const maxMonth=Math.max(...Object.values(monthMap),1);
   const studentMap={};
-  recs.forEach(r=>{if(!studentMap[r.name])studentMap[r.name]={학습:0,생활:0,교우관계:0,학부모:0,total:0};studentMap[r.name][r.type]=(studentMap[r.name][r.type]||0)+1;studentMap[r.name].total++;});
-  pars.forEach(p=>{if(!studentMap[p.name])studentMap[p.name]={학습:0,생활:0,교우관계:0,학부모:0,total:0};studentMap[p.name].학부모++;studentMap[p.name].total++;});
+  recs.forEach(r=>{if(!studentMap[r.name])studentMap[r.name]={학습:0,생활:0,교우관계:0,학부모:0,total:0};studentMap[r.name][r.type]=(studentMap[r.name][r.type]||0)+1;studentMap[r.name].total++});
+  pars.forEach(p=>{if(!studentMap[p.name])studentMap[p.name]={학습:0,생활:0,교우관계:0,학부모:0,total:0};studentMap[p.name].학부모++;studentMap[p.name].total++});
   const studentEntries=Object.entries(studentMap).sort((a,b)=>b[1].total-a[1].total);
-
-  $('report-content').innerHTML=`
-    <div class="dash-grid">
-      <div class="dash-card"><div class="dash-card-label">전체 상담 기록</div><div class="dash-card-num">${total}</div><div class="dash-card-sub">일반 ${recs.length}건 · 학부모 ${pars.length}건</div></div>
-      <div class="dash-card"><div class="dash-card-label">상담 학생 수</div><div class="dash-card-num">${students}</div><div class="dash-card-sub">중복 제외</div></div>
-      <div class="dash-card"><div class="dash-card-label">가장 많은 유형</div><div class="dash-card-num" style="font-size:22px;">${total===0?'-':Object.entries(typeCounts).sort((a,b)=>b[1]-a[1])[0][0]}</div><div class="dash-card-sub">${total===0?'기록 없음':Object.entries(typeCounts).sort((a,b)=>b[1]-a[1])[0][1]+'건'}</div></div>
-      <div class="dash-card"><div class="dash-card-label">학부모 상담</div><div class="dash-card-num">${pars.length}</div><div class="dash-card-sub">전체 대비 ${total?Math.round(pars.length/total*100):0}%</div></div>
-    </div>
-    <div class="bar-section">
-      <div class="bar-section-title">📊 상담 유형별 현황</div>
-      ${['학습','생활','교우관계'].map(t=>`<div class="bar-row"><div class="bar-label">${t}</div><div class="bar-track"><div class="bar-fill ${t}" style="width:${Math.round(typeCounts[t]/maxType*100)}%"></div></div><div class="bar-count">${typeCounts[t]}</div></div>`).join('')}
-      <div class="bar-row"><div class="bar-label">학부모</div><div class="bar-track"><div class="bar-fill 학부모" style="width:${Math.round(pars.length/maxType*100)}%"></div></div><div class="bar-count">${pars.length}</div></div>
-    </div>
-    ${monthEntries.length>1?`<div class="bar-section"><div class="bar-section-title">📅 월별 상담 추이</div>${monthEntries.map(([m,cnt])=>{const[y,mo]=m.split('-');return`<div class="bar-row"><div class="bar-label">${y.slice(2)}년 ${parseInt(mo)}월</div><div class="bar-track"><div class="bar-fill month" style="width:${Math.round(cnt/maxMonth*100)}%"></div></div><div class="bar-count">${cnt}</div></div>`;}).join('')}</div>`:''}
-    <div class="section-title">👦 학생별 상담 이력 요약</div>
-    ${studentEntries.length===0?`<div class="empty"><div class="empty-icon">📭</div><p>데이터가 없어요</p></div>`:`
-      <div style="background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);overflow:hidden;">
-        <table class="summary-table">
-          <thead><tr><th>학생</th><th style="text-align:center;">총</th><th style="text-align:center;">학습</th><th style="text-align:center;">생활</th><th style="text-align:center;">교우</th><th style="text-align:center;">학부모</th></tr></thead>
-          <tbody>${studentEntries.map(([name,c])=>`<tr><td><strong>${emo(name)} ${esc(name)}</strong></td><td style="text-align:center;font-weight:700;">${c.total}</td><td style="text-align:center;">${c.학습||'-'}</td><td style="text-align:center;">${c.생활||'-'}</td><td style="text-align:center;">${c.교우관계||'-'}</td><td style="text-align:center;">${c.학부모||'-'}</td></tr>`).join('')}</tbody>
-        </table>
-      </div>`}
-  `;
+  $('report-content').innerHTML='<div class="dash-grid"><div class="dash-card"><div class="dash-card-label">전체 상담 기록</div><div class="dash-card-num">'+total+'</div><div class="dash-card-sub">일반 '+recs.length+'건 · 학부모 '+pars.length+'건</div></div><div class="dash-card"><div class="dash-card-label">상담 학생 수</div><div class="dash-card-num">'+students+'</div><div class="dash-card-sub">중복 제외</div></div><div class="dash-card"><div class="dash-card-label">가장 많은 유형</div><div class="dash-card-num" style="font-size:22px;">'+(total===0?'-':Object.entries(typeCounts).sort((a,b)=>b[1]-a[1])[0][0])+'</div><div class="dash-card-sub">'+(total===0?'기록 없음':Object.entries(typeCounts).sort((a,b)=>b[1]-a[1])[0][1]+'건')+'</div></div><div class="dash-card"><div class="dash-card-label">학부모 상담</div><div class="dash-card-num">'+pars.length+'</div><div class="dash-card-sub">전체 대비 '+(total?Math.round(pars.length/total*100):0)+'%</div></div></div><div class="bar-section"><div class="bar-section-title">📊 상담 유형별 현황</div>'+['학습','생활','교우관계'].map(t=>'<div class="bar-row"><div class="bar-label">'+t+'</div><div class="bar-track"><div class="bar-fill '+t+'" style="width:'+Math.round(typeCounts[t]/maxType*100)+'%"></div></div><div class="bar-count">'+typeCounts[t]+'</div></div>').join('')+'<div class="bar-row"><div class="bar-label">학부모</div><div class="bar-track"><div class="bar-fill 학부모" style="width:'+Math.round(pars.length/maxType*100)+'%"></div></div><div class="bar-count">'+pars.length+'</div></div></div>'+(monthEntries.length>1?'<div class="bar-section"><div class="bar-section-title">📅 월별 상담 추이</div>'+monthEntries.map(([m,cnt])=>{const[y,mo]=m.split('-');return'<div class="bar-row"><div class="bar-label">'+y.slice(2)+'년 '+parseInt(mo)+'월</div><div class="bar-track"><div class="bar-fill month" style="width:'+Math.round(cnt/maxMonth*100)+'%"></div></div><div class="bar-count">'+cnt+'</div></div>'}).join('')+'</div>':'')+'<div class="section-title">👦 학생별 상담 이력 요약</div>'+(studentEntries.length===0?'<div class="empty"><div class="empty-icon">📭</div><p>데이터가 없어요</p></div>':'<div style="background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);overflow:hidden;"><table class="summary-table"><thead><tr><th>학생</th><th style="text-align:center;">총</th><th style="text-align:center;">학습</th><th style="text-align:center;">생활</th><th style="text-align:center;">교우</th><th style="text-align:center;">학부모</th></tr></thead><tbody>'+studentEntries.map(([name,c])=>'<tr><td><strong>'+emo(name)+' '+esc(name)+'</strong></td><td style="text-align:center;font-weight:700;">'+c.total+'</td><td style="text-align:center;">'+(c.학습||'-')+'</td><td style="text-align:center;">'+(c.생활||'-')+'</td><td style="text-align:center;">'+(c.교우관계||'-')+'</td><td style="text-align:center;">'+(c.학부모||'-')+'</td></tr>').join('')+'</tbody></table></div>');
 };
-
-window.exportCSV = () => {
-  const {recs,pars}=getFilteredData();
+window.exportCSV=()=>{
+  const{recs,pars}=getFilteredData();
   const rows=[['유형','학생','날짜','상담유형/방법','내용','후속조치']];
   recs.forEach(r=>rows.push(['일반상담',r.name,r.date,r.type,r.content,r.followup||'']));
   pars.forEach(p=>rows.push(['학부모상담',p.name,p.date,p.method,p.content,p.followup||'']));
-  const csv=rows.map(r=>r.map(c=>`"${String(c).replace(/"/g,'""')}"`).join(',')).join('\n');
-  download('\uFEFF'+csv,`상담일지_${td()}.csv`,'text/csv;charset=utf-8;');
+  const csv=rows.map(r=>r.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(',')).join('\n');
+  download('\uFEFF'+csv,'상담일지_'+td()+'.csv','text/csv;charset=utf-8;');
   toast('📥 CSV 저장 완료');
 };
-
-window.exportJSON = () => {
-  const {recs,pars}=getFilteredData();
-  download(JSON.stringify({exportedAt:new Date().toISOString(),records:recs,parents:pars},null,2),`상담일지_${td()}.json`,'application/json');
+window.exportJSON=()=>{
+  const{recs,pars}=getFilteredData();
+  download(JSON.stringify({exportedAt:new Date().toISOString(),records:recs,parents:pars},null,2),'상담일지_'+td()+'.json','application/json');
   toast('📦 JSON 저장 완료');
 };
-
-function download(content,filename,type){
-  const blob=new Blob([content],{type});
-  const a=document.createElement('a');
-  a.href=URL.createObjectURL(blob); a.download=filename; a.click();
-  URL.revokeObjectURL(a.href);
-}
-
-// ── Autocomplete ──
-window.acInput = (inputId,listId) => {
-  const val=$(inputId).value.toLowerCase().trim(), list=$(listId);
-  if(!roster.length){list.style.display='none';return;}
-  const filtered=val?roster.filter(s=>s.label.toLowerCase().includes(val)):roster;
-  if(!filtered.length){list.style.display='none';return;}
-  list.innerHTML=filtered.map(s=>`<div class="autocomplete-item" onclick="acSelect('${inputId}','${listId}','${esc(s.label)}')"><span>${emo(s.label)}</span><span>${esc(s.label)}</span><span class="ac-gender">${s.gender||''}</span>${s.watch?'<span class="ac-watch">⭐주목</span>':''}</div>`).join('');
+function download(content,filename,type){const blob=new Blob([content],{type});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=filename;a.click();URL.revokeObjectURL(a.href)}
+window.acInput=(inputId,listId)=>{
+  const val=$(inputId).value.toLowerCase().trim(),list=$(listId);
+  if(!roster.length){list.style.display='none';return}
+  const filtered=val?roster.filter(s=>(s.label||'').toLowerCase().includes(val)):roster;
+  if(!filtered.length){list.style.display='none';return}
+  list.innerHTML=filtered.map(s=>'<div class="autocomplete-item" onclick="acSelect(\''+inputId+'\',\''+listId+'\',\''+esc(s.label||s.num+'')+'\')"><span>'+emo(s.alias||String(s.num))+'</span><span>'+(s.alias||s.num+'번')+'</span><span class="ac-gender">'+(s.gender||'')+'</span>'+(s.watch?'<span class="ac-watch">⭐주목</span>':'')+'</div>').join('');
   list.style.display='block';
 };
-window.acSelect = (inputId,listId,val) => { $(inputId).value=val; $(listId).style.display='none'; };
-
-// ── Render ──
-function render(){ renderStats(); renderAll(); renderParent(); renderStudentGrid(); renderRoster(); }
-
+window.acSelect=(inputId,listId,val)=>{$(inputId).value=val;$(listId).style.display='none'};
+function render(){renderStats();renderAll();renderParent();renderStudentGrid();renderRoster()}
 function renderStats(){
   const total=records.length+parents.length;
   const students=new Set([...records.map(r=>r.name),...parents.map(p=>p.name)]).size;
-  $('statsGrid').innerHTML=`
-    <div class="stat-card"><div class="stat-num">${total}</div><div class="stat-label">전체 기록</div></div>
-    <div class="stat-card"><div class="stat-num">${students}</div><div class="stat-label">상담 학생</div></div>
-    <div class="stat-card"><div class="stat-num">${records.filter(r=>r.type==='학습').length}</div><div class="stat-label">학습</div></div>
-    <div class="stat-card"><div class="stat-num">${records.filter(r=>r.type==='생활').length}</div><div class="stat-label">생활</div></div>
-    <div class="stat-card"><div class="stat-num">${records.filter(r=>r.type==='교우관계').length}</div><div class="stat-label">교우관계</div></div>
-    <div class="stat-card"><div class="stat-num">${parents.length}</div><div class="stat-label">학부모</div></div>`;
+  $('statsGrid').innerHTML='<div class="stat-card"><div class="stat-num">'+total+'</div><div class="stat-label">전체 기록</div></div><div class="stat-card"><div class="stat-num">'+students+'</div><div class="stat-label">상담 학생</div></div><div class="stat-card"><div class="stat-num">'+records.filter(r=>r.type==='학습').length+'</div><div class="stat-label">학습</div></div><div class="stat-card"><div class="stat-num">'+records.filter(r=>r.type==='생활').length+'</div><div class="stat-label">생활</div></div><div class="stat-card"><div class="stat-num">'+records.filter(r=>r.type==='교우관계').length+'</div><div class="stat-label">교우관계</div></div><div class="stat-card"><div class="stat-num">'+parents.length+'</div><div class="stat-label">학부모</div></div>';
 }
-
-window.renderAll = () => {
+window.renderAll=()=>{
   const q=($('searchAll').value||'').toLowerCase().trim();
   const list=records.filter(r=>(filter==='all'||r.type===filter)&&(!q||r.name.includes(q)||r.content.toLowerCase().includes(q)));
   const el=$('allList');
-  if(!list.length){el.innerHTML=`<div class="empty"><div class="empty-icon">📭</div><p>기록이 없어요</p>${!roster.length?`<div class="empty-action"><button class="btn-primary orange" onclick="gotoTab('roster')" style="margin:0 auto;">먼저 학생 명부를 등록해보세요</button></div>`:''}</div>`;return;}
-  el.innerHTML=list.map(r=>`
-    <div class="record-card" onclick="openDetail('${r.id}',false)">
-      <div class="rc-actions">
-        <button class="btn-icon" onclick="event.stopPropagation();openEdit('${r.id}')">✏️</button>
-        <button class="btn-icon del" onclick="event.stopPropagation();delRecord('${r.id}')">🗑️</button>
-      </div>
-      <div class="rc-top"><div><div class="rc-name">${emo(r.name)} ${esc(r.name)}</div><div class="rc-date">${r.date}</div></div><span class="tag tag-${r.type}">${r.type}</span></div>
-      <div class="rc-preview">${esc(r.content)}</div>
-    </div>`).join('');
+  if(!list.length){el.innerHTML='<div class="empty"><div class="empty-icon">📭</div><p>기록이 없어요</p>'+((!roster.length)?'<div class="empty-action"><button class="btn-primary orange" onclick="gotoTab(\'roster\')" style="margin:0 auto;">먼저 학생 명부를 등록해보세요</button></div>':'')+'</div>';return}
+  el.innerHTML=list.map(r=>'<div class="record-card" onclick="openDetail(\''+r.id+'\',false)"><div class="rc-actions"><button class="btn-icon" onclick="event.stopPropagation();openEdit(\''+r.id+'\')">✏️</button><button class="btn-icon del" onclick="event.stopPropagation();delRecord(\''+r.id+'\')">🗑️</button></div><div class="rc-top"><div><div class="rc-name">'+emo(r.name)+' '+esc(r.name)+'</div><div class="rc-date">'+r.date+'</div></div><span class="tag tag-'+r.type+'">'+r.type+'</span></div><div class="rc-preview">'+esc(r.content)+'</div></div>').join('');
 };
-
-window.renderParent = () => {
+window.renderParent=()=>{
   const q=($('searchParent').value||'').toLowerCase().trim();
   const list=parents.filter(p=>!q||p.name.includes(q));
   const el=$('parentList');
-  if(!list.length){el.innerHTML=`<div class="empty"><div class="empty-icon">📭</div><p>학부모 상담 기록이 없어요</p></div>`;return;}
-  el.innerHTML=list.map(p=>`
-    <div class="parent-card" onclick="openDetail('${p.id}',true)">
-      <div class="rc-actions">
-        <button class="btn-icon" onclick="event.stopPropagation();openEditParent('${p.id}')">✏️</button>
-        <button class="btn-icon del" onclick="event.stopPropagation();delParent('${p.id}')">🗑️</button>
-      </div>
-      <div class="rc-top"><div><div class="rc-name">${emo(p.name)} ${esc(p.name)} 학부모</div><div class="rc-date">${p.date}</div></div><span class="method-badge">${esc(p.method)}</span></div>
-      <div class="rc-preview">${esc(p.content)}</div>
-    </div>`).join('');
+  if(!list.length){el.innerHTML='<div class="empty"><div class="empty-icon">📭</div><p>학부모 상담 기록이 없어요</p></div>';return}
+  el.innerHTML=list.map(p=>'<div class="parent-card" onclick="openDetail(\''+p.id+'\',true)"><div class="rc-actions"><button class="btn-icon" onclick="event.stopPropagation();openEditParent(\''+p.id+'\')">✏️</button><button class="btn-icon del" onclick="event.stopPropagation();delParent(\''+p.id+'\')">🗑️</button></div><div class="rc-top"><div><div class="rc-name">'+emo(p.name)+' '+esc(p.name)+' 학부모</div><div class="rc-date">'+p.date+'</div></div><span class="method-badge">'+esc(p.method)+'</span></div><div class="rc-preview">'+esc(p.content)+'</div></div>').join('');
 };
-
 function renderStudentGrid(){
   const names=[...new Set([...records.map(r=>r.name),...parents.map(p=>p.name)])];
   const el=$('studentGrid');
-  if(!names.length){el.innerHTML=`<div class="empty" style="grid-column:1/-1"><div class="empty-icon">📭</div><p>기록이 없어요</p></div>`;return;}
+  if(!names.length){el.innerHTML='<div class="empty" style="grid-column:1/-1"><div class="empty-icon">📭</div><p>기록이 없어요</p></div>';return}
   el.innerHTML=names.map(name=>{
-    const recs=records.filter(r=>r.name===name), pars=parents.filter(p=>p.name===name);
+    const recs=records.filter(r=>r.name===name),pars=parents.filter(p=>p.name===name);
     const types=[...new Set(recs.map(r=>r.type))];
-    return `<div class="student-card" onclick="openStudentDetail('${esc(name)}')">
-      <div class="s-avatar">${emo(name)}</div>
-      <div class="s-name">${esc(name)}</div>
-      <div class="mini-tags">${types.map(t=>`<span class="mini-tag tag-${t}">${t}</span>`).join('')}${pars.length?`<span class="mini-tag tag-학부모">학부모 ${pars.length}</span>`:''}</div>
-      <div style="font-size:11px;color:var(--text-muted);margin-top:6px;">클릭하여 생기부 작성 →</div>
-    </div>`;
+    return'<div class="student-card" onclick="openStudentDetail(\''+esc(name)+'\')"><div class="s-avatar">'+emo(name)+'</div><div class="s-name">'+esc(name)+'</div><div class="mini-tags">'+types.map(t=>'<span class="mini-tag tag-'+t+'">'+t+'</span>').join('')+(pars.length?'<span class="mini-tag tag-학부모">학부모 '+pars.length+'</span>':'')+'</div><div style="font-size:11px;color:var(--text-muted);margin-top:6px;">클릭하여 생기부 작성 →</div></div>';
   }).join('');
 }
-
 function renderRoster(){
   const el=$('rosterGrid');
-  if(!roster.length){el.innerHTML=`<div class="empty" style="grid-column:1/-1"><div class="empty-icon">📋</div><p>등록된 학생이 없어요</p><div class="empty-action"><button class="btn-primary orange" onclick="openRosterModal()" style="margin:0 auto;">+ 학생 추가</button></div></div>`;return;}
-  el.innerHTML=roster.map(s=>`
-    <div class="roster-card${s.watch?' watch':''}">
-      <div class="roster-avatar">${emo(s.label||String(s.num))}</div>
-      <div class="roster-info"><div class="roster-name">${s.alias||String(s.num)+'번'} ${s.watch?'⭐':''}</div><div class="roster-meta">${s.num}번 · ${s.gender||'-'}</div></div>
-      <div class="roster-actions">
-        <button class="btn-icon" onclick="openEditRoster('${s.id}')">✏️</button>
-        <button class="btn-icon del" onclick="delRoster('${s.id}')">🗑️</button>
-      </div>
-    </div>`).join('');
+  if(!roster.length){el.innerHTML='<div class="empty" style="grid-column:1/-1"><div class="empty-icon">📋</div><p>등록된 학생이 없어요</p><div class="empty-action"><button class="btn-primary orange" onclick="openRosterModal()" style="margin:0 auto;">+ 학생 추가</button></div></div>';return}
+  el.innerHTML=roster.map(s=>'<div class="roster-card'+(s.watch?' watch':'')+'"><div class="roster-avatar">'+emo(s.alias||String(s.num))+'</div><div class="roster-info"><div class="roster-name">'+(s.alias||'')+(s.watch?' ⭐':'')+'</div><div class="roster-meta">'+s.num+'번 · '+(s.gender||'-')+'</div></div><div class="roster-actions"><button class="btn-icon" onclick="openEditRoster(\''+s.id+'\')">✏️</button><button class="btn-icon del" onclick="delRoster(\''+s.id+'\')">🗑️</button></div></div>').join('');
 }
-
-// ── Tabs ──
-window.gotoTab = tab => {
+window.gotoTab=tab=>{
   ['all','parent','student','roster','report'].forEach(t=>{
-    $(`tab-${t}`).style.display=t===tab?'block':'none';
-    const nb=$(`nav-${t}`); if(nb) nb.className='nav-item'+(t===tab?' active':'');
-    const mb=$(`mnav-${t}`); if(mb) mb.className='mobile-tab'+(t===tab?' active':'');
+    $('tab-'+t).style.display=t===tab?'block':'none';
+    const nb=$('nav-'+t);if(nb)nb.className='nav-item'+(t===tab?' active':'');
+    const mb=$('mnav-'+t);if(mb)mb.className='mobile-tab'+(t===tab?' active':'');
   });
-  if(tab==='report') renderReport();
-  if(tab==='student'){
-    $('student-grid-view').style.display='block';
-    $('student-detail-view').style.display='none';
-  }
+  if(tab==='report')renderReport();
+  if(tab==='student'){$('student-grid-view').style.display='block';$('student-detail-view').style.display='none'}
 };
-
-window.setFilter = (f) => {
+window.setFilter=f=>{
   filter=f;
-  document.querySelectorAll('#filterPills .pill').forEach(b=>{
-    const bf=b.dataset.f||'all';
-    b.className='pill'+(bf===f||(!b.dataset.f&&f==='all')?` on-${f==='all'?'all':f}`:'');
-  });
+  document.querySelectorAll('#filterPills .pill').forEach(b=>{const bf=b.dataset.f||'all';b.className='pill'+(bf===f||(!b.dataset.f&&f==='all')?' on-'+(f==='all'?'all':f):'')});
   renderAll();
 };
-
-window.pickChip = (el,kind) => {
+window.pickChip=(el,kind)=>{
   const val=el.textContent.trim().replace(/📞\s*|🤝\s*|💬\s*/,'');
-  if(kind==='type'){selType=val;document.querySelectorAll('#typeChips .chip').forEach(b=>b.className=b.textContent.trim()===val?`chip on-${val}`:'chip');}
-  else{selMethod=val;document.querySelectorAll('#methodChips .chip').forEach(b=>{const v=b.textContent.trim().replace(/📞\s*|🤝\s*|💬\s*/,'');b.className=v===val?`chip on-${val}`:'chip';});}
+  if(kind==='type'){selType=val;document.querySelectorAll('#typeChips .chip').forEach(b=>b.className=b.textContent.trim()===val?'chip on-'+val:'chip')}
+  else{selMethod=val;document.querySelectorAll('#methodChips .chip').forEach(b=>{const v=b.textContent.trim().replace(/📞\s*|🤝\s*|💬\s*/,'');b.className=v===val?'chip on-'+val:'chip'})}
 };
-
-window.pickGender = el => {
-  selGender=el.textContent.trim();
-  document.querySelectorAll('#genderChips .chip').forEach(b=>b.className=b.textContent.trim()===selGender?'chip on-남':'chip');
-};
-
-// ── Record CRUD ──
-window.openAddModal = () => {
-  editId=null; selType='';
+window.pickGender=el=>{selGender=el.textContent.trim();document.querySelectorAll('#genderChips .chip').forEach(b=>b.className=b.textContent.trim()===selGender?'chip on-남':'chip')};
+window.openAddModal=()=>{
+  editId=null;selType='';
   $('modal-add-title').textContent='새 상담 기록';
   ['f_name','f_content','f_followup'].forEach(id=>$(id).value='');
   $('f_date').value=td();
   document.querySelectorAll('#typeChips .chip').forEach(b=>b.className='chip');
-  const btn=$('btn-save-record'); btn.textContent='저장'; btn.disabled=false;
-  openModal('modal-add'); setTimeout(()=>$('f_name').focus(),60);
+  const btn=$('btn-save-record');btn.textContent='저장';btn.disabled=false;
+  openModal('modal-add');setTimeout(()=>$('f_name').focus(),60);
 };
-
-window.openEdit = id => {
-  const r=records.find(r=>r.id===id); if(!r) return;
-  editId=id; selType=r.type;
+window.openEdit=id=>{
+  const r=records.find(r=>r.id===id);if(!r)return;
+  editId=id;selType=r.type;
   $('modal-add-title').textContent='상담 기록 수정';
-  $('f_name').value=r.name; $('f_date').value=r.date; $('f_content').value=r.content; $('f_followup').value=r.followup||'';
-  document.querySelectorAll('#typeChips .chip').forEach(b=>b.className=b.textContent.trim()===r.type?`chip on-${r.type}`:'chip');
-  const btn=$('btn-save-record'); btn.textContent='저장'; btn.disabled=false;
+  $('f_name').value=r.name;$('f_date').value=r.date;$('f_content').value=r.content;$('f_followup').value=r.followup||'';
+  document.querySelectorAll('#typeChips .chip').forEach(b=>b.className=b.textContent.trim()===r.type?'chip on-'+r.type:'chip');
+  const btn=$('btn-save-record');btn.textContent='저장';btn.disabled=false;
   openModal('modal-add');
 };
-
-window.saveRecord = async () => {
-  const name=$('f_name').value.trim(), date=$('f_date').value, content=$('f_content').value.trim();
-  if(!name||!date||!content||!selType){toast('⚠️ 학생, 날짜, 유형, 내용을 모두 입력해주세요');return;}
+window.saveRecord=async()=>{
+  const name=$('f_name').value.trim(),date=$('f_date').value,content=$('f_content').value.trim();
+  if(!name||!date||!content||!selType){toast('⚠️ 학생, 날짜, 유형, 내용을 모두 입력해주세요');return}
   const followup=$('f_followup').value.trim();
-  const btn=$('btn-save-record'); btn.disabled=true; btn.textContent='저장 중...';
-  loading(true);
-  let saved=null;
+  const btn=$('btn-save-record');btn.disabled=true;btn.textContent='저장 중...';
+  loading(true);let saved=null;
   try{
     if(editId){
       await updateDoc(doc(rCol(),editId),{name,date,type:selType,content,followup});
-      const i=records.findIndex(r=>r.id===editId); records[i]={...records[i],name,date,type:selType,content,followup}; saved=records[i]; toast('✅ 수정했어요');
-    } else {
-      const ref=await addDoc(rCol(),{name,date,type:selType,content,followup}); saved={id:ref.id,name,date,type:selType,content,followup}; records.unshift(saved); toast('✅ 저장했어요');
+      const i=records.findIndex(r=>r.id===editId);records[i]={...records[i],name,date,type:selType,content,followup};saved=records[i];toast('✅ 수정했어요');
+    }else{
+      const ref=await addDoc(rCol(),{name,date,type:selType,content,followup});saved={id:ref.id,name,date,type:selType,content,followup};records.unshift(saved);toast('✅ 저장했어요');
     }
-    render(); closeModal('modal-add');
-    if(saved){ detailId=saved.id; detailIsParent=false; $('detail-body').innerHTML=buildDetailHtml(saved,false); $('detail-edit-btn').style.background='var(--accent2)'; openModal('modal-detail'); }
-  }catch(e){ toast('저장 실패: '+e.message); btn.disabled=false; btn.textContent='저장'; }
-  finally{ loading(false); }
+    render();closeModal('modal-add');
+    if(saved){detailId=saved.id;detailIsParent=false;$('detail-body').innerHTML=buildDetailHtml(saved,false);$('detail-edit-btn').style.background='var(--accent2)';openModal('modal-detail')}
+  }catch(e){toast('저장 실패: '+e.message);btn.disabled=false;btn.textContent='저장'}
+  finally{loading(false)}
 };
-
-window.delRecord = async id => {
-  if(!confirm('이 상담 기록을 삭제할까요?')) return;
+window.delRecord=async id=>{
+  if(!confirm('이 상담 기록을 삭제할까요?'))return;
   loading(true);
-  try{ await deleteDoc(doc(rCol(),id)); records=records.filter(r=>r.id!==id); render(); }
-  catch(e){toast('삭제 실패: '+e.message);}finally{loading(false);}
+  try{await deleteDoc(doc(rCol(),id));records=records.filter(r=>r.id!==id);render()}
+  catch(e){toast('삭제 실패: '+e.message)}finally{loading(false)}
 };
-
-// ── Parent CRUD ──
-window.openParentModal = () => {
-  editPId=null; selMethod='';
+window.openParentModal=()=>{
+  editPId=null;selMethod='';
   $('modal-parent-title').textContent='학부모 상담 기록';
   ['p_name','p_content','p_followup'].forEach(id=>$(id).value='');
   $('p_date').value=td();
   document.querySelectorAll('#methodChips .chip').forEach(b=>b.className='chip');
-  openModal('modal-parent'); setTimeout(()=>$('p_name').focus(),60);
+  openModal('modal-parent');setTimeout(()=>$('p_name').focus(),60);
 };
-
-window.openEditParent = id => {
-  const p=parents.find(p=>p.id===id); if(!p) return;
-  editPId=id; selMethod=p.method;
+window.openEditParent=id=>{
+  const p=parents.find(p=>p.id===id);if(!p)return;
+  editPId=id;selMethod=p.method;
   $('modal-parent-title').textContent='학부모 상담 수정';
-  $('p_name').value=p.name; $('p_date').value=p.date; $('p_content').value=p.content; $('p_followup').value=p.followup||'';
-  document.querySelectorAll('#methodChips .chip').forEach(b=>{const v=b.textContent.trim().replace(/📞\s*|🤝\s*|💬\s*/,'');b.className=v===p.method?`chip on-${p.method}`:'chip';});
+  $('p_name').value=p.name;$('p_date').value=p.date;$('p_content').value=p.content;$('p_followup').value=p.followup||'';
+  document.querySelectorAll('#methodChips .chip').forEach(b=>{const v=b.textContent.trim().replace(/📞\s*|🤝\s*|💬\s*/,'');b.className=v===p.method?'chip on-'+p.method:'chip'});
   openModal('modal-parent');
 };
-
-window.saveParent = async () => {
-  const name=$('p_name').value.trim(), date=$('p_date').value, content=$('p_content').value.trim();
-  if(!name||!date||!content||!selMethod){toast('⚠️ 학생, 날짜, 방법, 내용을 모두 입력해주세요');return;}
-  const followup=$('p_followup').value.trim();
-  loading(true);
+window.saveParent=async()=>{
+  const name=$('p_name').value.trim(),date=$('p_date').value,content=$('p_content').value.trim();
+  if(!name||!date||!content||!selMethod){toast('⚠️ 학생, 날짜, 방법, 내용을 모두 입력해주세요');return}
+  const followup=$('p_followup').value.trim();loading(true);
   try{
-    if(editPId){await updateDoc(doc(pCol(),editPId),{name,date,method:selMethod,content,followup});const i=parents.findIndex(p=>p.id===editPId);parents[i]={...parents[i],name,date,method:selMethod,content,followup};toast('✅ 수정했어요');}
-    else{const ref=await addDoc(pCol(),{name,date,method:selMethod,content,followup});parents.unshift({id:ref.id,name,date,method:selMethod,content,followup});toast('✅ 저장했어요');}
-    render(); closeModal('modal-parent');
-  }catch(e){toast('저장 실패: '+e.message);}finally{loading(false);}
+    if(editPId){await updateDoc(doc(pCol(),editPId),{name,date,method:selMethod,content,followup});const i=parents.findIndex(p=>p.id===editPId);parents[i]={...parents[i],name,date,method:selMethod,content,followup};toast('✅ 수정했어요')}
+    else{const ref=await addDoc(pCol(),{name,date,method:selMethod,content,followup});parents.unshift({id:ref.id,name,date,method:selMethod,content,followup});toast('✅ 저장했어요')}
+    render();closeModal('modal-parent');
+  }catch(e){toast('저장 실패: '+e.message)}finally{loading(false)}
 };
-
-window.delParent = async id => {
-  if(!confirm('이 학부모 상담 기록을 삭제할까요?')) return;
+window.delParent=async id=>{
+  if(!confirm('이 학부모 상담 기록을 삭제할까요?'))return;
   loading(true);
-  try{await deleteDoc(doc(pCol(),id));parents=parents.filter(p=>p.id!==id);render();}
-  catch(e){toast('삭제 실패: '+e.message);}finally{loading(false);}
+  try{await deleteDoc(doc(pCol(),id));parents=parents.filter(p=>p.id!==id);render()}
+  catch(e){toast('삭제 실패: '+e.message)}finally{loading(false)}
 };
-
-// ── Roster CRUD ──
-window.openRosterModal = () => {
-  editRId=null; selGender='';
+window.openRosterModal=()=>{
+  editRId=null;selGender='';
   $('modal-roster-title').textContent='학생 추가';
-  $('r_num').value=''; $('r_alias').value=''; $('r_watch').checked=false;
+  $('r_num').value='';$('r_alias').value='';$('r_watch').checked=false;
   document.querySelectorAll('#genderChips .chip').forEach(b=>b.className='chip');
-  openModal('modal-roster'); setTimeout(()=>$('r_num').focus(),60);
+  openModal('modal-roster');setTimeout(()=>$('r_num').focus(),60);
 };
-
-window.openEditRoster = id => {
-  const s=roster.find(s=>s.id===id); if(!s) return;
-  editRId=id; selGender=s.gender||'';
+window.openEditRoster=id=>{
+  const s=roster.find(s=>s.id===id);if(!s)return;
+  editRId=id;selGender=s.gender||'';
   $('modal-roster-title').textContent='학생 수정';
-  $('r_num').value=s.num; $('r_alias').value=s.alias||''; $('r_watch').checked=!!s.watch;
+  $('r_num').value=s.num;$('r_alias').value=s.alias||'';$('r_watch').checked=!!s.watch;
   document.querySelectorAll('#genderChips .chip').forEach(b=>b.className=b.textContent.trim()===selGender?'chip on-남':'chip');
   openModal('modal-roster');
 };
-
-window.saveRoster = async () => {
-  const num=$('r_num').value.trim(), alias=$('r_alias').value.trim();
-  if(!num){toast('⚠️ 번호를 입력해주세요');return;}
-  const label=alias?`${num}번 (${alias})`:`${num}번`;
+window.saveRoster=async()=>{
+  const num=$('r_num').value.trim(),alias=$('r_alias').value.trim();
+  if(!num){toast('⚠️ 번호를 입력해주세요');return}
+  const label=alias?num+'번 ('+alias+')':num+'번';
   const watch=$('r_watch').checked;
   const data={num:Number(num),alias,label,gender:selGender,watch};
   loading(true);
   try{
-    if(editRId){await updateDoc(doc(roCol(),editRId),data);const i=roster.findIndex(s=>s.id===editRId);roster[i]={...roster[i],...data};toast('✅ 수정했어요');}
-    else{const ref=await addDoc(roCol(),data);roster.push({id:ref.id,...data});toast('✅ 학생 추가했어요');}
+    if(editRId){await updateDoc(doc(roCol(),editRId),data);const i=roster.findIndex(s=>s.id===editRId);roster[i]={...roster[i],...data};toast('✅ 수정했어요')}
+    else{const ref=await addDoc(roCol(),data);roster.push({id:ref.id,...data});toast('✅ 학생 추가했어요')}
     roster.sort((a,b)=>Number(a.num)-Number(b.num));render();closeModal('modal-roster');
-  }catch(e){toast('저장 실패: '+e.message);}finally{loading(false);}
+  }catch(e){toast('저장 실패: '+e.message)}finally{loading(false)}
 };
-
-window.delRoster = async id => {
-  if(!confirm('이 학생을 명부에서 삭제할까요?')) return;
+window.delRoster=async id=>{
+  if(!confirm('이 학생을 명부에서 삭제할까요?'))return;
   loading(true);
-  try{await deleteDoc(doc(roCol(),id));roster=roster.filter(s=>s.id!==id);render();}
-  catch(e){toast('삭제 실패: '+e.message);}finally{loading(false);}
+  try{await deleteDoc(doc(roCol(),id));roster=roster.filter(s=>s.id!==id);render()}
+  catch(e){toast('삭제 실패: '+e.message)}finally{loading(false)}
 };
-
-// ── Detail ──
-window.openDetail = (id,isParent) => {
-  detailId=id; detailIsParent=isParent;
-  const r=isParent?parents.find(p=>p.id===id):records.find(r=>r.id===id); if(!r) return;
+window.openDetail=(id,isParent)=>{
+  detailId=id;detailIsParent=isParent;
+  const r=isParent?parents.find(p=>p.id===id):records.find(r=>r.id===id);if(!r)return;
   $('detail-body').innerHTML=buildDetailHtml(r,isParent);
   $('detail-edit-btn').style.background=isParent?'var(--accent4)':'var(--accent2)';
   openModal('modal-detail');
 };
-
-window.editFromDetail = () => { closeModal('modal-detail'); if(detailIsParent) openEditParent(detailId); else openEdit(detailId); };
-
-document.querySelectorAll('.overlay').forEach(ov=>ov.addEventListener('click',e=>{if(e.target===ov)ov.classList.remove('open');}));
-document.addEventListener('keydown',e=>{if(e.key==='Escape')['modal-detail','modal-add','modal-parent','modal-roster'].forEach(id=>$(id).classList.remove('open'));});
-document.addEventListener('click',e=>{if(!e.target.closest('.autocomplete-wrap')){['f_ac','p_ac'].forEach(i=>{const el=$(i);if(el)el.style.display='none';});}});
-$('l_pw').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
-$('s_pw').addEventListener('keydown',e=>{if(e.key==='Enter')doSignup();});
+window.editFromDetail=()=>{closeModal('modal-detail');if(detailIsParent)openEditParent(detailId);else openEdit(detailId)};
+document.querySelectorAll('.overlay').forEach(ov=>ov.addEventListener('click',e=>{if(e.target===ov)ov.classList.remove('open')}));
+document.addEventListener('keydown',e=>{if(e.key==='Escape')['modal-detail','modal-add','modal-parent','modal-roster'].forEach(id=>$(id).classList.remove('open'))});
+document.addEventListener('click',e=>{if(!e.target.closest('.autocomplete-wrap')){['f_ac','p_ac'].forEach(i=>{const el=$(i);if(el)el.style.display='none'})}});
+$('l_pw').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin()});
+$('s_pw').addEventListener('keydown',e=>{if(e.key==='Enter')doSignup()});
 </script>
 </body>
 </html>
