@@ -73,6 +73,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 .btn-primary:hover{background:var(--accent-h);transform:translateY(-1px);}
 .btn-primary.blue{background:var(--accent4);} .btn-primary.blue:hover{background:#326876;}
 .btn-primary.orange{background:var(--accent2);} .btn-primary.orange:hover{background:#a86a30;}
+.btn-primary.purple{background:var(--accent3);} .btn-primary.purple:hover{background:#6a4f92;}
 
 /* Controls */
 .controls-bar{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;align-items:center;}
@@ -131,6 +132,44 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 .mini-tags{display:flex;gap:3px;justify-content:center;flex-wrap:wrap;}
 .mini-tag{font-size:10px;padding:2px 6px;border-radius:10px;}
 
+/* ── 리포트 탭 ── */
+.report-toolbar{display:flex;gap:10px;align-items:center;margin-bottom:24px;flex-wrap:wrap;}
+.report-select{padding:9px 14px;border:1.5px solid var(--border);border-radius:9px;font-size:13px;font-family:inherit;background:var(--surface);color:var(--text);outline:none;cursor:pointer;transition:border-color .2s;appearance:none;}
+.report-select:focus{border-color:var(--accent);}
+.report-btn-group{display:flex;gap:8px;margin-left:auto;flex-wrap:wrap;}
+
+/* 대시보드 카드 */
+.dash-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-bottom:28px;}
+.dash-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:18px 20px;}
+.dash-card-label{font-size:11px;color:var(--text-muted);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;}
+.dash-card-num{font-size:32px;font-weight:700;font-family:'Gowun Dodum',sans-serif;color:var(--accent);line-height:1;}
+.dash-card-sub{font-size:12px;color:var(--text-muted);margin-top:4px;}
+
+/* 바 차트 */
+.bar-section{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:16px;}
+.bar-section-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:16px;}
+.bar-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.bar-label{font-size:12px;color:var(--text-muted);width:80px;flex-shrink:0;text-align:right;}
+.bar-track{flex:1;height:10px;background:var(--surface2);border-radius:5px;overflow:hidden;}
+.bar-fill{height:100%;border-radius:5px;transition:width .5s ease;}
+.bar-fill.학습{background:var(--accent);}
+.bar-fill.생활{background:var(--accent2);}
+.bar-fill.교우관계{background:var(--accent3);}
+.bar-fill.학부모{background:var(--accent4);}
+.bar-fill.month{background:var(--accent);}
+.bar-count{font-size:12px;font-weight:700;color:var(--text);width:24px;flex-shrink:0;}
+
+/* 학생별 요약 테이블 */
+.summary-table{width:100%;border-collapse:collapse;font-size:13px;}
+.summary-table th{text-align:left;padding:10px 14px;background:var(--surface2);color:var(--text-muted);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;border-bottom:1.5px solid var(--border);}
+.summary-table td{padding:11px 14px;border-bottom:1px solid var(--border);vertical-align:middle;}
+.summary-table tr:last-child td{border-bottom:none;}
+.summary-table tr:hover td{background:var(--surface2);}
+.type-dots{display:flex;gap:4px;flex-wrap:wrap;}
+.type-dot{font-size:11px;padding:2px 7px;border-radius:10px;}
+
+.section-title{font-family:'Gowun Dodum',sans-serif;font-size:16px;color:var(--text);margin:24px 0 12px;}
+
 /* Modal */
 .overlay{display:none;position:fixed;inset:0;background:rgba(44,36,22,.45);z-index:500;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(3px);}
 .overlay.open{display:flex;}
@@ -158,15 +197,15 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 .detail-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--text-muted);margin-bottom:5px;}
 .detail-value{font-size:14px;line-height:1.75;color:var(--text);margin-bottom:18px;padding:12px 14px;background:var(--bg);border-radius:9px;border:1px solid var(--border);white-space:pre-wrap;}
 
-/* AI Guide Box */
+/* AI Guide */
 .ai-guide-box{background:linear-gradient(135deg,#faf7ff,#f5f8ff);border:1.5px solid #c4b0e8;border-radius:12px;padding:18px;margin-top:4px;}
 .ai-guide-header{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
 .ai-guide-title{font-size:14px;font-weight:700;color:var(--accent3);}
-.ai-guide-desc{font-size:12px;color:var(--text-muted);line-height:1.65;margin-bottom:14px;}
-.ai-prompt-box{background:var(--bg);border:1.5px solid var(--border);border-radius:9px;padding:12px 14px;font-size:12px;color:var(--text-muted);line-height:1.7;margin-bottom:12px;max-height:120px;overflow-y:auto;white-space:pre-wrap;word-break:break-all;font-family:inherit;}
+.ai-guide-desc{font-size:12px;color:var(--text-muted);line-height:1.65;margin-bottom:12px;}
+.ai-prompt-box{background:var(--bg);border:1.5px solid var(--border);border-radius:9px;padding:12px 14px;font-size:12px;color:var(--text-muted);line-height:1.7;margin-bottom:12px;max-height:120px;overflow-y:auto;white-space:pre-wrap;font-family:inherit;}
 .ai-btn-row{display:flex;gap:8px;flex-wrap:wrap;}
 .btn-copy{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;background:var(--accent3);color:white;border:none;border-radius:9px;font-size:13px;font-family:inherit;cursor:pointer;font-weight:600;transition:all .2s;}
-.btn-copy:hover{background:#6a4f92;transform:translateY(-1px);}
+.btn-copy:hover{background:#6a4f92;}
 .btn-open-claude{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;background:var(--surface);color:var(--accent3);border:1.5px solid #c4b0e8;border-radius:9px;font-size:13px;font-family:inherit;cursor:pointer;font-weight:600;transition:all .2s;}
 .btn-open-claude:hover{background:#f3e8ff;}
 .copy-done{background:#4a6840 !important;}
@@ -198,13 +237,22 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 .empty p{font-size:14px;}
 .empty-action{margin-top:14px;}
 
+/* Print */
+@media print {
+  .sidebar, .mobile-nav, .report-toolbar, .no-print { display:none !important; }
+  .main { padding:0; }
+  body { background:white; }
+  .bar-section, .dash-card, .summary-table { break-inside:avoid; }
+}
+
 @media(max-width:700px){
   .sidebar{display:none;}
   .main{padding:16px;}
   .form-row{grid-template-columns:1fr;}
   .stats-grid{grid-template-columns:repeat(3,1fr);}
+  .dash-grid{grid-template-columns:repeat(2,1fr);}
   .mobile-nav{display:flex;gap:2px;background:var(--surface2);border-radius:10px;padding:4px;margin-bottom:18px;}
-  .mobile-tab{flex:1;padding:8px 4px;border:none;background:none;border-radius:7px;font-size:12px;font-family:inherit;cursor:pointer;color:var(--text-muted);font-weight:500;transition:all .18s;}
+  .mobile-tab{flex:1;padding:8px 4px;border:none;background:none;border-radius:7px;font-size:10px;font-family:inherit;cursor:pointer;color:var(--text-muted);font-weight:500;transition:all .18s;}
   .mobile-tab.active{background:var(--surface);color:var(--text);box-shadow:0 1px 4px rgba(0,0,0,.07);}
 }
 @media(min-width:701px){.mobile-nav{display:none;}}
@@ -263,6 +311,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
       <button class="nav-item" id="nav-parent" onclick="gotoTab('parent')"><span class="nav-icon">👨‍👩‍👧</span> 학부모 상담</button>
       <button class="nav-item" id="nav-student" onclick="gotoTab('student')"><span class="nav-icon">👦</span> 학생별 보기</button>
       <button class="nav-item" id="nav-roster" onclick="gotoTab('roster')"><span class="nav-icon">📋</span> 학생 명부</button>
+      <button class="nav-item" id="nav-report" onclick="gotoTab('report')"><span class="nav-icon">📊</span> 리포트</button>
       <div class="sidebar-spacer"></div>
       <div class="sidebar-privacy">⚠️ <strong>개인정보 보호</strong><br>학생 실명 입력 금지<br>번호·이니셜만 사용하세요<br><span style="opacity:.8;">예: 3번, K.M., 홍○○</span></div>
       <div class="sidebar-info">💾 저장 즉시 클라우드에 반영돼요.<br>어느 기기에서 로그인해도 기록이 그대로 있어요.</div>
@@ -274,9 +323,11 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
         <button class="mobile-tab" id="mnav-parent" onclick="gotoTab('parent')">학부모</button>
         <button class="mobile-tab" id="mnav-student" onclick="gotoTab('student')">학생별</button>
         <button class="mobile-tab" id="mnav-roster" onclick="gotoTab('roster')">명부</button>
+        <button class="mobile-tab" id="mnav-report" onclick="gotoTab('report')">리포트</button>
       </div>
       <div class="stats-grid" id="statsGrid"></div>
 
+      <!-- 전체 기록 -->
       <div id="tab-all">
         <div class="page-header">
           <div><div class="page-title">전체 상담 기록</div><div class="page-desc">학습 · 생활 · 교우관계 상담 기록을 관리합니다</div></div>
@@ -294,6 +345,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
         <div class="record-grid" id="allList"></div>
       </div>
 
+      <!-- 학부모 상담 -->
       <div id="tab-parent" style="display:none">
         <div class="page-header">
           <div><div class="page-title">학부모 상담</div><div class="page-desc">전화 · 대면 · 문자 상담을 별도 관리합니다</div></div>
@@ -303,17 +355,42 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
         <div class="record-grid" id="parentList"></div>
       </div>
 
+      <!-- 학생별 보기 -->
       <div id="tab-student" style="display:none">
         <div class="page-header"><div><div class="page-title">학생별 보기</div><div class="page-desc">카드를 클릭하면 해당 학생 기록만 볼 수 있어요</div></div></div>
         <div class="student-grid" id="studentGrid"></div>
       </div>
 
+      <!-- 학생 명부 -->
       <div id="tab-roster" style="display:none">
         <div class="page-header">
           <div><div class="page-title">학생 명부</div><div class="page-desc">번호·이니셜·성별을 등록해두면 상담 기록 작성 시 바로 선택할 수 있어요</div></div>
           <button class="btn-primary orange" onclick="openRosterModal()">+ 학생 추가</button>
         </div>
         <div class="roster-grid" id="rosterGrid"></div>
+      </div>
+
+      <!-- 리포트 -->
+      <div id="tab-report" style="display:none">
+        <div class="page-header">
+          <div><div class="page-title">리포트</div><div class="page-desc">상담 데이터 요약 · 통계 · 내보내기</div></div>
+        </div>
+
+        <div class="report-toolbar no-print">
+          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+            <span style="font-size:13px;color:var(--text-muted);font-weight:600;">기간</span>
+            <select class="report-select" id="report-filter" onchange="renderReport()">
+              <option value="all">전체 기간</option>
+            </select>
+          </div>
+          <div class="report-btn-group">
+            <button class="btn-primary purple" onclick="exportCSV()">📥 CSV 내보내기</button>
+            <button class="btn-primary blue" onclick="exportJSON()">📦 JSON 내보내기</button>
+            <button class="btn-primary" onclick="printReport()" style="background:var(--text-muted);">🖨️ 인쇄</button>
+          </div>
+        </div>
+
+        <div id="report-content"></div>
       </div>
     </main>
   </div>
@@ -442,11 +519,10 @@ const app  = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db   = getFirestore(app);
 
-const EMOJIS = ['🌱','🌟','🐣','🦋','🌈','🍀','✨','🐥','🌻','🎈','🦊','🐬','🌺','🎀','🐸','🍁','🌙','⭐','🦜','🦔'];
+const EMOJIS=['🌱','🌟','🐣','🦋','🌈','🍀','✨','🐥','🌻','🎈','🦊','🐬','🌺','🎀','🐸','🍁','🌙','⭐','🦜','🦔'];
 let currentUser=null, records=[], parents=[], roster=[];
 let filter='all', selType='', selMethod='', selGender='';
-let editId=null, editPId=null, editRId=null;
-let detailId=null, detailIsParent=false;
+let editId=null, editPId=null, editRId=null, detailId=null, detailIsParent=false;
 
 const $   = id => document.getElementById(id);
 const emo = n  => { let c=0; for(let ch of n) c+=ch.charCodeAt(0); return EMOJIS[c%EMOJIS.length]; };
@@ -456,10 +532,7 @@ const esc = s  => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/
 function toast(msg){ const e=$('toast'); e.textContent=msg; e.classList.add('show'); clearTimeout(e._t); e._t=setTimeout(()=>e.classList.remove('show'),2500); }
 function loading(v){ $('loadingBar').style.display=v?'block':'none'; }
 function openModal(id){ $(id).classList.add('open'); }
-window.closeModal = id => {
-  $(id).classList.remove('open');
-  ['f_ac','p_ac'].forEach(i=>{ const el=$(i); if(el) el.style.display='none'; });
-};
+window.closeModal = id => { $(id).classList.remove('open'); ['f_ac','p_ac'].forEach(i=>{ const el=$(i); if(el) el.style.display='none'; }); };
 
 window.switchAuthTab = tab => {
   $('form-login').style.display  = tab==='login'  ? 'block':'none';
@@ -525,7 +598,187 @@ async function loadData(){
   finally{loading(false);}
 }
 
-// ── AI 가이드 프롬프트 생성 ──
+// ── 리포트 ──
+function getFilteredData() {
+  const val = $('report-filter')?.value || 'all';
+  if(val === 'all') return { recs: records, pars: parents };
+  return {
+    recs: records.filter(r => r.date?.slice(0,7) === val),
+    pars: parents.filter(p => p.date?.slice(0,7) === val)
+  };
+}
+
+function buildMonthOptions() {
+  const months = new Set([
+    ...records.map(r => r.date?.slice(0,7)),
+    ...parents.map(p => p.date?.slice(0,7))
+  ].filter(Boolean));
+  const sel = $('report-filter');
+  const cur = sel.value;
+  sel.innerHTML = '<option value="all">전체 기간</option>';
+  [...months].sort().reverse().forEach(m => {
+    const [y, mo] = m.split('-');
+    const opt = document.createElement('option');
+    opt.value = m;
+    opt.textContent = `${y}년 ${parseInt(mo)}월`;
+    sel.appendChild(opt);
+  });
+  sel.value = cur;
+}
+
+window.renderReport = function() {
+  buildMonthOptions();
+  const { recs, pars } = getFilteredData();
+  const total = recs.length + pars.length;
+  const students = new Set([...recs.map(r=>r.name),...pars.map(p=>p.name)]).size;
+
+  const typeCounts = { 학습:0, 생활:0, 교우관계:0 };
+  recs.forEach(r => { if(typeCounts[r.type]!==undefined) typeCounts[r.type]++; });
+  const maxType = Math.max(...Object.values(typeCounts), 1);
+
+  // 월별 집계
+  const monthMap = {};
+  [...recs, ...pars].forEach(r => {
+    const m = r.date?.slice(0,7); if(!m) return;
+    monthMap[m] = (monthMap[m]||0)+1;
+  });
+  const monthEntries = Object.entries(monthMap).sort();
+  const maxMonth = Math.max(...Object.values(monthMap), 1);
+
+  // 학생별 집계
+  const studentMap = {};
+  recs.forEach(r => {
+    if(!studentMap[r.name]) studentMap[r.name]={ 학습:0, 생활:0, 교우관계:0, 학부모:0, total:0 };
+    studentMap[r.name][r.type] = (studentMap[r.name][r.type]||0)+1;
+    studentMap[r.name].total++;
+  });
+  pars.forEach(p => {
+    if(!studentMap[p.name]) studentMap[p.name]={ 학습:0, 생활:0, 교우관계:0, 학부모:0, total:0 };
+    studentMap[p.name].학부모++;
+    studentMap[p.name].total++;
+  });
+  const studentEntries = Object.entries(studentMap).sort((a,b)=>b[1].total-a[1].total);
+
+  $('report-content').innerHTML = `
+    <!-- 대시보드 카드 -->
+    <div class="dash-grid">
+      <div class="dash-card">
+        <div class="dash-card-label">전체 상담 기록</div>
+        <div class="dash-card-num">${total}</div>
+        <div class="dash-card-sub">일반 ${recs.length}건 · 학부모 ${pars.length}건</div>
+      </div>
+      <div class="dash-card">
+        <div class="dash-card-label">상담 학생 수</div>
+        <div class="dash-card-num">${students}</div>
+        <div class="dash-card-sub">중복 제외</div>
+      </div>
+      <div class="dash-card">
+        <div class="dash-card-label">가장 많은 유형</div>
+        <div class="dash-card-num" style="font-size:22px;">${total===0?'-':Object.entries(typeCounts).sort((a,b)=>b[1]-a[1])[0][0]}</div>
+        <div class="dash-card-sub">${total===0?'기록 없음':Object.entries(typeCounts).sort((a,b)=>b[1]-a[1])[0][1]+'건'}</div>
+      </div>
+      <div class="dash-card">
+        <div class="dash-card-label">학부모 상담</div>
+        <div class="dash-card-num">${pars.length}</div>
+        <div class="dash-card-sub">전체 대비 ${total?Math.round(pars.length/total*100):0}%</div>
+      </div>
+    </div>
+
+    <!-- 유형별 차트 -->
+    <div class="bar-section">
+      <div class="bar-section-title">📊 상담 유형별 현황</div>
+      ${['학습','생활','교우관계'].map(t=>`
+        <div class="bar-row">
+          <div class="bar-label">${t}</div>
+          <div class="bar-track"><div class="bar-fill ${t}" style="width:${Math.round(typeCounts[t]/maxType*100)}%"></div></div>
+          <div class="bar-count">${typeCounts[t]}</div>
+        </div>`).join('')}
+      <div class="bar-row">
+        <div class="bar-label">학부모</div>
+        <div class="bar-track"><div class="bar-fill 학부모" style="width:${Math.round(pars.length/maxType*100)}%"></div></div>
+        <div class="bar-count">${pars.length}</div>
+      </div>
+    </div>
+
+    <!-- 월별 차트 -->
+    ${monthEntries.length > 1 ? `
+    <div class="bar-section">
+      <div class="bar-section-title">📅 월별 상담 추이</div>
+      ${monthEntries.map(([m,cnt])=>{
+        const [y,mo]=m.split('-');
+        return `<div class="bar-row">
+          <div class="bar-label">${y.slice(2)}년 ${parseInt(mo)}월</div>
+          <div class="bar-track"><div class="bar-fill month" style="width:${Math.round(cnt/maxMonth*100)}%"></div></div>
+          <div class="bar-count">${cnt}</div>
+        </div>`;
+      }).join('')}
+    </div>` : ''}
+
+    <!-- 학생별 요약 -->
+    <div class="section-title">👦 학생별 상담 이력 요약</div>
+    ${studentEntries.length === 0
+      ? `<div class="empty"><div class="empty-icon">📭</div><p>데이터가 없어요</p></div>`
+      : `<div style="background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);overflow:hidden;">
+          <table class="summary-table">
+            <thead>
+              <tr>
+                <th>학생</th>
+                <th style="text-align:center;">총</th>
+                <th style="text-align:center;">학습</th>
+                <th style="text-align:center;">생활</th>
+                <th style="text-align:center;">교우</th>
+                <th style="text-align:center;">학부모</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${studentEntries.map(([name, c])=>`
+                <tr>
+                  <td><strong>${emo(name)} ${esc(name)}</strong></td>
+                  <td style="text-align:center;font-weight:700;">${c.total}</td>
+                  <td style="text-align:center;">${c.학습||'-'}</td>
+                  <td style="text-align:center;">${c.생활||'-'}</td>
+                  <td style="text-align:center;">${c.교우관계||'-'}</td>
+                  <td style="text-align:center;">${c.학부모||'-'}</td>
+                </tr>`).join('')}
+            </tbody>
+          </table>
+        </div>`}
+  `;
+};
+
+// ── CSV 내보내기 ──
+window.exportCSV = () => {
+  const { recs, pars } = getFilteredData();
+  const rows = [['유형','학생','날짜','상담유형/방법','내용','후속조치']];
+  recs.forEach(r => rows.push(['일반상담', r.name, r.date, r.type, r.content, r.followup||'']));
+  pars.forEach(p => rows.push(['학부모상담', p.name, p.date, p.method, p.content, p.followup||'']));
+  const csv = rows.map(r => r.map(c => `"${String(c).replace(/"/g,'""')}"`).join(',')).join('\n');
+  const bom = '\uFEFF'; // UTF-8 BOM (엑셀 한글 깨짐 방지)
+  download(bom+csv, `상담일지_${td()}.csv`, 'text/csv;charset=utf-8;');
+  toast('📥 CSV 저장 완료');
+};
+
+// ── JSON 내보내기 ──
+window.exportJSON = () => {
+  const { recs, pars } = getFilteredData();
+  const data = { exportedAt: new Date().toISOString(), records: recs, parents: pars };
+  download(JSON.stringify(data, null, 2), `상담일지_${td()}.json`, 'application/json');
+  toast('📦 JSON 저장 완료');
+};
+
+function download(content, filename, type) {
+  const blob = new Blob([content], { type });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = filename;
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+// ── 인쇄 ──
+window.printReport = () => { window.print(); };
+
+// ── AI Guide ──
 function makePrompt(r) {
   return `당신은 대한민국 초등학교 생활지도 전문가입니다. 아래 학생 상담 내용을 바탕으로 담임교사에게 실질적인 지도 가이드를 제시해주세요.
 
@@ -543,14 +796,10 @@ function makePrompt(r) {
 
 function buildAiGuideHtml(r) {
   const prompt = makePrompt(r);
-  const encoded = encodeURIComponent(prompt);
-  const claudeUrl = `https://claude.ai/new?q=${encoded}`;
+  const claudeUrl = `https://claude.ai/new?q=${encodeURIComponent(prompt)}`;
   return `
     <div class="ai-guide-box">
-      <div class="ai-guide-header">
-        <span style="font-size:18px;">🤖</span>
-        <span class="ai-guide-title">AI 지도 가이드</span>
-      </div>
+      <div class="ai-guide-header"><span style="font-size:18px;">🤖</span><span class="ai-guide-title">AI 지도 가이드</span></div>
       <div class="ai-guide-desc">
         아래 프롬프트를 Claude에 붙여넣으면 지도 방향, 금지 행동, 학부모 소통 유의사항, 후속 관찰 포인트를 안내받을 수 있어요.<br>
         <strong style="color:var(--danger);">⚠️ AI 제안은 참고용이며, 최종 판단은 반드시 교사가 하세요.</strong>
@@ -568,31 +817,24 @@ window.copyPrompt = async () => {
   if(!text) return;
   try {
     await navigator.clipboard.writeText(text);
-    const btn = $('btn-copy-prompt');
-    btn.textContent = '✅ 복사됨!';
-    btn.classList.add('copy-done');
-    setTimeout(()=>{ btn.textContent='📋 프롬프트 복사'; btn.classList.remove('copy-done'); }, 2000);
+    const btn=$('btn-copy-prompt'); btn.textContent='✅ 복사됨!'; btn.classList.add('copy-done');
+    setTimeout(()=>{ btn.textContent='📋 프롬프트 복사'; btn.classList.remove('copy-done'); },2000);
   } catch { toast('복사 실패 — 직접 선택해서 복사해주세요'); }
 };
 
 function buildDetailHtml(r, isParent) {
-  const badge = isParent
-    ? `<span class="method-badge">${esc(r.method)}</span>`
-    : `<span class="tag tag-${r.type}">${r.type}</span>`;
+  const badge = isParent ? `<span class="method-badge">${esc(r.method)}</span>` : `<span class="tag tag-${r.type}">${r.type}</span>`;
   return `
     <div class="modal-title">${emo(r.name)} ${esc(r.name)}${isParent?' 학부모':''} 상담</div>
     <div style="display:flex;gap:8px;align-items:center;margin-bottom:20px;">${badge}<span style="font-size:12px;color:var(--text-muted);">${r.date}</span></div>
-    <div class="detail-label">상담 내용</div>
-    <div class="detail-value">${esc(r.content)}</div>
+    <div class="detail-label">상담 내용</div><div class="detail-value">${esc(r.content)}</div>
     ${r.followup?`<div class="detail-label">후속 조치</div><div class="detail-value">${esc(r.followup)}</div>`:''}
-    ${!isParent ? `<hr class="ai-divider">${buildAiGuideHtml(r)}` : ''}
-  `;
+    ${!isParent ? `<hr class="ai-divider">${buildAiGuideHtml(r)}` : ''}`;
 }
 
 // ── Autocomplete ──
 window.acInput = (inputId, listId) => {
-  const val=$(inputId).value.toLowerCase().trim();
-  const list=$(listId);
+  const val=$(inputId).value.toLowerCase().trim(), list=$(listId);
   if(!roster.length){ list.style.display='none'; return; }
   const filtered = val ? roster.filter(s=>s.label.toLowerCase().includes(val)) : roster;
   if(!filtered.length){ list.style.display='none'; return; }
@@ -625,10 +867,7 @@ window.renderAll = () => {
   const q=($('searchAll').value||'').toLowerCase().trim();
   const list=records.filter(r=>(filter==='all'||r.type===filter)&&(!q||r.name.includes(q)||r.content.toLowerCase().includes(q)));
   const el=$('allList');
-  if(!list.length){
-    el.innerHTML=`<div class="empty"><div class="empty-icon">📭</div><p>기록이 없어요</p>${!roster.length?`<div class="empty-action"><button class="btn-primary orange" onclick="gotoTab('roster')" style="margin:0 auto;">먼저 학생 명부를 등록해보세요</button></div>`:''}</div>`;
-    return;
-  }
+  if(!list.length){ el.innerHTML=`<div class="empty"><div class="empty-icon">📭</div><p>기록이 없어요</p>${!roster.length?`<div class="empty-action"><button class="btn-primary orange" onclick="gotoTab('roster')" style="margin:0 auto;">먼저 학생 명부를 등록해보세요</button></div>`:''}</div>`; return; }
   el.innerHTML=list.map(r=>`
     <div class="record-card" onclick="openDetail('${r.id}',false)">
       <div class="rc-actions">
@@ -644,7 +883,7 @@ window.renderParent = () => {
   const q=($('searchParent').value||'').toLowerCase().trim();
   const list=parents.filter(p=>!q||p.name.includes(q));
   const el=$('parentList');
-  if(!list.length){el.innerHTML=`<div class="empty"><div class="empty-icon">📭</div><p>학부모 상담 기록이 없어요</p></div>`;return;}
+  if(!list.length){ el.innerHTML=`<div class="empty"><div class="empty-icon">📭</div><p>학부모 상담 기록이 없어요</p></div>`; return; }
   el.innerHTML=list.map(p=>`
     <div class="parent-card" onclick="openDetail('${p.id}',true)">
       <div class="rc-actions">
@@ -659,7 +898,7 @@ window.renderParent = () => {
 function renderStudentGrid(){
   const names=[...new Set([...records.map(r=>r.name),...parents.map(p=>p.name)])];
   const el=$('studentGrid');
-  if(!names.length){el.innerHTML=`<div class="empty" style="grid-column:1/-1"><div class="empty-icon">📭</div><p>기록이 없어요</p></div>`;return;}
+  if(!names.length){ el.innerHTML=`<div class="empty" style="grid-column:1/-1"><div class="empty-icon">📭</div><p>기록이 없어요</p></div>`; return; }
   el.innerHTML=names.map(name=>{
     const recs=records.filter(r=>r.name===name), pars=parents.filter(p=>p.name===name);
     const types=[...new Set(recs.map(r=>r.type))];
@@ -672,17 +911,11 @@ function renderStudentGrid(){
 
 function renderRoster(){
   const el=$('rosterGrid');
-  if(!roster.length){
-    el.innerHTML=`<div class="empty" style="grid-column:1/-1"><div class="empty-icon">📋</div><p>등록된 학생이 없어요</p><div class="empty-action"><button class="btn-primary orange" onclick="openRosterModal()" style="margin:0 auto;">+ 학생 추가</button></div></div>`;
-    return;
-  }
+  if(!roster.length){ el.innerHTML=`<div class="empty" style="grid-column:1/-1"><div class="empty-icon">📋</div><p>등록된 학생이 없어요</p><div class="empty-action"><button class="btn-primary orange" onclick="openRosterModal()" style="margin:0 auto;">+ 학생 추가</button></div></div>`; return; }
   el.innerHTML=roster.map(s=>`
     <div class="roster-card${s.watch?' watch':''}">
       <div class="roster-avatar">${emo(s.label)}</div>
-      <div class="roster-info">
-        <div class="roster-name">${esc(s.label)} ${s.watch?'⭐':''}</div>
-        <div class="roster-meta">${s.num}번 · ${s.gender||'-'}</div>
-      </div>
+      <div class="roster-info"><div class="roster-name">${esc(s.label)} ${s.watch?'⭐':''}</div><div class="roster-meta">${s.num}번 · ${s.gender||'-'}</div></div>
       <div class="roster-actions">
         <button class="btn-icon" onclick="openEditRoster('${s.id}')">✏️</button>
         <button class="btn-icon del" onclick="delRoster('${s.id}')">🗑️</button>
@@ -690,13 +923,14 @@ function renderRoster(){
     </div>`).join('');
 }
 
-// ── Tabs / Filter / Chips ──
+// ── Tabs ──
 window.gotoTab = tab => {
-  ['all','parent','student','roster'].forEach(t=>{
+  ['all','parent','student','roster','report'].forEach(t=>{
     $(`tab-${t}`).style.display=t===tab?'block':'none';
     const nb=$(`nav-${t}`); if(nb) nb.className='nav-item'+(t===tab?' active':'');
     const mb=$(`mnav-${t}`); if(mb) mb.className='mobile-tab'+(t===tab?' active':'');
   });
+  if(tab==='report') renderReport();
 };
 
 window.setFilter = (f) => {
@@ -750,27 +984,14 @@ window.saveRecord = async () => {
   try{
     if(editId){
       await updateDoc(doc(rCol(),editId),{name,date,type:selType,content,followup});
-      const i=records.findIndex(r=>r.id===editId);
-      records[i]={...records[i],name,date,type:selType,content,followup};
-      saved=records[i]; toast('✅ 수정했어요');
+      const i=records.findIndex(r=>r.id===editId); records[i]={...records[i],name,date,type:selType,content,followup}; saved=records[i]; toast('✅ 수정했어요');
     } else {
-      const ref=await addDoc(rCol(),{name,date,type:selType,content,followup});
-      saved={id:ref.id,name,date,type:selType,content,followup};
-      records.unshift(saved); toast('✅ 저장했어요');
+      const ref=await addDoc(rCol(),{name,date,type:selType,content,followup}); saved={id:ref.id,name,date,type:selType,content,followup}; records.unshift(saved); toast('✅ 저장했어요');
     }
-    render();
-    closeModal('modal-add');
-    // 저장 후 상세보기 자동 열기
-    if(saved){
-      detailId=saved.id; detailIsParent=false;
-      $('detail-body').innerHTML=buildDetailHtml(saved,false);
-      $('detail-edit-btn').style.background='var(--accent2)';
-      openModal('modal-detail');
-    }
-  }catch(e){
-    toast('저장 실패: '+e.message);
-    btn.disabled=false; btn.textContent='저장';
-  }finally{loading(false);}
+    render(); closeModal('modal-add');
+    if(saved){ detailId=saved.id; detailIsParent=false; $('detail-body').innerHTML=buildDetailHtml(saved,false); $('detail-edit-btn').style.background='var(--accent2)'; openModal('modal-detail'); }
+  }catch(e){ toast('저장 실패: '+e.message); btn.disabled=false; btn.textContent='저장'; }
+  finally{ loading(false); }
 };
 
 window.delRecord = async id => {
@@ -846,8 +1067,7 @@ window.saveRoster = async () => {
   try{
     if(editRId){ await updateDoc(doc(roCol(),editRId),data); const i=roster.findIndex(s=>s.id===editRId); roster[i]={...roster[i],...data}; toast('✅ 수정했어요'); }
     else{ const ref=await addDoc(roCol(),data); roster.push({id:ref.id,...data}); toast('✅ 학생 추가했어요'); }
-    roster.sort((a,b)=>Number(a.num)-Number(b.num));
-    render(); closeModal('modal-roster');
+    roster.sort((a,b)=>Number(a.num)-Number(b.num)); render(); closeModal('modal-roster');
   }catch(e){toast('저장 실패: '+e.message);}finally{loading(false);}
 };
 
