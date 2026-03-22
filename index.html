@@ -995,7 +995,7 @@ function renderRoster(){
   el.innerHTML=roster.map(s=>`
     <div class="roster-card${s.watch?' watch':''}">
       <div class="roster-avatar">${emo(s.label||String(s.num))}</div>
-      <div class="roster-info"><div class="roster-name">${s.num}번 ${s.alias?'('+esc(s.alias)+')':''} ${s.watch?'⭐':''}</div><div class="roster-meta">${s.gender||'-'}</div></div>
+      <div class="roster-info"><div class="roster-name">${esc(s.alias||String(s.num)+'번')} ${s.watch?'⭐':''}</div><div class="roster-meta">${s.num}번 · ${s.gender||'-'}</div></div>
       <div class="roster-actions">
         <button class="btn-icon" onclick="openEditRoster('${s.id}')">✏️</button>
         <button class="btn-icon del" onclick="delRoster('${s.id}')">🗑️</button>
