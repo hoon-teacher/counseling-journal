@@ -311,6 +311,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
       <div class="user-chip">
         <div class="user-email" id="userEmail"></div>
         <button class="btn-logout" onclick="doLogout()">로그아웃</button>
+        <button class="btn-logout" onclick="doWithdraw()" style="margin-top:5px;color:var(--danger);border-color:#fcc;">회원탈퇴 및 데이터 삭제</button>
       </div>
       <div class="nav-label">메뉴</div>
       <button class="nav-item active" id="nav-all" onclick="gotoTab('all')"><span class="nav-icon">📄</span> 전체 기록</button>
@@ -599,6 +600,34 @@ window.doSignup = async () => {
 };
 
 window.doLogout = async () => { if(!confirm('로그아웃 할까요?')) return; await signOut(auth); };
+window.doWithdraw = async () => {
+  const confirm1 = confirm('탈퇴하면 모든 상담 기록과 학생 명부가 영구 삭제됩니다.\n정말 탈퇴하시겠어요?');
+  if(!confirm1) return;
+  const confirm2 = confirm('⚠️ 이 작업은 되돌릴 수 없습니다.\n삭제를 최종 확인하시겠어요?');
+  if(!confirm2) return;
+
+  loading(true);
+  try {
+    const deleteAll = async (col) => {
+      const snap = await getDocs(col);
+      await Promise.all(snap.docs.map(d => deleteDoc(d.ref)));
+    };
+    await deleteAll(rCol());
+    await deleteAll(pCol());
+    await deleteAll(roCol());
+    await currentUser.delete();
+    toast('✅ 탈퇴 완료. 모든 데이터가 삭제되었습니다.');
+  } catch(e) {
+    if(e.code === 'auth/requires-recent-login') {
+      toast('⚠️ 보안을 위해 로그아웃 후 다시 로그인하고 시도해주세요');
+      await signOut(auth);
+    } else {
+      toast('오류: ' + e.message);
+    }
+  } finally {
+    loading(false);
+  }
+};
 
 const rCol  = () => collection(db,'users',currentUser.uid,'records');
 const pCol  = () => collection(db,'users',currentUser.uid,'parents');
