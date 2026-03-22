@@ -112,13 +112,13 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 .method-badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;padding:3px 10px;border-radius:20px;background:#e2f0f5;color:var(--accent4);font-weight:600;}
 
 /* Roster */
-.roster-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;}
+.roster-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;}
 .roster-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:14px 16px;display:flex;align-items:center;gap:12px;transition:all .18s;}
+.roster-name{font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:120px;}
 .roster-card:hover{border-color:var(--accent);box-shadow:var(--shadow);}
 .roster-card.watch{border-color:#ffb74d;background:#fffbf5;}
 .roster-avatar{width:38px;height:38px;border-radius:50%;background:var(--surface2);font-size:18px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .roster-info{flex:1;min-width:0;}
-.roster-name{font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .roster-meta{font-size:11px;color:var(--text-muted);margin-top:1px;}
 .roster-actions{display:flex;gap:3px;flex-shrink:0;}
 
