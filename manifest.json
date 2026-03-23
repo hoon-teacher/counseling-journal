@@ -1,0 +1,16 @@
+{
+  "name": "상담일지",
+  "short_name": "상담일지",
+  "description": "학급 상담 기록 관리 앱",
+  "start_url": "/counseling-journal/",
+  "display": "standalone",
+  "background_color": "#f5f0eb",
+  "theme_color": "#5c7a4e",
+  "icons": [
+    {
+      "src": "https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Clipboard/3D/clipboard_3d.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    }
+  ]
+}
