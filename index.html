@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>📋 상담일지</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#5c7a4e">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Gowun+Dodum&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#f5f0eb;--surface:#fffdf9;--surface2:#f0ebe3;--border:#ddd5c8;--text:#2c2416;--text-muted:#8a7d6e;--accent:#5c7a4e;--accent-h:#4a6840;--accent2:#c17f3e;--accent3:#7b5ea7;--accent4:#3e7c8a;--danger:#c0392b;--shadow:0 2px 14px rgba(0,0,0,.09);--shadow-lg:0 8px 40px rgba(0,0,0,.14);--radius:12px}
@@ -812,6 +814,11 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')['modal-detail','mod
 document.addEventListener('click',e=>{if(!e.target.closest('.autocomplete-wrap')){['f_ac','p_ac'].forEach(i=>{const el=$(i);if(el)el.style.display='none'})}});
 $('l_pw').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin()});
 $('s_pw').addEventListener('keydown',e=>{if(e.key==='Enter')doSignup()});
+</script>
+<script>
+  if('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js');
+  }
 </script>
 </body>
 </html>
