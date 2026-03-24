@@ -856,7 +856,7 @@ window.acInput = (inputId,listId) => {
   if(!roster.length){list.style.display='none';return;}
   const filtered=val?roster.filter(s=>s.label.toLowerCase().includes(val)||s.alias?.toLowerCase().includes(val)):roster;
   if(!filtered.length){list.style.display='none';return;}
-  list.innerHTML=filtered.map(s=>`<div class="autocomplete-item" onclick="acSelect('${inputId}','${listId}','${esc(s.alias||s.label)}')"><span>${emo(s.alias||s.label)}</span><span>${s.alias||s.label}</span><span class="ac-gender">${s.num}번 ${s.gender||''}</span>${s.watch?'<span class="ac-watch">⭐주목</span>':''}</div>`).join('');
+  list.innerHTML=filtered.map(s=>`<div class="autocomplete-item" onclick="acSelect('${inputId}','${listId}','${esc(s.label)}')"><span>${emo(s.label)}</span><span>${s.label}</span><span class="ac-gender">${s.gender||''}</span>${s.watch?'<span class="ac-watch">⭐주목</span>':''}</div>`).join('');
   list.style.display='block';
 };
 
