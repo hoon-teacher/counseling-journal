@@ -5,381 +5,1582 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>📋 상담일지</title>
 <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#5c7a4e">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Gowun+Dodum&display=swap" rel="stylesheet">
+<meta name="theme-color" content="#1e293b">
+<link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg:#f5f0eb; --surface:#fffdf9; --surface2:#f0ebe3; --border:#ddd5c8;
-  --text:#2c2416; --text-muted:#8a7d6e;
-  --accent:#5c7a4e; --accent-h:#4a6840;
-  --accent2:#c17f3e; --accent3:#7b5ea7; --accent4:#3e7c8a;
-  --danger:#c0392b;
-  --shadow:0 2px 14px rgba(0,0,0,.09); --shadow-lg:0 8px 40px rgba(0,0,0,.14);
-  --radius:12px;
+@font-face {
+  font-family: 'Pretendard';
+  src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+  font-weight: 400; font-style: normal;
 }
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line-height:1.6;}
+@font-face {
+  font-family: 'Pretendard';
+  src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Medium.woff') format('woff');
+  font-weight: 500; font-style: normal;
+}
+@font-face {
+  font-family: 'Pretendard';
+  src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-SemiBold.woff') format('woff');
+  font-weight: 600; font-style: normal;
+}
+@font-face {
+  font-family: 'Pretendard';
+  src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Bold.woff') format('woff');
+  font-weight: 700; font-style: normal;
+}
 
-#loadingBar{display:none;position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));z-index:9999;animation:slide 1s infinite linear;}
-@keyframes slide{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+:root {
+  /* Slate-based professional palette */
+  --bg: #f1f5f9;
+  --surface: #ffffff;
+  --surface2: #f8fafc;
+  --surface3: #e2e8f0;
+  --border: #e2e8f0;
+  --border-light: #f1f5f9;
+  --text: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #94a3b8;
 
-/* Auth */
-#authScreen{display:flex;min-height:100vh;align-items:center;justify-content:center;padding:20px;}
-.auth-box{background:var(--surface);border:1.5px solid var(--border);border-radius:20px;padding:36px 32px;width:100%;max-width:420px;box-shadow:var(--shadow-lg);}
-.auth-logo{font-family:'Gowun Dodum',sans-serif;font-size:26px;color:var(--accent);text-align:center;margin-bottom:4px;}
-.auth-sub{text-align:center;font-size:12px;color:var(--text-muted);margin-bottom:24px;line-height:1.7;}
-.auth-tabs{display:flex;gap:4px;background:var(--surface2);border-radius:10px;padding:4px;margin-bottom:22px;}
-.auth-tab{flex:1;padding:8px;border:none;background:none;border-radius:7px;font-size:13px;font-family:inherit;cursor:pointer;color:var(--text-muted);font-weight:500;transition:all .18s;}
-.auth-tab.active{background:var(--surface);color:var(--text);box-shadow:0 1px 4px rgba(0,0,0,.07);}
-.auth-label{display:block;font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:6px;}
-.auth-input{width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:9px;font-size:14px;font-family:inherit;background:var(--bg);color:var(--text);outline:none;transition:border-color .2s;margin-bottom:12px;}
-.auth-input:focus{border-color:var(--accent);background:var(--surface);}
-.auth-btn{width:100%;padding:11px;border:none;border-radius:9px;font-size:14px;font-family:inherit;cursor:pointer;font-weight:700;transition:all .2s;margin-top:4px;background:var(--accent);color:white;}
-.auth-btn:hover{background:var(--accent-h);}
-.auth-btn.ghost{background:none;color:var(--accent);border:1.5px solid var(--border);margin-top:8px;}
-.auth-btn.ghost:hover{background:var(--surface2);}
-.auth-error{font-size:12px;margin-top:8px;text-align:center;min-height:18px;color:var(--danger);}
-.auth-notice{font-size:11px;color:var(--text-muted);margin-top:16px;line-height:1.8;padding:14px;background:var(--surface2);border-radius:10px;border-left:3px solid var(--accent2);}
-.auth-notice strong{color:var(--text);} .auth-notice .warn{color:var(--danger);font-weight:700;}
+  /* Accent colors — modern & professional */
+  --accent: #2563eb;
+  --accent-hover: #1d4ed8;
+  --accent-light: #eff6ff;
+  --accent-muted: #93c5fd;
 
-/* App */
-#appScreen{display:none;min-height:100vh;}
-.layout{display:flex;min-height:100vh;width:100%;}
-.sidebar{width:260px;min-width:260px;flex-shrink:0;background:var(--surface);border-right:1.5px solid var(--border);display:flex;flex-direction:column;padding:28px 18px 20px;position:sticky;top:0;height:100vh;overflow-y:auto;}
-.sidebar-logo{font-family:'Gowun Dodum',sans-serif;font-size:18px;color:var(--accent);margin-bottom:2px;text-align:center;}
-.sidebar-year{font-size:11px;color:var(--text-muted);margin-bottom:18px;text-align:center;}
-.user-chip{background:var(--surface2);border-radius:9px;padding:10px 12px;margin-bottom:20px;text-align:center;}
-.user-email{font-size:11px;color:var(--text-muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-bottom:6px;text-align:center;}
-.btn-logout{font-size:11px;color:var(--text-muted);background:none;border:1px solid var(--border);cursor:pointer;padding:4px 10px;border-radius:6px;font-family:inherit;width:100%;transition:all .18s;}
-.btn-logout:hover{background:var(--border);color:var(--text);}
-.btn-withdraw{font-size:11px;color:var(--danger);background:none;border:1px solid #fcc;cursor:pointer;padding:4px 10px;border-radius:6px;font-family:inherit;width:100%;transition:all .18s;margin-top:5px;}
-.btn-withdraw:hover{background:#fff5f5;}
-.nav-label{font-size:10px;font-weight:700;letter-spacing:1px;color:var(--text-muted);text-transform:uppercase;margin:16px 0 6px 4px;}
-.nav-item{display:flex;align-items:center;gap:9px;padding:9px 12px;border-radius:9px;cursor:pointer;font-size:13px;font-weight:500;color:var(--text-muted);transition:all .18s;border:none;background:none;width:100%;text-align:left;font-family:inherit;}
-.nav-item:hover{background:var(--surface2);color:var(--text);}
-.nav-item.active{background:#e8f2e5;color:var(--accent);font-weight:700;}
-.nav-icon{font-size:15px;width:20px;text-align:center;}
-.sidebar-spacer{flex:1;}
-.sidebar-privacy{font-size:11px;color:var(--danger);padding:10px 12px;background:#fff5f5;border-radius:8px;line-height:1.7;border:1px solid #fcc;}
-.sidebar-contact{font-size:11px;color:var(--text-muted);padding:10px 12px;background:var(--surface2);border-radius:8px;line-height:1.7;margin-top:8px;border-left:3px solid var(--accent2);}
-.main{flex:1;min-width:0;padding:32px 40px;}
+  --green: #16a34a;
+  --green-light: #f0fdf4;
+  --green-border: #bbf7d0;
 
-/* Page Header */
-.page-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px;flex-wrap:wrap;gap:12px;}
-.page-title{font-family:'Gowun Dodum',sans-serif;font-size:22px;}
-.page-desc{font-size:12px;color:var(--text-muted);margin-top:3px;}
-.btn-primary{display:inline-flex;align-items:center;gap:6px;background:var(--accent);color:white;border:none;padding:10px 20px;border-radius:9px;font-size:13px;font-family:inherit;cursor:pointer;font-weight:600;transition:all .2s;}
-.btn-primary:hover{background:var(--accent-h);transform:translateY(-1px);}
-.btn-primary.blue{background:var(--accent4);} .btn-primary.blue:hover{background:#326876;}
-.btn-primary.orange{background:var(--accent2);} .btn-primary.orange:hover{background:#a86a30;}
-.btn-primary.purple{background:var(--accent3);} .btn-primary.purple:hover{background:#6a4f92;}
-.btn-primary.pink{background:#c4547a;} .btn-primary.pink:hover{background:#a84466;}
+  --amber: #d97706;
+  --amber-light: #fffbeb;
+  --amber-border: #fde68a;
 
-/* Controls */
-.controls-bar{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;align-items:center;}
-.search-wrap{position:relative;flex:1;min-width:200px;}
-.search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:14px;color:var(--text-muted);pointer-events:none;}
-.search-input{width:100%;padding:10px 12px 10px 36px;border:1.5px solid var(--border);border-radius:9px;font-size:13px;font-family:inherit;background:var(--surface);color:var(--text);outline:none;transition:border-color .2s;}
-.search-input:focus{border-color:var(--accent);}
-.filter-pills{display:flex;gap:6px;flex-wrap:wrap;}
-.pill{padding:7px 14px;border-radius:20px;border:1.5px solid var(--border);background:var(--surface);font-size:12px;font-family:inherit;cursor:pointer;transition:all .18s;color:var(--text-muted);font-weight:500;}
-.pill.on-all{background:var(--surface2);color:var(--text);font-weight:700;border-color:var(--text-muted);}
-.pill.on-학습{background:#e8f4e8;border-color:var(--accent);color:var(--accent);font-weight:700;}
-.pill.on-생활{background:#fef3e2;border-color:var(--accent2);color:var(--accent2);font-weight:700;}
-.pill.on-교우관계{background:#ede8f8;border-color:var(--accent3);color:var(--accent3);font-weight:700;}
+  --purple: #7c3aed;
+  --purple-light: #f5f3ff;
+  --purple-border: #ddd6fe;
 
-/* Cards */
-.record-grid{display:flex;flex-direction:column;gap:10px;}
-.record-card,.parent-card{background:var(--surface);border-radius:var(--radius);padding:16px 18px;cursor:pointer;transition:all .18s;position:relative;animation:fadeUp .2s ease;}
-.record-card{border:1.5px solid var(--border);}
-.parent-card{border:1.5px solid #b8d8e0;}
-@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
-.record-card:hover{border-color:var(--accent);box-shadow:var(--shadow);transform:translateY(-1px);}
-.parent-card:hover{border-color:var(--accent4);box-shadow:var(--shadow);transform:translateY(-1px);}
-.rc-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;}
-.rc-name{font-size:15px;font-weight:700;}
-.rc-date{font-size:11px;color:var(--text-muted);margin-top:2px;}
-.rc-preview{font-size:13px;color:var(--text-muted);line-height:1.55;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;}
-.rc-actions{position:absolute;top:12px;right:12px;display:flex;gap:4px;opacity:0;transition:opacity .15s;}
-.record-card:hover .rc-actions,.parent-card:hover .rc-actions{opacity:1;}
-.btn-icon{width:28px;height:28px;border:1.5px solid var(--border);background:var(--surface);border-radius:7px;cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;transition:all .15s;}
-.btn-icon:hover{background:var(--surface2);}
-.btn-icon.del:hover{background:#fee;border-color:#f99;}
-.tag{font-size:11px;padding:3px 10px;border-radius:20px;font-weight:600;white-space:nowrap;}
-.tag-학습{background:#e8f4e8;color:var(--accent);}
-.tag-생활{background:#fef3e2;color:var(--accent2);}
-.tag-교우관계{background:#ede8f8;color:var(--accent3);}
-.tag-학부모{background:#e2f0f5;color:var(--accent4);}
-.method-badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;padding:3px 10px;border-radius:20px;background:#e2f0f5;color:var(--accent4);font-weight:600;}
+  --teal: #0891b2;
+  --teal-light: #ecfeff;
+  --teal-border: #a5f3fc;
 
-/* 학생 태그 */
-.name-tag{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;background:#e8f2e5;border:1.5px solid var(--accent);border-radius:20px;font-size:12px;font-weight:600;color:var(--accent);}
-.name-tag button{background:none;border:none;cursor:pointer;font-size:14px;color:var(--accent);padding:0;line-height:1;}
-.name-tag button:hover{color:var(--danger);}
+  --rose: #e11d48;
+  --rose-light: #fff1f2;
+  --rose-border: #fecdd3;
 
-/* Roster */
-.roster-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;}
-.roster-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:14px 16px;display:flex;align-items:center;gap:12px;transition:all .18s;}
-.roster-card:hover{border-color:var(--accent);box-shadow:var(--shadow);}
-.roster-card.watch{border-color:#ffb74d;background:#fffbf5;}
-.roster-avatar{width:38px;height:38px;border-radius:50%;background:var(--surface2);font-size:18px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.roster-info{flex:1;min-width:0;}
-.roster-name{font-size:13px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-.roster-meta{font-size:11px;color:var(--text-muted);margin-top:1px;}
-.roster-actions{display:flex;gap:3px;flex-shrink:0;}
+  --pink: #db2777;
 
-/* Student Grid */
-.student-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;}
-.student-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:18px 14px;text-align:center;cursor:pointer;transition:all .18s;}
-.student-card:hover{border-color:var(--accent);box-shadow:var(--shadow);transform:translateY(-2px);}
-.s-avatar{width:48px;height:48px;border-radius:50%;background:var(--surface2);margin:0 auto 10px;font-size:22px;display:flex;align-items:center;justify-content:center;}
-.s-name{font-size:14px;font-weight:700;margin-bottom:8px;}
-.mini-tags{display:flex;gap:3px;justify-content:center;flex-wrap:wrap;}
-.mini-tag{font-size:10px;padding:2px 6px;border-radius:10px;}
+  --danger: #dc2626;
+  --danger-light: #fef2f2;
 
-/* Student Detail */
-.student-detail-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:12px;}
-.student-history-item{padding:11px 0;border-bottom:1px solid var(--border);font-size:13px;}
-.student-history-item:last-child{border-bottom:none;}
+  /* Shadows */
+  --shadow-xs: 0 1px 2px rgba(0,0,0,.05);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,.07), 0 1px 2px rgba(0,0,0,.04);
+  --shadow-md: 0 4px 6px -1px rgba(0,0,0,.07), 0 2px 4px -2px rgba(0,0,0,.05);
+  --shadow-lg: 0 10px 15px -3px rgba(0,0,0,.08), 0 4px 6px -4px rgba(0,0,0,.04);
+  --shadow-xl: 0 20px 25px -5px rgba(0,0,0,.08), 0 8px 10px -6px rgba(0,0,0,.04);
 
-/* 생기부 */
-.segibu-box{background:linear-gradient(135deg,#f0f7ff,#f5fff5);border:1.5px solid #a8c8e8;border-radius:14px;padding:22px;margin-top:4px;}
-.segibu-header{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
-.segibu-title{font-size:15px;font-weight:700;color:var(--accent4);font-family:'Gowun Dodum',sans-serif;}
-.segibu-notice{font-size:11px;color:var(--text-muted);background:rgba(255,255,255,.8);border-radius:8px;padding:9px 12px;margin-bottom:18px;line-height:1.7;border:1px solid #c8dff0;}
-.segibu-section{margin-bottom:18px;}
-.segibu-section-label{font-size:11px;font-weight:700;color:var(--accent4);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;}
-.segibu-textarea{width:100%;min-height:90px;padding:13px 15px;border:1.5px solid #c8dff0;border-radius:9px;font-size:13px;font-family:inherit;background:white;color:var(--text);outline:none;resize:vertical;line-height:1.8;transition:border-color .2s;}
-.segibu-textarea:focus{border-color:var(--accent4);}
-.segibu-char{font-size:11px;color:var(--text-muted);text-align:right;margin-top:4px;}
-.segibu-copy-btn{margin-top:7px;padding:7px 16px;background:var(--accent4);color:white;border:none;border-radius:7px;font-size:12px;font-family:inherit;cursor:pointer;font-weight:600;transition:all .2s;}
-.segibu-copy-btn:hover{background:#326876;}
-.segibu-copy-btn.done{background:var(--accent);}
-.segibu-divider{border:none;border-top:1.5px solid #c8dff0;margin:16px 0;}
-.segibu-prompt-box{font-size:12px;color:var(--text-muted);padding:10px 12px;background:var(--bg);border-radius:8px;border:1px solid var(--border);max-height:100px;overflow-y:auto;white-space:pre-wrap;margin-bottom:10px;font-family:inherit;}
-.segibu-open-btn{display:inline-flex;align-items:center;gap:5px;padding:8px 16px;background:var(--surface);color:var(--accent4);border:1.5px solid #a8c8e8;border-radius:8px;font-size:12px;font-family:inherit;cursor:pointer;font-weight:600;}
-.segibu-open-btn:hover{background:#e8f4ff;}
+  --radius: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 18px;
 
-/* ── 대시보드 ── */
-.dash-summary-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin-bottom:24px;}
-.dash-summary-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:18px 16px;text-align:center;transition:all .18s;}
-.dash-summary-card:hover{box-shadow:var(--shadow);transform:translateY(-1px);}
-.dash-summary-card.accent{border-color:var(--accent);background:#f4faf2;}
-.dash-summary-card.accent2{border-color:var(--accent2);background:#fdf6ee;}
-.dash-summary-card.accent3{border-color:var(--accent3);background:#f6f2fc;}
-.dash-summary-card.accent4{border-color:var(--accent4);background:#f0f7f9;}
-.dash-num{font-size:34px;font-weight:700;font-family:'Gowun Dodum',sans-serif;line-height:1;}
-.dash-label{font-size:11px;color:var(--text-muted);margin-top:6px;font-weight:600;}
-.dash-sub{font-size:11px;color:var(--text-muted);margin-top:3px;}
-.dash-section{margin-bottom:24px;}
-.dash-section-title{font-family:'Gowun Dodum',sans-serif;font-size:16px;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+  /* Sidebar */
+  --sidebar-bg: #0f172a;
+  --sidebar-text: #cbd5e1;
+  --sidebar-text-muted: #64748b;
+  --sidebar-hover: #1e293b;
+  --sidebar-active: rgba(37,99,235,.15);
+  --sidebar-active-text: #60a5fa;
+  --sidebar-border: #1e293b;
+}
 
-/* 유형 비율 */
-.type-ratio-bar{height:28px;border-radius:10px;overflow:hidden;display:flex;margin-bottom:10px;}
-.type-ratio-seg{height:100%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:white;transition:width .5s;overflow:hidden;white-space:nowrap;}
-.type-ratio-legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;}
-.type-ratio-dot{width:10px;height:10px;border-radius:50%;display:inline-block;margin-right:4px;}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-/* 최근 상담 목록 (대시보드용) */
-.dash-recent-item{display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--surface);border:1.5px solid var(--border);border-radius:10px;margin-bottom:8px;cursor:pointer;transition:all .18s;}
-.dash-recent-item:hover{border-color:var(--accent);transform:translateX(3px);}
-.dash-recent-avatar{width:34px;height:34px;border-radius:50%;background:var(--surface2);font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.dash-recent-info{flex:1;min-width:0;}
-.dash-recent-name{font-size:13px;font-weight:700;}
-.dash-recent-preview{font-size:12px;color:var(--text-muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-.dash-recent-date{font-size:11px;color:var(--text-muted);flex-shrink:0;}
+body {
+  font-family: 'Pretendard', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  font-size: 14px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
 
-/* 주목 학생 */
-.dash-watch-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;}
-.dash-watch-card{background:#fffbf5;border:1.5px solid #ffb74d;border-radius:var(--radius);padding:14px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:all .18s;}
-.dash-watch-card:hover{box-shadow:var(--shadow);transform:translateY(-1px);}
+/* Loading Bar */
+#loadingBar {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--purple), var(--accent));
+  background-size: 200% 100%;
+  z-index: 9999;
+  animation: shimmer 1.5s infinite linear;
+}
+@keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
 
-/* 미상담 학생 */
-.dash-no-counsel-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;}
-.dash-no-counsel-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:14px;display:flex;align-items:center;gap:10px;}
-.dash-no-counsel-card.warn{border-color:#ffb74d;background:#fffbf5;}
+/* ═══════════════════════════════════
+   AUTH SCREEN
+   ═══════════════════════════════════ */
+#authScreen {
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+  position: relative;
+  overflow: hidden;
+}
+#authScreen::before {
+  content: '';
+  position: absolute;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(37,99,235,.15) 0%, transparent 70%);
+  top: -200px; right: -100px;
+  pointer-events: none;
+}
+#authScreen::after {
+  content: '';
+  position: absolute;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(124,58,237,.1) 0%, transparent 70%);
+  bottom: -100px; left: -50px;
+  pointer-events: none;
+}
 
-/* 이번달 현황 바 */
-.month-bar-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
-.month-bar-label{font-size:12px;color:var(--text-muted);width:70px;flex-shrink:0;text-align:right;}
-.month-bar-track{flex:1;height:10px;background:var(--surface2);border-radius:5px;overflow:hidden;}
-.month-bar-fill{height:100%;border-radius:5px;background:var(--accent);transition:width .5s;}
-.month-bar-count{font-size:12px;font-weight:700;width:24px;flex-shrink:0;}
+.auth-box {
+  background: var(--surface);
+  border-radius: var(--radius-xl);
+  padding: 40px 36px;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: var(--shadow-xl), 0 0 0 1px rgba(255,255,255,.05);
+  position: relative;
+  z-index: 1;
+}
 
-/* Report */
-.report-toolbar{display:flex;gap:10px;align-items:center;margin-bottom:24px;flex-wrap:wrap;}
-.report-select{padding:9px 14px;border:1.5px solid var(--border);border-radius:9px;font-size:13px;font-family:inherit;background:var(--surface);color:var(--text);outline:none;cursor:pointer;appearance:none;}
-.report-btn-group{display:flex;gap:8px;margin-left:auto;flex-wrap:wrap;}
-.bar-section{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:16px;}
-.bar-section-title{font-size:13px;font-weight:700;margin-bottom:16px;}
-.bar-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
-.bar-label{font-size:12px;color:var(--text-muted);width:80px;flex-shrink:0;text-align:right;}
-.bar-track{flex:1;height:10px;background:var(--surface2);border-radius:5px;overflow:hidden;}
-.bar-fill{height:100%;border-radius:5px;transition:width .5s;}
-.bar-fill.학습{background:var(--accent);} .bar-fill.생활{background:var(--accent2);}
-.bar-fill.교우관계{background:var(--accent3);} .bar-fill.학부모{background:var(--accent4);}
-.bar-fill.month{background:var(--accent);}
-.bar-count{font-size:12px;font-weight:700;width:24px;flex-shrink:0;}
-.summary-table{width:100%;border-collapse:collapse;font-size:13px;}
-.summary-table th{text-align:left;padding:10px 14px;background:var(--surface2);color:var(--text-muted);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;border-bottom:1.5px solid var(--border);}
-.summary-table td{padding:11px 14px;border-bottom:1px solid var(--border);vertical-align:middle;}
-.summary-table tr:last-child td{border-bottom:none;}
-.summary-table tr:hover td{background:var(--surface2);}
-.section-title{font-family:'Gowun Dodum',sans-serif;font-size:16px;margin:24px 0 12px;}
+.auth-logo {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--text);
+  text-align: center;
+  margin-bottom: 4px;
+  letter-spacing: -0.5px;
+}
 
-/* Modal */
-.overlay{display:none;position:fixed;inset:0;background:rgba(44,36,22,.45);z-index:500;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(3px);}
-.overlay.open{display:flex;}
-.modal{background:var(--surface);border-radius:18px;width:100%;max-width:580px;max-height:90vh;overflow-y:auto;padding:30px;box-shadow:var(--shadow-lg);animation:popIn .2s cubic-bezier(.34,1.56,.64,1);}
-@keyframes popIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
-.modal-title{font-family:'Gowun Dodum',sans-serif;font-size:18px;color:var(--accent);margin-bottom:22px;}
-.form-group{margin-bottom:16px;}
-.form-label{display:block;font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:6px;}
-.form-input,.form-textarea{width:100%;padding:10px 13px;border:1.5px solid var(--border);border-radius:9px;font-size:14px;font-family:inherit;background:var(--bg);color:var(--text);outline:none;transition:border-color .18s;}
-.form-input:focus,.form-textarea:focus{border-color:var(--accent);background:var(--surface);}
-.form-textarea{min-height:100px;resize:vertical;line-height:1.65;}
-.form-textarea.sm{min-height:72px;}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-.form-hint{font-size:11px;color:var(--danger);margin-top:5px;font-weight:600;}
-.chip-group{display:flex;gap:7px;flex-wrap:wrap;}
-.chip{padding:6px 16px;border-radius:20px;border:1.5px solid var(--border);background:none;font-size:13px;font-family:inherit;cursor:pointer;transition:all .15s;color:var(--text-muted);}
-.chip.on-학습{background:#e8f4e8;border-color:var(--accent);color:var(--accent);font-weight:700;}
-.chip.on-생활{background:#fef3e2;border-color:var(--accent2);color:var(--accent2);font-weight:700;}
-.chip.on-교우관계{background:#ede8f8;border-color:var(--accent3);color:var(--accent3);font-weight:700;}
-.chip.on-전화,.chip.on-대면,.chip.on-문자{background:#e2f0f5;border-color:var(--accent4);color:var(--accent4);font-weight:700;}
-.chip.on-남,.chip.on-여{background:#e8f2e5;border-color:var(--accent);color:var(--accent);font-weight:700;}
-.modal-footer{display:flex;gap:8px;justify-content:flex-end;margin-top:22px;padding-top:18px;border-top:1.5px solid var(--border);}
-.btn-ghost{padding:9px 18px;border:1.5px solid var(--border);border-radius:9px;background:none;font-size:13px;font-family:inherit;cursor:pointer;color:var(--text-muted);transition:all .15s;}
-.btn-ghost:hover{background:var(--surface2);color:var(--text);}
-.detail-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--text-muted);margin-bottom:5px;}
-.detail-value{font-size:14px;line-height:1.75;color:var(--text);margin-bottom:18px;padding:12px 14px;background:var(--bg);border-radius:9px;border:1px solid var(--border);white-space:pre-wrap;}
-.ai-guide-box{background:linear-gradient(135deg,#faf7ff,#f5f8ff);border:1.5px solid #c4b0e8;border-radius:12px;padding:18px;margin-top:4px;}
-.ai-guide-header{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
-.ai-guide-title{font-size:14px;font-weight:700;color:var(--accent3);}
-.ai-guide-desc{font-size:12px;color:var(--text-muted);line-height:1.65;margin-bottom:12px;}
-.ai-prompt-box{background:var(--bg);border:1.5px solid var(--border);border-radius:9px;padding:12px 14px;font-size:12px;color:var(--text-muted);line-height:1.7;margin-bottom:12px;max-height:120px;overflow-y:auto;white-space:pre-wrap;font-family:inherit;}
-.ai-btn-row{display:flex;gap:8px;flex-wrap:wrap;}
-.btn-copy{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;background:var(--accent3);color:white;border:none;border-radius:9px;font-size:13px;font-family:inherit;cursor:pointer;font-weight:600;}
-.btn-copy:hover{background:#6a4f92;}
-.btn-open-claude{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;background:var(--surface);color:var(--accent3);border:1.5px solid #c4b0e8;border-radius:9px;font-size:13px;font-family:inherit;cursor:pointer;font-weight:600;}
-.btn-open-claude:hover{background:#f3e8ff;}
-.copy-done{background:#4a6840 !important;}
-.ai-divider{border:none;border-top:1.5px solid #e0d5f5;margin:16px 0;}
+.auth-sub {
+  text-align: center;
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 28px;
+  line-height: 1.7;
+}
+
+.auth-tabs {
+  display: flex;
+  gap: 4px;
+  background: var(--bg);
+  border-radius: var(--radius);
+  padding: 4px;
+  margin-bottom: 24px;
+}
+
+.auth-tab {
+  flex: 1;
+  padding: 9px;
+  border: none;
+  background: none;
+  border-radius: 7px;
+  font-size: 13px;
+  font-family: inherit;
+  cursor: pointer;
+  color: var(--text-muted);
+  font-weight: 600;
+  transition: all .2s;
+}
+
+.auth-tab.active {
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: var(--shadow-sm);
+}
+
+.auth-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+}
+
+.auth-input {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 14px;
+  font-family: inherit;
+  background: var(--surface2);
+  color: var(--text);
+  outline: none;
+  transition: all .2s;
+  margin-bottom: 14px;
+}
+
+.auth-input:focus {
+  border-color: var(--accent);
+  background: var(--surface);
+  box-shadow: 0 0 0 3px rgba(37,99,235,.1);
+}
+
+.auth-btn {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: var(--radius);
+  font-size: 14px;
+  font-family: inherit;
+  cursor: pointer;
+  font-weight: 700;
+  transition: all .2s;
+  margin-top: 4px;
+  background: var(--accent);
+  color: white;
+}
+
+.auth-btn:hover { background: var(--accent-hover); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+.auth-btn:active { transform: translateY(0); }
+
+.auth-btn.ghost {
+  background: none;
+  color: var(--text-secondary);
+  border: 1.5px solid var(--border);
+  margin-top: 8px;
+}
+.auth-btn.ghost:hover { background: var(--surface2); color: var(--text); }
+
+.auth-error {
+  font-size: 12px;
+  margin-top: 10px;
+  text-align: center;
+  min-height: 18px;
+  color: var(--danger);
+  font-weight: 500;
+}
+
+.auth-notice {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: 20px;
+  line-height: 1.8;
+  padding: 16px;
+  background: var(--amber-light);
+  border-radius: var(--radius);
+  border-left: 3px solid var(--amber);
+}
+.auth-notice strong { color: var(--text); }
+.auth-notice .warn { color: var(--danger); font-weight: 700; }
+
+/* ═══════════════════════════════════
+   APP LAYOUT
+   ═══════════════════════════════════ */
+#appScreen { display: none; min-height: 100vh; }
+.layout { display: flex; min-height: 100vh; width: 100%; }
+
+/* ── Sidebar ── */
+.sidebar {
+  width: 260px;
+  min-width: 260px;
+  flex-shrink: 0;
+  background: var(--sidebar-bg);
+  display: flex;
+  flex-direction: column;
+  padding: 24px 14px 20px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  border-right: 1px solid var(--sidebar-border);
+}
+
+.sidebar-logo {
+  font-size: 17px;
+  font-weight: 800;
+  color: #f1f5f9;
+  margin-bottom: 2px;
+  text-align: center;
+  letter-spacing: -0.3px;
+}
+
+.sidebar-year {
+  font-size: 11px;
+  color: var(--sidebar-text-muted);
+  margin-bottom: 20px;
+  text-align: center;
+  font-weight: 500;
+}
+
+.user-chip {
+  background: var(--sidebar-hover);
+  border-radius: var(--radius);
+  padding: 12px 14px;
+  margin-bottom: 24px;
+  border: 1px solid rgba(255,255,255,.05);
+}
+
+.user-email {
+  font-size: 11px;
+  color: var(--sidebar-text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.btn-logout {
+  font-size: 11px;
+  color: var(--sidebar-text);
+  background: none;
+  border: 1px solid rgba(255,255,255,.1);
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-family: inherit;
+  width: 100%;
+  transition: all .18s;
+  font-weight: 500;
+}
+.btn-logout:hover { background: rgba(255,255,255,.08); color: #f1f5f9; }
+
+.btn-withdraw {
+  font-size: 11px;
+  color: #f87171;
+  background: none;
+  border: 1px solid rgba(248,113,113,.2);
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-family: inherit;
+  width: 100%;
+  transition: all .18s;
+  margin-top: 5px;
+  font-weight: 500;
+}
+.btn-withdraw:hover { background: rgba(248,113,113,.1); }
+
+.nav-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  color: var(--sidebar-text-muted);
+  text-transform: uppercase;
+  margin: 20px 0 8px 12px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--sidebar-text);
+  transition: all .18s;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+  font-family: inherit;
+  margin-bottom: 2px;
+}
+
+.nav-item:hover { background: var(--sidebar-hover); color: #e2e8f0; }
+
+.nav-item.active {
+  background: var(--sidebar-active);
+  color: var(--sidebar-active-text);
+  font-weight: 700;
+}
+
+.nav-icon { font-size: 15px; width: 20px; text-align: center; }
+.sidebar-spacer { flex: 1; }
+
+.sidebar-privacy {
+  font-size: 11px;
+  color: #fca5a5;
+  padding: 12px 14px;
+  background: rgba(220,38,38,.08);
+  border-radius: 8px;
+  line-height: 1.7;
+  border: 1px solid rgba(220,38,38,.15);
+  font-weight: 500;
+}
+.sidebar-privacy strong { color: #fca5a5; }
+
+.sidebar-contact {
+  font-size: 11px;
+  color: var(--sidebar-text-muted);
+  padding: 12px 14px;
+  background: var(--sidebar-hover);
+  border-radius: 8px;
+  line-height: 1.7;
+  margin-top: 8px;
+  border: 1px solid rgba(255,255,255,.05);
+}
+.sidebar-contact a { color: var(--sidebar-active-text); font-weight: 600; text-decoration: none; }
+.sidebar-contact a:hover { text-decoration: underline; }
+
+/* ── Main Area ── */
+.main {
+  flex: 1;
+  min-width: 0;
+  padding: 32px 40px;
+  max-width: 1200px;
+}
+
+/* ── Page Header ── */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.page-title {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: var(--text);
+}
+
+.page-desc {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-top: 4px;
+  font-weight: 400;
+}
+
+/* ── Buttons ── */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--accent);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: var(--radius);
+  font-size: 13px;
+  font-family: inherit;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all .2s;
+  box-shadow: var(--shadow-xs);
+}
+.btn-primary:hover { background: var(--accent-hover); transform: translateY(-1px); box-shadow: var(--shadow-sm); }
+.btn-primary:active { transform: translateY(0); }
+.btn-primary.blue { background: var(--teal); }
+.btn-primary.blue:hover { background: #0e7490; }
+.btn-primary.orange { background: var(--amber); }
+.btn-primary.orange:hover { background: #b45309; }
+.btn-primary.purple { background: var(--purple); }
+.btn-primary.purple:hover { background: #6d28d9; }
+.btn-primary.pink { background: var(--pink); }
+.btn-primary.pink:hover { background: #be185d; }
+
+/* ── Controls ── */
+.controls-bar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.search-wrap { position: relative; flex: 1; min-width: 200px; }
+
+.search-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 14px;
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px 14px 10px 40px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 13px;
+  font-family: inherit;
+  background: var(--surface);
+  color: var(--text);
+  outline: none;
+  transition: all .2s;
+}
+.search-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(37,99,235,.08); }
+
+.filter-pills { display: flex; gap: 6px; flex-wrap: wrap; }
+
+.pill {
+  padding: 7px 16px;
+  border-radius: 20px;
+  border: 1.5px solid var(--border);
+  background: var(--surface);
+  font-size: 12px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all .18s;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+.pill:hover { border-color: var(--text-muted); color: var(--text-secondary); }
+.pill.on-all { background: var(--text); color: white; border-color: var(--text); }
+.pill.on-학습 { background: var(--green-light); border-color: var(--green); color: var(--green); }
+.pill.on-생활 { background: var(--amber-light); border-color: var(--amber); color: var(--amber); }
+.pill.on-교우관계 { background: var(--purple-light); border-color: var(--purple); color: var(--purple); }
+
+/* ═══════════════════════════════════
+   CARDS
+   ═══════════════════════════════════ */
+.record-grid { display: flex; flex-direction: column; gap: 8px; }
+
+.record-card, .parent-card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  cursor: pointer;
+  transition: all .18s;
+  position: relative;
+  animation: fadeUp .25s ease;
+  border: 1px solid var(--border);
+}
+
+.parent-card { border-left: 3px solid var(--teal); }
+
+@keyframes fadeUp { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+.record-card:hover { border-color: var(--accent-muted); box-shadow: var(--shadow-md); transform: translateY(-1px); }
+.parent-card:hover { border-color: var(--teal); box-shadow: var(--shadow-md); transform: translateY(-1px); }
+
+.rc-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
+.rc-name { font-size: 15px; font-weight: 700; }
+.rc-date { font-size: 11px; color: var(--text-muted); margin-top: 2px; font-weight: 500; }
+.rc-preview { font-size: 13px; color: var(--text-secondary); line-height: 1.6; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+
+.rc-actions {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  display: flex;
+  gap: 4px;
+  opacity: 0;
+  transition: opacity .15s;
+}
+.record-card:hover .rc-actions, .parent-card:hover .rc-actions { opacity: 1; }
+
+.btn-icon {
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all .15s;
+}
+.btn-icon:hover { background: var(--surface2); box-shadow: var(--shadow-xs); }
+.btn-icon.del:hover { background: var(--danger-light); border-color: var(--rose-border); }
+
+/* Tags */
+.tag {
+  font-size: 11px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-weight: 600;
+  white-space: nowrap;
+  letter-spacing: -0.2px;
+}
+.tag-학습 { background: var(--green-light); color: var(--green); }
+.tag-생활 { background: var(--amber-light); color: var(--amber); }
+.tag-교우관계 { background: var(--purple-light); color: var(--purple); }
+.tag-학부모 { background: var(--teal-light); color: var(--teal); }
+
+.method-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  background: var(--teal-light);
+  color: var(--teal);
+  font-weight: 600;
+}
+
+/* ── Name Tags ── */
+.name-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 12px;
+  background: var(--accent-light);
+  border: 1.5px solid var(--accent-muted);
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent);
+}
+.name-tag button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--accent);
+  padding: 0;
+  line-height: 1;
+}
+.name-tag button:hover { color: var(--danger); }
+
+/* ═══════════════════════════════════
+   ROSTER
+   ═══════════════════════════════════ */
+.roster-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 10px;
+}
+
+.roster-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: all .18s;
+}
+.roster-card:hover { border-color: var(--accent-muted); box-shadow: var(--shadow-sm); }
+.roster-card.watch { border-left: 3px solid var(--amber); background: var(--amber-light); }
+
+.roster-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: var(--surface2);
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.roster-info { flex: 1; min-width: 0; }
+.roster-name { font-size: 13px; font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.roster-meta { font-size: 11px; color: var(--text-muted); margin-top: 1px; font-weight: 500; }
+.roster-actions { display: flex; gap: 3px; flex-shrink: 0; }
+
+/* ═══════════════════════════════════
+   STUDENT GRID
+   ═══════════════════════════════════ */
+.student-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
+  gap: 12px;
+}
+
+.student-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px 14px;
+  text-align: center;
+  cursor: pointer;
+  transition: all .2s;
+}
+.student-card:hover { border-color: var(--accent-muted); box-shadow: var(--shadow-md); transform: translateY(-2px); }
+
+.s-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: var(--accent-light);
+  margin: 0 auto 10px;
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.s-name { font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+.mini-tags { display: flex; gap: 3px; justify-content: center; flex-wrap: wrap; }
+.mini-tag { font-size: 10px; padding: 2px 6px; border-radius: 10px; font-weight: 600; }
+
+/* ── Student Detail ── */
+.student-detail-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  margin-bottom: 12px;
+}
+
+.student-history-item {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border-light);
+  font-size: 13px;
+}
+.student-history-item:last-child { border-bottom: none; }
+
+/* ═══════════════════════════════════
+   생기부 (Student Record)
+   ═══════════════════════════════════ */
+.segibu-box {
+  background: var(--surface);
+  border: 1px solid var(--teal-border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  margin-top: 4px;
+}
+
+.segibu-header { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+.segibu-title { font-size: 16px; font-weight: 700; color: var(--teal); }
+
+.segibu-notice {
+  font-size: 12px;
+  color: var(--text-secondary);
+  background: var(--teal-light);
+  border-radius: var(--radius);
+  padding: 12px 14px;
+  margin-bottom: 20px;
+  line-height: 1.7;
+  border: 1px solid var(--teal-border);
+  font-weight: 500;
+}
+
+.segibu-section { margin-bottom: 20px; }
+.segibu-section-label { font-size: 12px; font-weight: 700; color: var(--teal); letter-spacing: .3px; margin-bottom: 8px; }
+
+.segibu-textarea {
+  width: 100%;
+  min-height: 90px;
+  padding: 14px 16px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 13px;
+  font-family: inherit;
+  background: var(--surface2);
+  color: var(--text);
+  outline: none;
+  resize: vertical;
+  line-height: 1.8;
+  transition: all .2s;
+}
+.segibu-textarea:focus { border-color: var(--teal); background: var(--surface); box-shadow: 0 0 0 3px rgba(8,145,178,.08); }
+
+.segibu-char { font-size: 11px; color: var(--text-muted); text-align: right; margin-top: 4px; }
+
+.segibu-copy-btn {
+  margin-top: 7px;
+  padding: 8px 18px;
+  background: var(--teal);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 12px;
+  font-family: inherit;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all .2s;
+}
+.segibu-copy-btn:hover { background: #0e7490; }
+.segibu-copy-btn.done { background: var(--green); }
+.segibu-divider { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+
+.segibu-prompt-box {
+  font-size: 12px;
+  color: var(--text-secondary);
+  padding: 12px 14px;
+  background: var(--surface2);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  max-height: 100px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  margin-bottom: 12px;
+  font-family: inherit;
+  line-height: 1.7;
+}
+
+.segibu-open-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 18px;
+  background: var(--surface);
+  color: var(--teal);
+  border: 1.5px solid var(--teal-border);
+  border-radius: 8px;
+  font-size: 12px;
+  font-family: inherit;
+  cursor: pointer;
+  font-weight: 600;
+}
+.segibu-open-btn:hover { background: var(--teal-light); }
+
+/* ═══════════════════════════════════
+   DASHBOARD
+   ═══════════════════════════════════ */
+.dash-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.dash-summary-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px 18px;
+  text-align: center;
+  transition: all .2s;
+  position: relative;
+  overflow: hidden;
+}
+.dash-summary-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+.dash-summary-card.accent { border-left: 3px solid var(--accent); }
+.dash-summary-card.accent2 { border-left: 3px solid var(--amber); }
+.dash-summary-card.accent3 { border-left: 3px solid var(--purple); }
+.dash-summary-card.accent4 { border-left: 3px solid var(--teal); }
+
+.dash-num {
+  font-size: 36px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -1px;
+}
+
+.dash-label {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: 8px;
+  font-weight: 600;
+}
+
+.dash-sub {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 3px;
+  font-weight: 500;
+}
+
+.dash-section { margin-bottom: 28px; }
+
+.dash-section-title {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text);
+}
+
+/* Type ratio */
+.type-ratio-bar { height: 32px; border-radius: var(--radius); overflow: hidden; display: flex; margin-bottom: 12px; }
+.type-ratio-seg { height: 100%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: white; transition: width .5s; overflow: hidden; white-space: nowrap; }
+.type-ratio-legend { display: flex; gap: 16px; flex-wrap: wrap; font-size: 12px; font-weight: 500; }
+.type-ratio-dot { width: 10px; height: 10px; border-radius: 3px; display: inline-block; margin-right: 5px; }
+
+/* Recent */
+.dash-recent-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: all .18s;
+}
+.dash-recent-item:hover { border-color: var(--accent-muted); transform: translateX(4px); box-shadow: var(--shadow-sm); }
+
+.dash-recent-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: var(--surface2);
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.dash-recent-info { flex: 1; min-width: 0; }
+.dash-recent-name { font-size: 13px; font-weight: 700; }
+.dash-recent-preview { font-size: 12px; color: var(--text-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.dash-recent-date { font-size: 11px; color: var(--text-muted); flex-shrink: 0; font-weight: 500; }
+
+/* Watch */
+.dash-watch-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 10px; }
+
+.dash-watch-card {
+  background: var(--amber-light);
+  border: 1px solid var(--amber-border);
+  border-radius: var(--radius);
+  padding: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: all .18s;
+}
+.dash-watch-card:hover { box-shadow: var(--shadow-md); transform: translateY(-1px); }
+
+/* No counsel */
+.dash-no-counsel-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 10px; }
+
+.dash-no-counsel-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.dash-no-counsel-card.warn { border-color: var(--amber-border); background: var(--amber-light); }
+
+/* Month bar */
+.month-bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.month-bar-label { font-size: 12px; color: var(--text-muted); width: 70px; flex-shrink: 0; text-align: right; font-weight: 600; }
+.month-bar-track { flex: 1; height: 8px; background: var(--surface3); border-radius: 4px; overflow: hidden; }
+.month-bar-fill { height: 100%; border-radius: 4px; background: var(--accent); transition: width .5s; }
+.month-bar-count { font-size: 12px; font-weight: 700; width: 24px; flex-shrink: 0; color: var(--accent); }
+
+/* ═══════════════════════════════════
+   REPORT
+   ═══════════════════════════════════ */
+.report-toolbar { display: flex; gap: 10px; align-items: center; margin-bottom: 24px; flex-wrap: wrap; }
+
+.report-select {
+  padding: 9px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 13px;
+  font-family: inherit;
+  background: var(--surface);
+  color: var(--text);
+  outline: none;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 32px;
+}
+.report-select:focus { border-color: var(--accent); }
+
+.report-btn-group { display: flex; gap: 8px; margin-left: auto; flex-wrap: wrap; }
+
+.bar-section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 22px;
+  margin-bottom: 16px;
+}
+.bar-section-title { font-size: 14px; font-weight: 700; margin-bottom: 18px; color: var(--text); }
+
+.bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.bar-label { font-size: 12px; color: var(--text-muted); width: 80px; flex-shrink: 0; text-align: right; font-weight: 600; }
+.bar-track { flex: 1; height: 8px; background: var(--surface3); border-radius: 4px; overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 4px; transition: width .5s; }
+.bar-fill.학습 { background: var(--green); }
+.bar-fill.생활 { background: var(--amber); }
+.bar-fill.교우관계 { background: var(--purple); }
+.bar-fill.학부모 { background: var(--teal); }
+.bar-fill.month { background: var(--accent); }
+.bar-count { font-size: 12px; font-weight: 700; width: 24px; flex-shrink: 0; color: var(--text-secondary); }
+
+.summary-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.summary-table th {
+  text-align: left;
+  padding: 12px 16px;
+  background: var(--surface2);
+  color: var(--text-muted);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  border-bottom: 1px solid var(--border);
+}
+.summary-table td { padding: 12px 16px; border-bottom: 1px solid var(--border-light); vertical-align: middle; }
+.summary-table tr:last-child td { border-bottom: none; }
+.summary-table tr:hover td { background: var(--surface2); }
+.section-title { font-size: 16px; font-weight: 700; margin: 28px 0 14px; }
+
+/* ═══════════════════════════════════
+   MODAL
+   ═══════════════════════════════════ */
+.overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(15,23,42,.5);
+  z-index: 500;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  backdrop-filter: blur(4px);
+}
+.overlay.open { display: flex; }
+
+.modal {
+  background: var(--surface);
+  border-radius: var(--radius-xl);
+  width: 100%;
+  max-width: 580px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 32px;
+  box-shadow: var(--shadow-xl);
+  animation: popIn .25s cubic-bezier(.34, 1.56, .64, 1);
+}
+@keyframes popIn { from { opacity: 0; transform: scale(.95) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+
+.modal-title { font-size: 18px; font-weight: 800; color: var(--text); margin-bottom: 24px; letter-spacing: -0.3px; }
+.form-group { margin-bottom: 18px; }
+.form-label { display: block; font-size: 12px; font-weight: 700; color: var(--text-secondary); margin-bottom: 6px; }
+
+.form-input, .form-textarea {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 14px;
+  font-family: inherit;
+  background: var(--surface2);
+  color: var(--text);
+  outline: none;
+  transition: all .2s;
+}
+.form-input:focus, .form-textarea:focus { border-color: var(--accent); background: var(--surface); box-shadow: 0 0 0 3px rgba(37,99,235,.08); }
+.form-textarea { min-height: 100px; resize: vertical; line-height: 1.7; }
+.form-textarea.sm { min-height: 72px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.form-hint { font-size: 11px; color: var(--danger); margin-top: 5px; font-weight: 600; }
+
+/* Chips */
+.chip-group { display: flex; gap: 7px; flex-wrap: wrap; }
+
+.chip {
+  padding: 7px 18px;
+  border-radius: 20px;
+  border: 1.5px solid var(--border);
+  background: none;
+  font-size: 13px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all .15s;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+.chip:hover { border-color: var(--text-muted); }
+.chip.on-학습 { background: var(--green-light); border-color: var(--green); color: var(--green); }
+.chip.on-생활 { background: var(--amber-light); border-color: var(--amber); color: var(--amber); }
+.chip.on-교우관계 { background: var(--purple-light); border-color: var(--purple); color: var(--purple); }
+.chip.on-전화, .chip.on-대면, .chip.on-문자 { background: var(--teal-light); border-color: var(--teal); color: var(--teal); }
+.chip.on-남, .chip.on-여 { background: var(--accent-light); border-color: var(--accent); color: var(--accent); }
+
+.modal-footer {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+
+.btn-ghost {
+  padding: 10px 20px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  background: none;
+  font-size: 13px;
+  font-family: inherit;
+  cursor: pointer;
+  color: var(--text-muted);
+  transition: all .15s;
+  font-weight: 600;
+}
+.btn-ghost:hover { background: var(--surface2); color: var(--text); }
+
+/* Detail */
+.detail-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .7px; color: var(--text-muted); margin-bottom: 6px; }
+.detail-value { font-size: 14px; line-height: 1.8; color: var(--text); margin-bottom: 20px; padding: 14px 16px; background: var(--surface2); border-radius: var(--radius); border: 1px solid var(--border-light); white-space: pre-wrap; }
+
+/* AI Guide */
+.ai-guide-box {
+  background: var(--purple-light);
+  border: 1px solid var(--purple-border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  margin-top: 4px;
+}
+.ai-guide-header { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+.ai-guide-title { font-size: 15px; font-weight: 700; color: var(--purple); }
+.ai-guide-desc { font-size: 12px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 14px; }
+
+.ai-prompt-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: 14px;
+  max-height: 120px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  font-family: inherit;
+}
+
+.ai-btn-row { display: flex; gap: 8px; flex-wrap: wrap; }
+
+.btn-copy {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 18px;
+  background: var(--purple);
+  color: white;
+  border: none;
+  border-radius: var(--radius);
+  font-size: 13px;
+  font-family: inherit;
+  cursor: pointer;
+  font-weight: 600;
+}
+.btn-copy:hover { background: #6d28d9; }
+
+.btn-open-claude {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 18px;
+  background: var(--surface);
+  color: var(--purple);
+  border: 1.5px solid var(--purple-border);
+  border-radius: var(--radius);
+  font-size: 13px;
+  font-family: inherit;
+  cursor: pointer;
+  font-weight: 600;
+}
+.btn-open-claude:hover { background: var(--purple-light); }
+.copy-done { background: var(--green) !important; }
+.ai-divider { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
 
 /* Autocomplete */
-.autocomplete-wrap{position:relative;}
-.autocomplete-list{position:absolute;top:100%;left:0;right:0;background:var(--surface);border:1.5px solid var(--accent);border-radius:9px;box-shadow:var(--shadow);z-index:200;max-height:200px;overflow-y:auto;margin-top:3px;}
-.autocomplete-item{padding:10px 14px;cursor:pointer;font-size:13px;display:flex;align-items:center;gap:8px;transition:background .15s;}
-.autocomplete-item:hover{background:var(--surface2);}
-.autocomplete-item .ac-gender{font-size:11px;color:var(--text-muted);}
-.autocomplete-item .ac-watch{font-size:10px;color:#e65100;font-weight:700;}
+.autocomplete-wrap { position: relative; }
+
+.autocomplete-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--surface);
+  border: 1.5px solid var(--accent);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  z-index: 200;
+  max-height: 200px;
+  overflow-y: auto;
+  margin-top: 4px;
+}
+
+.autocomplete-item {
+  padding: 10px 14px;
+  cursor: pointer;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background .15s;
+}
+.autocomplete-item:hover { background: var(--surface2); }
+.autocomplete-item .ac-gender { font-size: 11px; color: var(--text-muted); }
+.autocomplete-item .ac-watch { font-size: 10px; color: var(--amber); font-weight: 700; }
 
 /* Toggle */
-.toggle-wrap{display:flex;align-items:center;gap:10px;}
-.toggle{position:relative;width:40px;height:22px;flex-shrink:0;}
-.toggle input{opacity:0;width:0;height:0;}
-.toggle-slider{position:absolute;inset:0;background:var(--border);border-radius:11px;cursor:pointer;transition:background .2s;}
-.toggle-slider::before{content:'';position:absolute;width:16px;height:16px;left:3px;top:3px;background:white;border-radius:50%;transition:transform .2s;}
-.toggle input:checked+.toggle-slider{background:var(--accent2);}
-.toggle input:checked+.toggle-slider::before{transform:translateX(18px);}
-.toggle-label{font-size:13px;color:var(--text-muted);cursor:pointer;}
-
-/* ── 관계조사 (Sociometry) ── */
-.socio-steps{display:flex;gap:0;margin-bottom:24px;position:relative;}
-.socio-steps::before{content:'';position:absolute;top:50%;left:32px;right:32px;height:2px;background:var(--border);z-index:0;}
-.socio-step{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;border:none;background:none;font-size:11px;font-family:inherit;cursor:pointer;color:var(--text-muted);font-weight:500;transition:all .2s;position:relative;z-index:1;padding:0;}
-.socio-step .step-num{width:32px;height:32px;border-radius:50%;background:var(--surface);border:2px solid var(--border);color:var(--text-muted);font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;transition:all .2s;}
-.socio-step.active{color:var(--text);font-weight:700;}
-.socio-step.active .step-num{background:var(--accent);border-color:var(--accent);color:white;box-shadow:0 2px 8px rgba(92,122,78,.3);}
-.socio-step.done .step-num{background:var(--accent);border-color:var(--accent);color:white;}
-.socio-step .step-label{font-size:11px;}
-
-.socio-panel{display:none;animation:fadeUp .25s ease;}
-.socio-panel.active{display:block;}
-
-.socio-session-card{background:var(--surface);border:1.5px solid var(--border);border-radius:14px;padding:20px 22px;margin-bottom:10px;cursor:pointer;transition:all .2s;display:flex;justify-content:space-between;align-items:center;}
-.socio-session-card:hover{border-color:var(--accent3);box-shadow:var(--shadow);transform:translateY(-1px);}
-.socio-session-card.active-session{border-color:var(--accent3);background:linear-gradient(135deg,#faf7ff,#f8f5ff);}
-.socio-session-arrow{width:32px;height:32px;border-radius:50%;background:var(--surface2);display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--text-muted);transition:all .2s;flex-shrink:0;}
-.socio-session-card:hover .socio-session-arrow{background:var(--accent3);color:white;}
-
-.socio-survey-card{background:var(--surface);border:1.5px solid var(--border);border-radius:14px;padding:20px;margin-bottom:12px;transition:all .18s;}
-.socio-survey-card:hover{border-color:#ccc5b8;}
-.socio-survey-card .student-label{font-size:15px;font-weight:700;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;}
-.socio-tag{display:inline-flex;align-items:center;gap:5px;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;margin:2px;transition:all .15s;}
-.socio-tag.positive{background:#e8f4e8;border:1.5px solid #b8d9b0;color:var(--accent);}
-.socio-tag.negative{background:#fef3e2;border:1.5px solid #e8cfa8;color:var(--accent2);}
-.socio-tag button{background:none;border:none;cursor:pointer;font-size:13px;padding:0;line-height:1;color:inherit;opacity:.6;transition:opacity .15s;}
-.socio-tag button:hover{opacity:1;color:var(--danger);}
-
-.socio-select{padding:9px 14px;border:1.5px solid var(--border);border-radius:9px;font-size:13px;font-family:inherit;background:var(--surface);color:var(--text);outline:none;cursor:pointer;min-width:150px;transition:border-color .2s;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238a7d6e' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;padding-right:30px;}
-.socio-select:focus{border-color:var(--accent);}
-
-.socio-canvas-wrap{background:var(--surface);border:1.5px solid var(--border);border-radius:14px;overflow:hidden;position:relative;}
-.socio-canvas-wrap canvas{display:block;width:100%;cursor:grab;}
-.socio-canvas-wrap canvas:active{cursor:grabbing;}
-
-.socio-legend{display:flex;gap:20px;flex-wrap:wrap;padding:14px 20px;background:linear-gradient(to right,var(--surface2),var(--surface));border-top:1.5px solid var(--border);font-size:12px;color:var(--text-muted);}
-.socio-legend-item{display:flex;align-items:center;gap:6px;}
-.socio-legend-line{width:24px;height:3px;border-radius:2px;}
-
-/* Analysis Cards — clean data dashboard */
-.sa-card{background:var(--surface);border:1.5px solid var(--border);border-radius:14px;padding:22px;margin-bottom:16px;transition:all .18s;}
-.sa-card:hover{box-shadow:var(--shadow);}
-.sa-card-header{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
-.sa-card-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
-.sa-card-title{font-size:15px;font-weight:700;font-family:'Gowun Dodum',sans-serif;}
-.sa-card-subtitle{font-size:11px;color:var(--text-muted);font-weight:400;margin-top:1px;}
-.sa-guide{font-size:13px;color:var(--text);line-height:1.75;padding:14px 16px;background:var(--bg);border-radius:10px;border-left:3px solid var(--accent);margin-bottom:14px;}
-.sa-guide.warn{border-left-color:var(--accent2);background:#fefaf5;}
-.sa-guide.info{border-left-color:var(--accent4);background:#f5fafb;}
-.sa-guide strong{color:var(--text);font-weight:700;}
-.sa-guide-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--text-muted);margin-bottom:6px;}
-
-.sa-stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px;}
-.sa-stat{background:var(--surface);border:1.5px solid var(--border);border-radius:12px;padding:20px 16px;text-align:center;transition:all .18s;}
-.sa-stat:hover{transform:translateY(-1px);box-shadow:var(--shadow);}
-.sa-stat-num{font-size:30px;font-weight:700;font-family:'Gowun Dodum',sans-serif;line-height:1;}
-.sa-stat-label{font-size:12px;color:var(--text-muted);font-weight:600;margin-top:6px;}
-.sa-stat-sub{font-size:10px;color:var(--text-muted);margin-top:2px;}
-
-.sa-student-row{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:10px;margin-bottom:6px;transition:background .15s;}
-.sa-student-row:hover{background:var(--surface2);}
-.sa-student-avatar{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;}
-.sa-student-info{flex:1;min-width:0;}
-.sa-student-name{font-size:13px;font-weight:700;}
-.sa-student-meta{font-size:11px;color:var(--text-muted);}
-
-.sa-rank-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--surface2);font-size:13px;}
-.sa-rank-row:last-child{border-bottom:none;}
-.sa-rank-num{width:26px;height:26px;border-radius:8px;background:var(--surface2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;}
-.sa-rank-bar{flex:1;height:6px;background:var(--surface2);border-radius:3px;overflow:hidden;}
-.sa-rank-fill{height:100%;border-radius:3px;transition:width .5s;}
-
-.sa-mutual-tag{display:inline-flex;align-items:center;gap:4px;padding:6px 14px;background:linear-gradient(135deg,#e8f4e8,#f0faf0);border:1.5px solid #b8d9b0;border-radius:20px;font-size:12px;font-weight:600;color:var(--accent);margin:3px;}
-
-/* Toast */
-.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(60px);background:#2c2416;color:white;padding:10px 22px;border-radius:22px;font-size:13px;z-index:999;transition:transform .28s cubic-bezier(.34,1.3,.64,1);white-space:nowrap;}
-.toast.show{transform:translateX(-50%) translateY(0);}
-.empty{text-align:center;padding:60px 20px;color:var(--text-muted);}
-.empty-icon{font-size:40px;margin-bottom:12px;}
-.empty p{font-size:14px;}
-.empty-action{margin-top:14px;}
-
-@media print{.sidebar,.mobile-nav,.report-toolbar,.no-print{display:none !important;}.main{padding:0;}body{background:white;}}
-@media(max-width:700px){
-  .sidebar{display:none;}.main{padding:16px;}
-  .form-row{grid-template-columns:1fr;}
-  .dash-summary-grid{grid-template-columns:repeat(2,1fr);}
-  .mobile-nav{display:flex;gap:2px;background:var(--surface2);border-radius:10px;padding:4px;margin-bottom:18px;flex-wrap:wrap;}
-  .mobile-tab{flex:1;padding:8px 4px;border:none;background:none;border-radius:7px;font-size:9px;font-family:inherit;cursor:pointer;color:var(--text-muted);font-weight:500;transition:all .18s;min-width:0;}
-  .mobile-tab.active{background:var(--surface);color:var(--text);box-shadow:0 1px 4px rgba(0,0,0,.07);}
-  .socio-steps{flex-wrap:wrap;gap:4px;}
-  .socio-steps::before{display:none;}
-  .sa-stat-grid{grid-template-columns:repeat(3,1fr);gap:8px;}
-  .sa-stat-num{font-size:24px;}
+.toggle-wrap { display: flex; align-items: center; gap: 10px; }
+.toggle { position: relative; width: 44px; height: 24px; flex-shrink: 0; }
+.toggle input { opacity: 0; width: 0; height: 0; }
+.toggle-slider {
+  position: absolute;
+  inset: 0;
+  background: var(--surface3);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all .2s;
 }
-@media(min-width:701px){.mobile-nav{display:none;}}
+.toggle-slider::before {
+  content: '';
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  left: 3px;
+  top: 3px;
+  background: white;
+  border-radius: 50%;
+  transition: transform .2s;
+  box-shadow: var(--shadow-xs);
+}
+.toggle input:checked + .toggle-slider { background: var(--accent); }
+.toggle input:checked + .toggle-slider::before { transform: translateX(20px); }
+.toggle-label { font-size: 13px; color: var(--text-secondary); cursor: pointer; font-weight: 500; }
+
+/* ═══════════════════════════════════
+   관계조사 (Sociometry)
+   ═══════════════════════════════════ */
+.socio-steps { display: flex; gap: 0; margin-bottom: 28px; position: relative; }
+.socio-steps::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 32px;
+  right: 32px;
+  height: 2px;
+  background: var(--surface3);
+  z-index: 0;
+  transform: translateY(-6px);
+}
+
+.socio-step {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  border: none;
+  background: none;
+  font-size: 11px;
+  font-family: inherit;
+  cursor: pointer;
+  color: var(--text-muted);
+  font-weight: 600;
+  transition: all .2s;
+  position: relative;
+  z-index: 1;
+  padding: 0;
+}
+
+.socio-step .step-num {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 2px solid var(--surface3);
+  color: var(--text-muted);
+  font-size: 13px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all .2s;
+}
+
+.socio-step.active { color: var(--text); }
+.socio-step.active .step-num { background: var(--accent); border-color: var(--accent); color: white; box-shadow: 0 2px 10px rgba(37,99,235,.3); }
+.socio-step.done .step-num { background: var(--green); border-color: var(--green); color: white; }
+.socio-step .step-label { font-size: 11px; }
+
+.socio-panel { display: none; animation: fadeUp .25s ease; }
+.socio-panel.active { display: block; }
+
+.socio-session-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px 24px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: all .2s;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.socio-session-card:hover { border-color: var(--accent-muted); box-shadow: var(--shadow-md); transform: translateY(-1px); }
+.socio-session-card.active-session { border-color: var(--accent); background: var(--accent-light); }
+
+.socio-session-arrow {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: var(--surface2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: var(--text-muted);
+  transition: all .2s;
+  flex-shrink: 0;
+}
+.socio-session-card:hover .socio-session-arrow { background: var(--accent); color: white; }
+
+.socio-survey-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 22px;
+  margin-bottom: 12px;
+  transition: all .18s;
+}
+.socio-survey-card:hover { border-color: var(--border); }
+.socio-survey-card .student-label {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.socio-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 13px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  margin: 2px;
+  transition: all .15s;
+}
+.socio-tag.positive { background: var(--green-light); border: 1.5px solid var(--green-border); color: var(--green); }
+.socio-tag.negative { background: var(--amber-light); border: 1.5px solid var(--amber-border); color: var(--amber); }
+.socio-tag button { background: none; border: none; cursor: pointer; font-size: 13px; padding: 0; line-height: 1; color: inherit; opacity: .6; transition: opacity .15s; }
+.socio-tag button:hover { opacity: 1; color: var(--danger); }
+
+.socio-select {
+  padding: 9px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 13px;
+  font-family: inherit;
+  background: var(--surface);
+  color: var(--text);
+  outline: none;
+  cursor: pointer;
+  min-width: 150px;
+  transition: all .2s;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 32px;
+}
+.socio-select:focus { border-color: var(--accent); }
+
+.socio-canvas-wrap {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  position: relative;
+}
+.socio-canvas-wrap canvas { display: block; width: 100%; cursor: grab; }
+.socio-canvas-wrap canvas:active { cursor: grabbing; }
+
+.socio-legend {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding: 14px 22px;
+  background: var(--surface2);
+  border-top: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+.socio-legend-item { display: flex; align-items: center; gap: 6px; }
+.socio-legend-line { width: 24px; height: 3px; border-radius: 2px; }
+
+/* ── Analysis Cards ── */
+.sa-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  margin-bottom: 16px;
+  transition: all .18s;
+}
+.sa-card:hover { box-shadow: var(--shadow-sm); }
+
+.sa-card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+.sa-card-icon { width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+.sa-card-title { font-size: 15px; font-weight: 700; }
+.sa-card-subtitle { font-size: 11px; color: var(--text-muted); font-weight: 500; margin-top: 2px; }
+
+.sa-guide {
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.8;
+  padding: 16px 18px;
+  background: var(--surface2);
+  border-radius: var(--radius);
+  border-left: 3px solid var(--accent);
+  margin-bottom: 14px;
+}
+.sa-guide.warn { border-left-color: var(--amber); background: var(--amber-light); }
+.sa-guide.info { border-left-color: var(--teal); background: var(--teal-light); }
+.sa-guide strong { color: var(--text); font-weight: 700; }
+.sa-guide-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .7px; color: var(--text-muted); margin-bottom: 8px; }
+
+.sa-stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 22px; }
+
+.sa-stat {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 22px 16px;
+  text-align: center;
+  transition: all .18s;
+}
+.sa-stat:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+.sa-stat-num { font-size: 32px; font-weight: 800; line-height: 1; letter-spacing: -1px; }
+.sa-stat-label { font-size: 12px; color: var(--text-secondary); font-weight: 600; margin-top: 8px; }
+.sa-stat-sub { font-size: 10px; color: var(--text-muted); margin-top: 3px; }
+
+.sa-student-row { display: flex; align-items: center; gap: 12px; padding: 10px 14px; border-radius: var(--radius); margin-bottom: 6px; transition: background .15s; }
+.sa-student-row:hover { background: var(--surface2); }
+.sa-student-avatar { width: 34px; height: 34px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0; }
+.sa-student-info { flex: 1; min-width: 0; }
+.sa-student-name { font-size: 13px; font-weight: 700; }
+.sa-student-meta { font-size: 11px; color: var(--text-muted); font-weight: 500; }
+
+.sa-rank-row { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border-light); font-size: 13px; }
+.sa-rank-row:last-child { border-bottom: none; }
+.sa-rank-num { width: 28px; height: 28px; border-radius: 8px; background: var(--surface2); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; }
+.sa-rank-bar { flex: 1; height: 6px; background: var(--surface3); border-radius: 3px; overflow: hidden; }
+.sa-rank-fill { height: 100%; border-radius: 3px; transition: width .5s; }
+
+.sa-mutual-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 16px;
+  background: var(--green-light);
+  border: 1.5px solid var(--green-border);
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--green);
+  margin: 3px;
+}
+
+/* ═══════════════════════════════════
+   TOAST & EMPTY
+   ═══════════════════════════════════ */
+.toast {
+  position: fixed;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%) translateY(60px);
+  background: var(--sidebar-bg);
+  color: #e2e8f0;
+  padding: 12px 24px;
+  border-radius: var(--radius);
+  font-size: 13px;
+  font-weight: 600;
+  z-index: 999;
+  transition: transform .28s cubic-bezier(.34, 1.3, .64, 1);
+  white-space: nowrap;
+  box-shadow: var(--shadow-lg);
+}
+.toast.show { transform: translateX(-50%) translateY(0); }
+
+.empty { text-align: center; padding: 60px 20px; color: var(--text-muted); }
+.empty-icon { font-size: 40px; margin-bottom: 14px; }
+.empty p { font-size: 14px; font-weight: 500; }
+.empty-action { margin-top: 16px; }
+
+/* ═══════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════ */
+@media print {
+  .sidebar, .mobile-nav, .report-toolbar, .no-print { display: none !important; }
+  .main { padding: 0; }
+  body { background: white; }
+}
+
+@media (max-width: 700px) {
+  .sidebar { display: none; }
+  .main { padding: 16px; }
+  .form-row { grid-template-columns: 1fr; }
+  .dash-summary-grid { grid-template-columns: repeat(2, 1fr); }
+
+  .mobile-nav {
+    display: flex;
+    gap: 2px;
+    background: var(--surface);
+    border-radius: var(--radius);
+    padding: 4px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border);
+  }
+  .mobile-tab {
+    flex: 1;
+    padding: 9px 4px;
+    border: none;
+    background: none;
+    border-radius: 7px;
+    font-size: 10px;
+    font-family: inherit;
+    cursor: pointer;
+    color: var(--text-muted);
+    font-weight: 600;
+    transition: all .18s;
+    min-width: 0;
+  }
+  .mobile-tab.active { background: var(--accent); color: white; }
+
+  .socio-steps { flex-wrap: wrap; gap: 4px; }
+  .socio-steps::before { display: none; }
+  .sa-stat-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .sa-stat-num { font-size: 24px; }
+  #dash-two-col { grid-template-columns: 1fr !important; }
+  .page-title { font-size: 19px; }
+}
+
+@media (min-width: 701px) { .mobile-nav { display: none; } }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--surface3); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
 </style>
 </head>
 <body>
@@ -440,7 +1641,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
       <button class="nav-item" id="nav-report" onclick="gotoTab('report')"><span class="nav-icon">📊</span> 리포트</button>
       <div class="sidebar-spacer"></div>
       <div class="sidebar-privacy">⚠️ <strong>개인정보 보호</strong><br>학생 실명 입력 금지<br>번호·이니셜만 사용하세요</div>
-      <div class="sidebar-contact">📧 문의 · 수정 요청<br><a href="mailto:wsh0603@kakao.com" style="color:var(--accent2);font-weight:700;">wsh0603@kakao.com</a></div>
+      <div class="sidebar-contact">📧 문의 · 수정 요청<br><a href="mailto:wsh0603@kakao.com">wsh0603@kakao.com</a></div>
     </aside>
 
     <main class="main">
@@ -480,7 +1681,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
           </div>
         </div>
         <div class="dash-section">
-          <div class="dash-section-title">📭 미상담 학생 <span style="font-size:12px;color:var(--text-muted);font-family:'Noto Sans KR',sans-serif;font-weight:400;">(명부에 등록됐지만 상담 기록 없음)</span></div>
+          <div class="dash-section-title">📭 미상담 학생 <span style="font-size:12px;color:var(--text-muted);font-weight:400;">(명부에 등록됐지만 상담 기록 없음)</span></div>
           <div id="dash-no-counsel"></div>
         </div>
       </div>
@@ -537,7 +1738,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
         <div class="roster-grid" id="rosterGrid"></div>
       </div>
 
-      <!-- ── 관계조사 ── -->
+      <!-- 관계조사 -->
       <div id="tab-socio" style="display:none">
         <div class="page-header">
           <div>
@@ -548,17 +1749,13 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
             <button class="btn-primary pink" onclick="openNewSession()">+ 새 조사 회차</button>
           </div>
         </div>
-
-        <!-- 회차 선택 -->
         <div id="socio-session-list"></div>
-
-        <!-- 회차 상세 -->
         <div id="socio-detail" style="display:none;">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:8px;">
-            <div style="font-family:'Gowun Dodum',sans-serif;font-size:17px;" id="socio-detail-title"></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:8px;">
+            <div style="font-size:17px;font-weight:700;" id="socio-detail-title"></div>
             <div style="display:flex;gap:8px;">
               <button class="btn-ghost" onclick="socioBackToList()">← 회차 목록</button>
-              <button class="btn-icon del" onclick="deleteCurrentSession()" title="이 회차 삭제" style="width:auto;height:auto;padding:6px 10px;font-size:12px;">🗑️ 삭제</button>
+              <button class="btn-icon del" onclick="deleteCurrentSession()" title="이 회차 삭제" style="width:auto;height:auto;padding:6px 12px;font-size:12px;">🗑️ 삭제</button>
             </div>
           </div>
 
@@ -569,11 +1766,10 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
             <button class="socio-step" onclick="socioGotoStep(4)"><span class="step-num">4</span><span class="step-label">분석</span></button>
           </div>
 
-          <!-- Step 1: 학생 목록 -->
           <div class="socio-panel active" id="socio-step-1">
             <div class="sa-card">
               <div class="sa-card-header">
-                <div class="sa-card-icon" style="background:#e8f4e8;">📋</div>
+                <div class="sa-card-icon" style="background:var(--green-light);">📋</div>
                 <div><div class="sa-card-title">조사 대상 학생 목록</div>
                 <div class="sa-card-subtitle">학생 명부에서 자동으로 불러오거나, 직접 추가할 수 있어요</div></div>
               </div>
@@ -589,11 +1785,10 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
             </div>
           </div>
 
-          <!-- Step 2: 설문 입력 -->
           <div class="socio-panel" id="socio-step-2">
-            <div class="sa-card" style="padding:16px 20px;">
+            <div class="sa-card" style="padding:18px 22px;">
               <div class="sa-card-header" style="margin-bottom:8px;">
-                <div class="sa-card-icon" style="background:#ede8f8;">📝</div>
+                <div class="sa-card-icon" style="background:var(--purple-light);">📝</div>
                 <div><div class="sa-card-title">설문 입력</div>
                 <div class="sa-card-subtitle">각 학생별로 친한 친구·불편한 친구를 선택하세요 (인원 제한 없음)</div></div>
               </div>
@@ -601,22 +1796,20 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
             <div id="socio-survey-list" style="margin-top:12px;"></div>
           </div>
 
-          <!-- Step 3: 관계도 -->
           <div class="socio-panel" id="socio-step-3">
             <div class="socio-canvas-wrap">
               <canvas id="socio-canvas" width="900" height="600"></canvas>
               <div class="socio-legend">
-                <div class="socio-legend-item"><div class="socio-legend-line" style="background:#5c7a4e;"></div> 친한 관계</div>
-                <div class="socio-legend-item"><div class="socio-legend-line" style="background:#c17f3e;border-top:2px dashed #c17f3e;height:0;"></div> 불편한 관계</div>
-                <div class="socio-legend-item"><div style="width:14px;height:14px;border-radius:50%;background:#5c7a4e;"></div> 인기</div>
-                <div class="socio-legend-item"><div style="width:14px;height:14px;border-radius:50%;background:#c17f3e;"></div> 고립위험</div>
-                <div class="socio-legend-item"><div style="width:14px;height:14px;border-radius:50%;background:#999;"></div> 중간</div>
+                <div class="socio-legend-item"><div class="socio-legend-line" style="background:var(--green);"></div> 친한 관계</div>
+                <div class="socio-legend-item"><div class="socio-legend-line" style="background:var(--amber);border-top:2px dashed var(--amber);height:0;"></div> 불편한 관계</div>
+                <div class="socio-legend-item"><div style="width:14px;height:14px;border-radius:50%;background:var(--green);"></div> 인기</div>
+                <div class="socio-legend-item"><div style="width:14px;height:14px;border-radius:50%;background:var(--amber);"></div> 고립위험</div>
+                <div class="socio-legend-item"><div style="width:14px;height:14px;border-radius:50%;background:#94a3b8;"></div> 중간</div>
               </div>
             </div>
-            <p style="font-size:11px;color:var(--text-muted);margin-top:10px;padding:8px 14px;background:var(--surface);border-radius:8px;border:1px solid var(--border);">💡 <strong>노드 드래그</strong>로 위치 조정 &nbsp;·&nbsp; <strong>노드 클릭</strong>으로 해당 학생 관계 강조 &nbsp;·&nbsp; <strong>빈 공간 클릭</strong>으로 강조 해제</p>
+            <p style="font-size:11px;color:var(--text-muted);margin-top:10px;padding:10px 14px;background:var(--surface);border-radius:var(--radius);border:1px solid var(--border);font-weight:500;">💡 <strong>노드 드래그</strong>로 위치 조정 &nbsp;·&nbsp; <strong>노드 클릭</strong>으로 해당 학생 관계 강조 &nbsp;·&nbsp; <strong>빈 공간 클릭</strong>으로 강조 해제</p>
           </div>
 
-          <!-- Step 4: 분석 -->
           <div class="socio-panel" id="socio-step-4">
             <div id="socio-analysis"></div>
           </div>
@@ -792,11 +1985,10 @@ let currentUser=null, records=[], parents=[], roster=[];
 let filter='all', selType='', selMethod='', selGender='';
 let editId=null, editPId=null, editRId=null, detailId=null, detailIsParent=false;
 
-// ── 관계조사 상태 ──
-let socioSessions = []; // [{id, name, date, students:[], survey:{studentName:{positive:[],negative:[]}}}]
+let socioSessions = [];
 let currentSessionId = null;
 let socioCurrentStep = 1;
-let socioNodes = []; // canvas nodes [{name, x, y, vx, vy}]
+let socioNodes = [];
 let socioDrag = null;
 let socioHighlight = null;
 
@@ -810,7 +2002,6 @@ function loading(v){ $('loadingBar').style.display=v?'block':'none'; }
 function openModal(id){ $(id).classList.add('open'); }
 window.closeModal = id => { $(id).classList.remove('open'); ['f_ac','p_ac'].forEach(i=>{ const el=$(i); if(el) el.style.display='none'; }); };
 
-// ── 다중 학생 태그 ──
 function addNameTag(containerId, name) {
   const container=$(containerId); if(!container) return;
   if([...container.querySelectorAll('.name-tag')].some(t=>t.dataset.name===name)) return;
@@ -822,7 +2013,6 @@ function addNameTag(containerId, name) {
 function getTagNames(containerId){ const c=$(containerId); if(!c) return []; return [...c.querySelectorAll('.name-tag')].map(t=>t.dataset.name); }
 function clearTags(containerId){ const c=$(containerId); if(c) c.innerHTML=''; }
 
-// ── Auth ──
 window.switchAuthTab = tab => {
   $('form-login').style.display  = tab==='login'  ? 'block':'none';
   $('form-signup').style.display = tab==='signup' ? 'block':'none';
@@ -871,7 +2061,7 @@ window.doLogout = async () => { if(!confirm('로그아웃 할까요?')) return; 
 window.doResetPw = async () => {
   const email=$('l_email').value.trim(), errEl=$('authError');
   if(!email){ errEl.style.color='var(--danger)'; errEl.textContent='이메일을 먼저 입력해주세요'; return; }
-  try{ loading(true); await sendPasswordResetEmail(auth,email); errEl.style.color='var(--accent)'; errEl.textContent='✅ 재설정 이메일을 보냈어요!'; }
+  try{ loading(true); await sendPasswordResetEmail(auth,email); errEl.style.color='var(--green)'; errEl.textContent='✅ 재설정 이메일을 보냈어요!'; }
   catch(e){ errEl.style.color='var(--danger)'; errEl.textContent=e.code==='auth/user-not-found'?'등록되지 않은 이메일이에요':'오류: '+e.message; }
   finally{ loading(false); }
 };
@@ -912,9 +2102,6 @@ async function loadData(){
   finally{loading(false);}
 }
 
-// ══════════════════════════════════════
-// ── 대시보드 (unchanged) ──
-// ══════════════════════════════════════
 function renderDashboard() {
   const now = new Date();
   const thisMonth = now.toISOString().slice(0,7);
@@ -935,12 +2122,12 @@ function renderDashboard() {
 
   $('dash-summary').innerHTML=`
     <div class="dash-summary-card accent"><div class="dash-num" style="color:var(--accent);">${total}</div><div class="dash-label">전체 상담 기록</div><div class="dash-sub">일반 ${records.length} · 학부모 ${parents.length}</div></div>
-    <div class="dash-summary-card accent4"><div class="dash-num" style="color:var(--accent4);">${counseledNames.size}</div><div class="dash-label">상담 학생 수</div><div class="dash-sub">중복 제외</div></div>
-    <div class="dash-summary-card accent2"><div class="dash-num" style="color:var(--accent2);">${monthTotal}</div><div class="dash-label">이번 달 상담</div><div class="dash-sub">${now.getMonth()+1}월 기준</div></div>
-    <div class="dash-summary-card accent3"><div class="dash-num" style="color:var(--accent3);">${roster.filter(s=>s.watch).length}</div><div class="dash-label">주목 학생</div><div class="dash-sub">⭐ 표시된 학생</div></div>`;
+    <div class="dash-summary-card accent4"><div class="dash-num" style="color:var(--teal);">${counseledNames.size}</div><div class="dash-label">상담 학생 수</div><div class="dash-sub">중복 제외</div></div>
+    <div class="dash-summary-card accent2"><div class="dash-num" style="color:var(--amber);">${monthTotal}</div><div class="dash-label">이번 달 상담</div><div class="dash-sub">${now.getMonth()+1}월 기준</div></div>
+    <div class="dash-summary-card accent3"><div class="dash-num" style="color:var(--purple);">${roster.filter(s=>s.watch).length}</div><div class="dash-label">주목 학생</div><div class="dash-sub">⭐ 표시된 학생</div></div>`;
 
   const typeTotal = Object.values(tc).reduce((a,b)=>a+b,0);
-  const colors = {학습:'var(--accent)',생활:'var(--accent2)',교우관계:'var(--accent3)'};
+  const colors = {학습:'var(--green)',생활:'var(--amber)',교우관계:'var(--purple)'};
   $('dash-type-bar').innerHTML = typeTotal===0
     ? `<div style="font-size:13px;color:var(--text-muted);">상담 기록이 없어요</div>`
     : `<div class="type-ratio-bar">${Object.entries(tc).filter(([,v])=>v>0).map(([k,v])=>`<div class="type-ratio-seg" style="width:${Math.round(v/typeTotal*100)}%;background:${colors[k]};">${Math.round(v/typeTotal*100)}%</div>`).join('')}</div>
@@ -951,7 +2138,7 @@ function renderDashboard() {
   const maxWeek = Math.max(...Object.values(weekMap),1);
   $('dash-month').innerHTML = monthTotal===0
     ? `<div style="font-size:13px;color:var(--text-muted);">이번 달 상담 기록이 없어요</div>`
-    : `<div style="background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:16px;">${Object.entries(weekMap).sort().map(([w,cnt])=>`<div class="month-bar-row"><div class="month-bar-label">${w}</div><div class="month-bar-track"><div class="month-bar-fill" style="width:${Math.round(cnt/maxWeek*100)}%"></div></div><div class="month-bar-count">${cnt}</div></div>`).join('')}<div style="font-size:12px;color:var(--text-muted);margin-top:8px;">이번 달 총 ${monthTotal}건</div></div>`;
+    : `<div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:18px;">${Object.entries(weekMap).sort().map(([w,cnt])=>`<div class="month-bar-row"><div class="month-bar-label">${w}</div><div class="month-bar-track"><div class="month-bar-fill" style="width:${Math.round(cnt/maxWeek*100)}%"></div></div><div class="month-bar-count">${cnt}</div></div>`).join('')}<div style="font-size:12px;color:var(--text-muted);margin-top:10px;font-weight:500;">이번 달 총 ${monthTotal}건</div></div>`;
 
   const recent = [...records,...parents].sort((a,b)=>b.date.localeCompare(a.date)).slice(0,5);
   $('dash-recent').innerHTML = recent.length===0
@@ -965,13 +2152,10 @@ function renderDashboard() {
 
   const noCounsel = roster.filter(s=>!counseledNames.has(s.label)&&!counseledNames.has(s.alias));
   $('dash-no-counsel').innerHTML = noCounsel.length===0
-    ? `<div style="font-size:13px;color:var(--accent);font-weight:600;">✅ 모든 학생이 상담 기록이 있어요!</div>`
+    ? `<div style="font-size:13px;color:var(--green);font-weight:600;">✅ 모든 학생이 상담 기록이 있어요!</div>`
     : `<div class="dash-no-counsel-grid">${noCounsel.map(s=>`<div class="dash-no-counsel-card${s.watch?' warn':''}"><div style="font-size:20px;">${emo(s.alias||s.label)}</div><div><div style="font-size:13px;font-weight:700;">${s.alias||s.label} ${s.watch?'⭐':''}</div><div style="font-size:11px;color:var(--text-muted);">${s.num}번 · ${s.gender||'-'}</div></div></div>`).join('')}</div>`;
 }
 
-// ══════════════════════════════════════
-// ── 생기부 (unchanged) ──
-// ══════════════════════════════════════
 window.openStudentDetail = function(name) {
   const recs=records.filter(r=>r.name.split(',').map(n=>n.trim()).includes(name)).sort((a,b)=>a.date.localeCompare(b.date));
   const pars=parents.filter(p=>p.name.split(',').map(n=>n.trim()).includes(name)).sort((a,b)=>a.date.localeCompare(b.date));
@@ -981,14 +2165,14 @@ window.openStudentDetail = function(name) {
   $('student-detail-title').textContent=`${emo(name)} ${name} 상담 이력`;
 
   const historyHtml=all.length===0?`<div class="empty"><div class="empty-icon">📭</div><p>상담 기록이 없어요</p></div>`
-    :all.map(r=>{const badge=r.method?`<span class="method-badge">${esc(r.method)}</span>`:`<span class="tag tag-${r.type}">${r.type}</span>`;return `<div class="student-history-item"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;">${badge}<span style="font-size:11px;color:var(--text-muted);">${r.date}</span></div><div style="font-size:13px;line-height:1.65;">${esc(r.content)}</div>${r.followup?`<div style="font-size:12px;color:var(--text-muted);margin-top:4px;">→ ${esc(r.followup)}</div>`:''}</div>`;}).join('');
+    :all.map(r=>{const badge=r.method?`<span class="method-badge">${esc(r.method)}</span>`:`<span class="tag tag-${r.type}">${r.type}</span>`;return `<div class="student-history-item"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;">${badge}<span style="font-size:11px;color:var(--text-muted);">${r.date}</span></div><div style="font-size:13px;line-height:1.7;">${esc(r.content)}</div>${r.followup?`<div style="font-size:12px;color:var(--text-muted);margin-top:4px;">→ ${esc(r.followup)}</div>`:''}</div>`;}).join('');
 
   const summary=recs.map(r=>`[${r.date}][${r.type}] ${r.content}${r.followup?' / 후속: '+r.followup:''}`).join('\n');
   const prompt=`당신은 대한민국 초등학교 담임교사입니다. 아래 학생 상담 기록을 종합 분석하여 학교생활기록부 문구 초안을 작성해주세요.\n\n[상담 기록]\n${summary||'기록 없음'}\n\n[작성 규칙]\n1. 부정적 표현 절대 금지\n2. 학생의 성장 가능성과 긍정적 변화에 초점\n3. 각 항목 2~3문장, 자연스러운 서술체\n4. 글자수: 자율활동 100자 내외, 행동특성 150자 내외\n\n[출력 형식 — 반드시 아래 JSON만 출력]\n{"자율":"자율활동상황 문구","행동":"행동특성및종합의견 문구"}`;
   const claudeUrl=`https://claude.ai/new?q=${encodeURIComponent(prompt)}`;
 
   $('student-detail-body').innerHTML=`
-    <div class="student-detail-card"><div style="font-size:12px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:14px;">📝 상담 이력 (총 ${all.length}건 · 일반 ${recs.length}건 · 학부모 ${pars.length}건)</div>${historyHtml}</div>
+    <div class="student-detail-card"><div style="font-size:12px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:16px;">📝 상담 이력 (총 ${all.length}건 · 일반 ${recs.length}건 · 학부모 ${pars.length}건)</div>${historyHtml}</div>
     <div class="segibu-box"><div class="segibu-header"><span style="font-size:20px;">📄</span><span class="segibu-title">생활기록부 문구 초안 생성</span></div><div class="segibu-notice">⚠️ AI 초안입니다. 반드시 교사가 검토·수정 후 사용하세요.</div>
       <div class="segibu-section"><div class="segibu-section-label">✅ 자율활동상황</div><textarea class="segibu-textarea" id="segibu-자율" placeholder="Claude에서 생성한 결과를 여기에 붙여넣어 편집하세요." oninput="updateChar('자율')"></textarea><div class="segibu-char" id="char-자율">0자</div><button class="segibu-copy-btn" onclick="copySegibu('자율')">📋 복사</button></div>
       <div class="segibu-section"><div class="segibu-section-label">✅ 행동특성 및 종합의견</div><textarea class="segibu-textarea" id="segibu-행동" placeholder="Claude에서 생성한 결과를 여기에 붙여넣어 편집하세요." oninput="updateChar('행동')"></textarea><div class="segibu-char" id="char-행동">0자</div><button class="segibu-copy-btn" onclick="copySegibu('행동')">📋 복사</button></div>
@@ -1002,7 +2186,6 @@ window.copySegibu=async id=>{const el=$(`segibu-${id}`);if(!el||!el.value.trim()
 window.copySegibuPrompt=async()=>{const el=$('segibu-prompt');if(!el)return;try{await navigator.clipboard.writeText(el.innerText);const btn=$('segibu-prompt-copy-btn');btn.textContent='✅ 복사됨!';btn.classList.add('done');setTimeout(()=>{btn.textContent='📋 프롬프트 복사';btn.classList.remove('done');},2000);}catch{toast('직접 선택해서 복사해주세요');}};
 window.backToGrid=()=>{$('student-grid-view').style.display='block';$('student-detail-view').style.display='none';};
 
-// ── AI Guide ──
 function makePrompt(r){return `당신은 대한민국 초등학교 생활지도 전문가입니다.\n\n[상담 유형] ${r.type}\n[상담 내용] ${r.content}\n[후속 조치] ${r.followup||'없음'}\n\n다음 4가지를 각각 2~3가지씩 답변해주세요:\n1. ✅ 지도 방향 / 접근 방법\n2. 🚫 절대 하지 말아야 할 행동\n3. 💬 학부모 소통 시 유의사항\n4. 👁️ 후속 관찰 포인트`;}
 
 function buildAiGuideHtml(r){const prompt=makePrompt(r);const claudeUrl=`https://claude.ai/new?q=${encodeURIComponent(prompt)}`;return `<div class="ai-guide-box"><div class="ai-guide-header"><span style="font-size:18px;">🤖</span><span class="ai-guide-title">AI 지도 가이드</span></div><div class="ai-guide-desc">프롬프트를 Claude에 붙여넣으면 지도 방향을 안내받을 수 있어요.<br><strong style="color:var(--danger);">⚠️ AI 제안은 참고용입니다. 최종 판단은 교사가 하세요.</strong></div><div class="ai-prompt-box" id="ai-prompt-text">${esc(prompt)}</div><div class="ai-btn-row"><button class="btn-copy" id="btn-copy-prompt" onclick="copyPrompt()">📋 프롬프트 복사</button><button class="btn-open-claude" onclick="window.open('${claudeUrl}','_blank')">↗ Claude에서 바로 열기</button></div></div>`;}
@@ -1018,13 +2201,8 @@ function buildDetailHtml(r,isParent){
     ${!isParent?`<hr class="ai-divider">${buildAiGuideHtml(r)}`:''}`;
 }
 
-// ══════════════════════════════════════
-// ── 관계조사 (Sociometry) ──
-// ══════════════════════════════════════
-
 function getCurrentSession() { return socioSessions.find(s => s.id === currentSessionId); }
 
-// Session List
 function renderSocioSessionList() {
   const el = $('socio-session-list');
   if (!socioSessions.length) {
@@ -1037,7 +2215,7 @@ function renderSocioSessionList() {
     return `<div class="socio-session-card${s.id===currentSessionId?' active-session':''}" onclick="openSession('${s.id}')">
       <div>
         <div style="font-size:15px;font-weight:700;">${esc(s.name)}</div>
-        <div style="font-size:12px;color:var(--text-muted);margin-top:4px;">📅 ${s.date} &nbsp;·&nbsp; 👤 학생 ${cnt}명 &nbsp;·&nbsp; 📝 설문 ${surveyDone}건</div>
+        <div style="font-size:12px;color:var(--text-muted);margin-top:4px;font-weight:500;">📅 ${s.date} &nbsp;·&nbsp; 👤 학생 ${cnt}명 &nbsp;·&nbsp; 📝 설문 ${surveyDone}건</div>
       </div>
       <div class="socio-session-arrow">→</div>
     </div>`;
@@ -1095,7 +2273,6 @@ window.deleteCurrentSession = async () => {
   finally { loading(false); }
 };
 
-// Steps
 window.socioGotoStep = (step) => {
   socioCurrentStep = step;
   document.querySelectorAll('.socio-step').forEach((el, i) => {
@@ -1110,7 +2287,6 @@ window.socioGotoStep = (step) => {
   if (step === 4) renderSocioAnalysis();
 };
 
-// Step 1: Students
 function renderSocioStudents() {
   const s = getCurrentSession(); if (!s) return;
   const el = $('socio-student-list');
@@ -1144,13 +2320,11 @@ window.socioAddStudent = () => {
 window.socioRemoveStudent = (name) => {
   const s = getCurrentSession(); if (!s) return;
   s.students = (s.students || []).filter(n => n !== name);
-  // also remove from survey
   if (s.survey) { delete s.survey[name]; Object.values(s.survey).forEach(v => { v.positive = (v.positive||[]).filter(n=>n!==name); v.negative = (v.negative||[]).filter(n=>n!==name); }); }
   saveSocioSession(s);
   renderSocioStudents();
 };
 
-// Step 2: Survey
 function renderSocioSurvey() {
   const s = getCurrentSession(); if (!s) return;
   const students = s.students || [];
@@ -1166,16 +2340,16 @@ function renderSocioSurvey() {
     const negOpts = others.filter(n => !(data.negative || []).includes(n)).map(n => `<option value="${esc(n)}">${n}</option>`).join('');
     return `<div class="socio-survey-card">
       <div class="student-label">${emo(name)} ${esc(name)}</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
         <div>
-          <div style="font-size:11px;font-weight:700;color:var(--accent);margin-bottom:6px;">💚 친한 친구</div>
+          <div style="font-size:11px;font-weight:700;color:var(--green);margin-bottom:6px;">💚 친한 친구</div>
           <div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px;">${positiveTags || '<span style="font-size:12px;color:var(--text-muted);">없음</span>'}</div>
           <select class="socio-select" onchange="socioAddChoice('${esc(name)}','positive',this.value);this.value=''">
             <option value="">+ 추가</option>${posOpts}
           </select>
         </div>
         <div>
-          <div style="font-size:11px;font-weight:700;color:var(--accent2);margin-bottom:6px;">🟠 불편한 친구</div>
+          <div style="font-size:11px;font-weight:700;color:var(--amber);margin-bottom:6px;">🟠 불편한 친구</div>
           <div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px;">${negativeTags || '<span style="font-size:12px;color:var(--text-muted);">없음</span>'}</div>
           <select class="socio-select" onchange="socioAddChoice('${esc(name)}','negative',this.value);this.value=''">
             <option value="">+ 추가</option>${negOpts}
@@ -1207,7 +2381,6 @@ window.socioRemoveChoice = (student, type, target) => {
   }
 };
 
-// Save session to Firestore
 async function saveSocioSession(session) {
   try {
     const { id, ...data } = session;
@@ -1215,7 +2388,6 @@ async function saveSocioSession(session) {
   } catch (e) { console.error('Save socio session error:', e); }
 }
 
-// Step 3: Graph (Canvas)
 function renderSocioGraph() {
   const s = getCurrentSession(); if (!s) return;
   const students = s.students || [];
@@ -1223,7 +2395,6 @@ function renderSocioGraph() {
   const canvas = $('socio-canvas');
   const ctx = canvas.getContext('2d');
 
-  // High DPI
   const dpr = window.devicePixelRatio || 1;
   const rect = canvas.parentElement.getBoundingClientRect();
   const W = Math.max(rect.width - 2, 600);
@@ -1234,9 +2405,8 @@ function renderSocioGraph() {
   canvas.style.height = H + 'px';
   ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-  if (!students.length) { ctx.fillStyle = '#8a7d6e'; ctx.font = '14px "Noto Sans KR"'; ctx.textAlign = 'center'; ctx.fillText('학생이 없어요', W / 2, H / 2); return; }
+  if (!students.length) { ctx.fillStyle = '#94a3b8'; ctx.font = '14px "Pretendard","Noto Sans KR"'; ctx.textAlign = 'center'; ctx.fillText('학생이 없어요', W / 2, H / 2); return; }
 
-  // Compute scores
   const posIn = {}, negIn = {};
   students.forEach(n => { posIn[n] = 0; negIn[n] = 0; });
   Object.entries(survey).forEach(([from, data]) => {
@@ -1244,7 +2414,6 @@ function renderSocioGraph() {
     (data.negative || []).forEach(to => { if (negIn[to] !== undefined) negIn[to]++; });
   });
 
-  // Init node positions (circle layout)
   if (!socioNodes.length || socioNodes.length !== students.length || socioNodes[0]?._session !== currentSessionId) {
     const cx = W / 2, cy = H / 2, r = Math.min(W, H) * 0.35;
     socioNodes = students.map((name, i) => {
@@ -1255,29 +2424,25 @@ function renderSocioGraph() {
 
   function draw() {
     ctx.clearRect(0, 0, W, H);
-
-    // Edges
     Object.entries(survey).forEach(([from, data]) => {
       const fromNode = socioNodes.find(n => n.name === from);
       if (!fromNode) return;
-
       (data.positive || []).forEach(to => {
         const toNode = socioNodes.find(n => n.name === to);
         if (!toNode) return;
         const dim = socioHighlight && socioHighlight !== from && socioHighlight !== to;
         ctx.save();
-        ctx.strokeStyle = dim ? 'rgba(92,122,78,0.12)' : 'rgba(92,122,78,0.6)';
+        ctx.strokeStyle = dim ? 'rgba(22,163,74,0.12)' : 'rgba(22,163,74,0.6)';
         ctx.lineWidth = dim ? 1 : 2;
         drawArrow(ctx, fromNode.x, fromNode.y, toNode.x, toNode.y, 22);
         ctx.restore();
       });
-
       (data.negative || []).forEach(to => {
         const toNode = socioNodes.find(n => n.name === to);
         if (!toNode) return;
         const dim = socioHighlight && socioHighlight !== from && socioHighlight !== to;
         ctx.save();
-        ctx.strokeStyle = dim ? 'rgba(193,127,62,0.12)' : 'rgba(193,127,62,0.6)';
+        ctx.strokeStyle = dim ? 'rgba(217,119,6,0.12)' : 'rgba(217,119,6,0.6)';
         ctx.lineWidth = dim ? 1 : 2;
         ctx.setLineDash([6, 4]);
         drawArrow(ctx, fromNode.x, fromNode.y, toNode.x, toNode.y, 22);
@@ -1285,15 +2450,14 @@ function renderSocioGraph() {
       });
     });
 
-    // Nodes
     socioNodes.forEach(node => {
       const pos = posIn[node.name] || 0;
       const neg = negIn[node.name] || 0;
       const dim = socioHighlight && socioHighlight !== node.name && !isConnected(node.name, socioHighlight);
       let color, borderColor;
-      if (pos >= 3) { color = '#e8f4e8'; borderColor = '#5c7a4e'; }
-      else if (neg >= 2 && pos <= 1) { color = '#fef3e2'; borderColor = '#c17f3e'; }
-      else { color = '#f0ebe3'; borderColor = '#999'; }
+      if (pos >= 3) { color = '#f0fdf4'; borderColor = '#16a34a'; }
+      else if (neg >= 2 && pos <= 1) { color = '#fffbeb'; borderColor = '#d97706'; }
+      else { color = '#f1f5f9'; borderColor = '#94a3b8'; }
 
       ctx.save();
       ctx.globalAlpha = dim ? 0.25 : 1;
@@ -1304,8 +2468,8 @@ function renderSocioGraph() {
       ctx.lineWidth = socioHighlight === node.name ? 3 : 2;
       ctx.strokeStyle = borderColor;
       ctx.stroke();
-      ctx.fillStyle = '#2c2416';
-      ctx.font = '11px "Noto Sans KR"';
+      ctx.fillStyle = '#0f172a';
+      ctx.font = '11px "Pretendard","Noto Sans KR"';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       const label = node.name.length > 6 ? node.name.slice(0, 5) + '…' : node.name;
@@ -1325,88 +2489,28 @@ function renderSocioGraph() {
     const ux = dx / dist, uy = dy / dist;
     const sx = x1 + ux * nodeR, sy = y1 + uy * nodeR;
     const ex = x2 - ux * (nodeR + 6), ey = y2 - uy * (nodeR + 6);
-    ctx.beginPath();
-    ctx.moveTo(sx, sy);
-    ctx.lineTo(ex, ey);
-    ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(sx, sy); ctx.lineTo(ex, ey); ctx.stroke();
     const headLen = 8, angle = Math.atan2(ey - sy, ex - sx);
-    ctx.beginPath();
-    ctx.moveTo(ex, ey);
+    ctx.beginPath(); ctx.moveTo(ex, ey);
     ctx.lineTo(ex - headLen * Math.cos(angle - Math.PI / 7), ey - headLen * Math.sin(angle - Math.PI / 7));
     ctx.lineTo(ex - headLen * Math.cos(angle + Math.PI / 7), ey - headLen * Math.sin(angle + Math.PI / 7));
-    ctx.closePath();
-    ctx.fillStyle = ctx.strokeStyle;
-    ctx.fill();
+    ctx.closePath(); ctx.fillStyle = ctx.strokeStyle; ctx.fill();
   }
 
   draw();
 
-  // Mouse interaction
-  const getPos = (e) => {
-    const r = canvas.getBoundingClientRect();
-    return { x: (e.clientX - r.left), y: (e.clientY - r.top) };
-  };
+  const getPos = (e) => { const r = canvas.getBoundingClientRect(); return { x: (e.clientX - r.left), y: (e.clientY - r.top) }; };
   const findNode = (pos) => socioNodes.find(n => Math.sqrt((n.x - pos.x) ** 2 + (n.y - pos.y) ** 2) < 22);
 
-  canvas.onmousedown = (e) => {
-    const pos = getPos(e);
-    const node = findNode(pos);
-    if (node) { socioDrag = node; canvas.style.cursor = 'grabbing'; }
-  };
-  canvas.onmousemove = (e) => {
-    const pos = getPos(e);
-    if (socioDrag) {
-      socioDrag.x = Math.max(22, Math.min(W - 22, pos.x));
-      socioDrag.y = Math.max(22, Math.min(H - 22, pos.y));
-      draw();
-    } else {
-      canvas.style.cursor = findNode(pos) ? 'pointer' : 'grab';
-    }
-  };
-  canvas.onmouseup = (e) => {
-    if (!socioDrag) {
-      const pos = getPos(e);
-      const node = findNode(pos);
-      socioHighlight = node ? (socioHighlight === node.name ? null : node.name) : null;
-      draw();
-    }
-    socioDrag = null;
-    canvas.style.cursor = 'grab';
-  };
+  canvas.onmousedown = (e) => { const pos = getPos(e); const node = findNode(pos); if (node) { socioDrag = node; canvas.style.cursor = 'grabbing'; } };
+  canvas.onmousemove = (e) => { const pos = getPos(e); if (socioDrag) { socioDrag.x = Math.max(22, Math.min(W - 22, pos.x)); socioDrag.y = Math.max(22, Math.min(H - 22, pos.y)); draw(); } else { canvas.style.cursor = findNode(pos) ? 'pointer' : 'grab'; } };
+  canvas.onmouseup = (e) => { if (!socioDrag) { const pos = getPos(e); const node = findNode(pos); socioHighlight = node ? (socioHighlight === node.name ? null : node.name) : null; draw(); } socioDrag = null; canvas.style.cursor = 'grab'; };
   canvas.onmouseleave = () => { socioDrag = null; };
-
-  // Touch support
-  canvas.ontouchstart = (e) => {
-    e.preventDefault();
-    const touch = e.touches[0];
-    const r = canvas.getBoundingClientRect();
-    const pos = { x: touch.clientX - r.left, y: touch.clientY - r.top };
-    const node = findNode(pos);
-    if (node) socioDrag = node;
-  };
-  canvas.ontouchmove = (e) => {
-    e.preventDefault();
-    if (!socioDrag) return;
-    const touch = e.touches[0];
-    const r = canvas.getBoundingClientRect();
-    socioDrag.x = Math.max(22, Math.min(W - 22, touch.clientX - r.left));
-    socioDrag.y = Math.max(22, Math.min(H - 22, touch.clientY - r.top));
-    draw();
-  };
-  canvas.ontouchend = (e) => {
-    if (!socioDrag) {
-      const touch = e.changedTouches[0];
-      const r = canvas.getBoundingClientRect();
-      const pos = { x: touch.clientX - r.left, y: touch.clientY - r.top };
-      const node = findNode(pos);
-      socioHighlight = node ? (socioHighlight === node.name ? null : node.name) : null;
-      draw();
-    }
-    socioDrag = null;
-  };
+  canvas.ontouchstart = (e) => { e.preventDefault(); const touch = e.touches[0]; const r = canvas.getBoundingClientRect(); const pos = { x: touch.clientX - r.left, y: touch.clientY - r.top }; const node = findNode(pos); if (node) socioDrag = node; };
+  canvas.ontouchmove = (e) => { e.preventDefault(); if (!socioDrag) return; const touch = e.touches[0]; const r = canvas.getBoundingClientRect(); socioDrag.x = Math.max(22, Math.min(W - 22, touch.clientX - r.left)); socioDrag.y = Math.max(22, Math.min(H - 22, touch.clientY - r.top)); draw(); };
+  canvas.ontouchend = (e) => { if (!socioDrag) { const touch = e.changedTouches[0]; const r = canvas.getBoundingClientRect(); const pos = { x: touch.clientX - r.left, y: touch.clientY - r.top }; const node = findNode(pos); socioHighlight = node ? (socioHighlight === node.name ? null : node.name) : null; draw(); } socioDrag = null; };
 }
 
-// Step 4: Analysis with interpretation & guidance
 function renderSocioAnalysis() {
   const s = getCurrentSession(); if (!s) return;
   const students = s.students || [];
@@ -1422,27 +2526,11 @@ function renderSocioAnalysis() {
     (data.negative || []).forEach(to => { if (negIn[to] !== undefined) { negIn[to]++; negOut[from]++; } });
   });
 
-  // Mutual positive
   const mutualPos = [];
-  students.forEach(a => {
-    students.forEach(b => {
-      if (a < b && survey[a]?.positive?.includes(b) && survey[b]?.positive?.includes(a)) {
-        mutualPos.push([a, b]);
-      }
-    });
-  });
-
-  // Mutual negative
+  students.forEach(a => { students.forEach(b => { if (a < b && survey[a]?.positive?.includes(b) && survey[b]?.positive?.includes(a)) mutualPos.push([a, b]); }); });
   const mutualNeg = [];
-  students.forEach(a => {
-    students.forEach(b => {
-      if (a < b && survey[a]?.negative?.includes(b) && survey[b]?.negative?.includes(a)) {
-        mutualNeg.push([a, b]);
-      }
-    });
-  });
+  students.forEach(a => { students.forEach(b => { if (a < b && survey[a]?.negative?.includes(b) && survey[b]?.negative?.includes(a)) mutualNeg.push([a, b]); }); });
 
-  // Categories
   const popular = students.filter(n => posIn[n] >= 3).sort((a, b) => posIn[b] - posIn[a]);
   const isolated = students.filter(n => posIn[n] === 0 && negIn[n] >= 1);
   const noRelation = students.filter(n => posIn[n] === 0 && negIn[n] === 0 && posOut[n] === 0 && negOut[n] === 0);
@@ -1450,242 +2538,57 @@ function renderSocioAnalysis() {
   const controversial = students.filter(n => posIn[n] >= 2 && negIn[n] >= 2);
   const maxPos = Math.max(...Object.values(posIn), 1);
   const maxNeg = Math.max(...Object.values(negIn), 1);
-
   const rankByPos = students.slice().sort((a, b) => posIn[b] - posIn[a]);
   const rankByNeg = students.slice().sort((a, b) => negIn[b] - negIn[a]);
-
-  // Completion rate
   const completionPct = students.length ? Math.round(surveyCount / students.length * 100) : 0;
-
-  // Class cohesion score (ratio of mutual positive to total students)
   const cohesionScore = students.length >= 2 ? Math.round(mutualPos.length / (students.length * (students.length - 1) / 2) * 100) : 0;
 
   $('socio-analysis').innerHTML = `
-    <!-- 종합 요약 -->
-    <div class="sa-card" style="border-color:var(--accent);background:linear-gradient(135deg,#f8fbf6,#f4faf2);">
+    <div class="sa-card" style="border-color:var(--accent);background:var(--accent-light);">
       <div class="sa-card-header">
-        <div class="sa-card-icon" style="background:#e8f4e8;">📋</div>
+        <div class="sa-card-icon" style="background:white;">📋</div>
         <div><div class="sa-card-title">학급 관계 종합 분석</div>
         <div class="sa-card-subtitle">설문 응답률 ${completionPct}% (${surveyCount}/${students.length}명)</div></div>
       </div>
-      ${completionPct < 80 ? `<div class="sa-guide info"><div class="sa-guide-label">💡 참고</div>설문 응답률이 ${completionPct}%입니다. <strong>80% 이상</strong> 응답을 확보해야 신뢰도 있는 분석이 가능해요. 미응답 학생의 설문을 추가로 입력해주세요.</div>` : ''}
+      ${completionPct < 80 ? `<div class="sa-guide info"><div class="sa-guide-label">💡 참고</div>설문 응답률이 ${completionPct}%입니다. <strong>80% 이상</strong> 응답을 확보해야 신뢰도 있는 분석이 가능해요.</div>` : ''}
     </div>
-
-    <!-- 핵심 수치 -->
     <div class="sa-stat-grid">
-      <div class="sa-stat" style="border-color:var(--accent);background:#f8fbf6;">
-        <div class="sa-stat-num" style="color:var(--accent);">${popular.length}</div>
-        <div class="sa-stat-label">인기 학생</div>
-        <div class="sa-stat-sub">긍정 선택 3회↑</div>
-      </div>
-      <div class="sa-stat" style="border-color:var(--accent2);background:#fefaf5;">
-        <div class="sa-stat-num" style="color:var(--accent2);">${isolated.length}</div>
-        <div class="sa-stat-label">고립 위험</div>
-        <div class="sa-stat-sub">긍정 0 + 부정 1↑</div>
-      </div>
-      <div class="sa-stat" style="border-color:var(--border);">
-        <div class="sa-stat-num" style="color:var(--text-muted);">${noRelation.length}</div>
-        <div class="sa-stat-label">관계 미형성</div>
-        <div class="sa-stat-sub">선택/피선택 모두 없음</div>
-      </div>
+      <div class="sa-stat" style="border-color:var(--green-border);background:var(--green-light);"><div class="sa-stat-num" style="color:var(--green);">${popular.length}</div><div class="sa-stat-label">인기 학생</div><div class="sa-stat-sub">긍정 선택 3회↑</div></div>
+      <div class="sa-stat" style="border-color:var(--amber-border);background:var(--amber-light);"><div class="sa-stat-num" style="color:var(--amber);">${isolated.length}</div><div class="sa-stat-label">고립 위험</div><div class="sa-stat-sub">긍정 0 + 부정 1↑</div></div>
+      <div class="sa-stat"><div class="sa-stat-num" style="color:var(--text-muted);">${noRelation.length}</div><div class="sa-stat-label">관계 미형성</div><div class="sa-stat-sub">선택/피선택 없음</div></div>
     </div>
-
-    <!-- 학급 응집력 -->
     <div class="sa-card">
-      <div class="sa-card-header">
-        <div class="sa-card-icon" style="background:#e2f0f5;">🤝</div>
-        <div><div class="sa-card-title">학급 응집력</div>
-        <div class="sa-card-subtitle">상호 친밀 관계 비율: ${cohesionScore}%</div></div>
-      </div>
-      <div style="height:8px;background:var(--surface2);border-radius:4px;overflow:hidden;margin-bottom:14px;">
-        <div style="height:100%;border-radius:4px;background:${cohesionScore >= 20 ? 'var(--accent)' : cohesionScore >= 10 ? 'var(--accent2)' : 'var(--danger)'};width:${Math.min(cohesionScore * 2, 100)}%;transition:width .5s;"></div>
-      </div>
-      <div class="sa-guide info">
-        <div class="sa-guide-label">🔍 해석</div>
-        ${cohesionScore >= 20
-          ? '<strong>응집력이 높은 학급</strong>입니다. 상호 신뢰를 바탕으로 한 긍정적인 관계가 다수 형성되어 있어요. 현재의 분위기를 유지하면서 소외되는 학생이 없는지 확인해주세요.'
-          : cohesionScore >= 10
-          ? '<strong>보통 수준의 응집력</strong>입니다. 일부 그룹 간 교류가 부족할 수 있어요. 다양한 모둠 활동과 협력 프로젝트를 통해 접점을 늘려보세요.'
-          : '<strong>응집력이 낮은 편</strong>입니다. 학생 간 교류가 제한적이고, 소그룹으로 분리되어 있을 가능성이 높아요. 학급 전체 활동, 서클 타임, 협동 게임 등을 적극 활용해 관계 형성을 도와주세요.'}
-      </div>
+      <div class="sa-card-header"><div class="sa-card-icon" style="background:var(--teal-light);">🤝</div><div><div class="sa-card-title">학급 응집력</div><div class="sa-card-subtitle">상호 친밀 관계 비율: ${cohesionScore}%</div></div></div>
+      <div style="height:8px;background:var(--surface3);border-radius:4px;overflow:hidden;margin-bottom:14px;"><div style="height:100%;border-radius:4px;background:${cohesionScore >= 20 ? 'var(--green)' : cohesionScore >= 10 ? 'var(--amber)' : 'var(--danger)'};width:${Math.min(cohesionScore * 2, 100)}%;transition:width .5s;"></div></div>
+      <div class="sa-guide info"><div class="sa-guide-label">🔍 해석</div>${cohesionScore >= 20 ? '<strong>응집력이 높은 학급</strong>입니다. 상호 신뢰를 바탕으로 한 긍정적인 관계가 다수 형성되어 있어요.' : cohesionScore >= 10 ? '<strong>보통 수준의 응집력</strong>입니다. 다양한 모둠 활동과 협력 프로젝트를 통해 접점을 늘려보세요.' : '<strong>응집력이 낮은 편</strong>입니다. 학급 전체 활동, 서클 타임, 협동 게임 등을 적극 활용해 관계 형성을 도와주세요.'}</div>
     </div>
-
-    <!-- 상호 친밀 관계 -->
-    ${mutualPos.length ? `
-    <div class="sa-card" style="border-color:#b8d9b0;">
-      <div class="sa-card-header">
-        <div class="sa-card-icon" style="background:#e8f4e8;">💚</div>
-        <div><div class="sa-card-title">상호 친밀 관계 (${mutualPos.length}쌍)</div>
-        <div class="sa-card-subtitle">서로가 서로를 친한 친구로 선택한 관계</div></div>
-      </div>
-      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;">${mutualPos.map(([a, b]) => `<span class="sa-mutual-tag">${esc(a)} ↔ ${esc(b)}</span>`).join('')}</div>
-      <div class="sa-guide">
-        <div class="sa-guide-label">📌 활용 방법</div>
-        상호 친밀 관계는 <strong>안정적인 우정</strong>을 나타냅니다. 모둠 구성 시 이 쌍을 같은 모둠에 배치하면 심리적 안정감을 줄 수 있어요. 다만 너무 의존적이 되지 않도록, 때때로 다른 친구와도 활동할 기회를 만들어주세요.
-      </div>
-    </div>` : ''}
-
-    <!-- 상호 갈등 관계 -->
-    ${mutualNeg.length ? `
-    <div class="sa-card" style="border-color:#e8cfa8;">
-      <div class="sa-card-header">
-        <div class="sa-card-icon" style="background:#fef3e2;">⚡</div>
-        <div><div class="sa-card-title">상호 갈등 관계 (${mutualNeg.length}쌍)</div>
-        <div class="sa-card-subtitle">서로가 서로를 불편한 친구로 선택한 관계</div></div>
-      </div>
-      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;">${mutualNeg.map(([a, b]) => `<span style="display:inline-flex;align-items:center;gap:4px;padding:6px 14px;background:#fef3e2;border:1.5px solid #e8cfa8;border-radius:20px;font-size:12px;font-weight:600;color:var(--accent2);margin:3px;">${esc(a)} ⚡ ${esc(b)}</span>`).join('')}</div>
-      <div class="sa-guide warn">
-        <div class="sa-guide-label">🚨 즉시 관심 필요</div>
-        상호 부정 선택은 <strong>갈등이 심화된 관계</strong>를 의미합니다. 자리 배치 시 거리를 두되, 완전히 분리하기보다는 중재자 역할을 할 수 있는 학생을 사이에 배치해주세요. 개별 면담을 통해 갈등의 원인을 파악하고, 필요시 또래 중재 프로그램을 활용하세요.
-      </div>
-    </div>` : ''}
-
-    <!-- 인기 학생 -->
-    ${popular.length ? `
-    <div class="sa-card" style="border-color:#b8d9b0;">
-      <div class="sa-card-header">
-        <div class="sa-card-icon" style="background:#e8f4e8;">⭐</div>
-        <div><div class="sa-card-title">인기 학생 (${popular.length}명)</div>
-        <div class="sa-card-subtitle">긍정 선택을 3회 이상 받은 학생</div></div>
-      </div>
-      ${popular.map(n => `<div class="sa-student-row"><div class="sa-student-avatar" style="background:#e8f4e8;">${emo(n)}</div><div class="sa-student-info"><div class="sa-student-name">${esc(n)}</div><div class="sa-student-meta">긍정 ${posIn[n]}회 받음 · 부정 ${negIn[n]}회 받음</div></div></div>`).join('')}
-      <div class="sa-guide" style="margin-top:12px;">
-        <div class="sa-guide-label">📌 활용 방법</div>
-        인기 학생은 <strong>학급 내 긍정적 영향력</strong>을 가집니다. 모둠 리더, 학급 행사 진행 등에 활용하되, 지나치게 역할이 집중되지 않도록 주의하세요. 고립 위험 학생과 자연스럽게 접점을 만들어주는 '관계 다리' 역할을 부탁할 수도 있어요.
-      </div>
-    </div>` : ''}
-
-    <!-- 고립 위험 학생 -->
-    ${isolated.length ? `
-    <div class="sa-card" style="border-color:var(--accent2);background:#fefcf8;">
-      <div class="sa-card-header">
-        <div class="sa-card-icon" style="background:#fef3e2;">⚠️</div>
-        <div><div class="sa-card-title">고립 위험 학생 (${isolated.length}명)</div>
-        <div class="sa-card-subtitle">긍정 선택 0회 + 부정 선택 1회 이상 받은 학생</div></div>
-      </div>
-      ${isolated.map(n => `<div class="sa-student-row" style="background:#fef8f0;border-radius:10px;"><div class="sa-student-avatar" style="background:#fef3e2;">${emo(n)}</div><div class="sa-student-info"><div class="sa-student-name">${esc(n)}</div><div class="sa-student-meta">긍정 0회 · 부정 ${negIn[n]}회 받음 · 본인 선택: 긍정 ${posOut[n]}명, 부정 ${negOut[n]}명</div></div></div>`).join('')}
-      <div class="sa-guide warn" style="margin-top:12px;">
-        <div class="sa-guide-label">🚨 우선 관심 대상</div>
-        <strong>학급에서 가장 시급하게 관심이 필요한 학생들</strong>입니다. 또래에게 친한 친구로 선택받지 못하면서 불편한 존재로 인식되고 있어요.<br><br>
-        <strong>지도 방향:</strong><br>
-        · 개별 면담을 통해 학교생활 만족도와 교우관계 어려움을 파악하세요<br>
-        · 해당 학생의 강점(특기, 관심사)을 발견하여 학급 활동에서 빛날 기회를 만들어주세요<br>
-        · 모둠 구성 시 수용적인 성격의 학생들과 함께 배치하세요<br>
-        · 쉬는 시간 관찰을 통해 또래 괴롭힘 여부를 확인하세요<br>
-        · 필요시 학부모 상담과 연계하고, 상담일지에 지속적으로 기록하세요
-      </div>
-    </div>` : ''}
-
-    <!-- 배척 학생 (부정 3회 이상) -->
-    ${rejected.length ? `
-    <div class="sa-card" style="border-color:var(--danger);background:#fefafa;">
-      <div class="sa-card-header">
-        <div class="sa-card-icon" style="background:#fee;">🔴</div>
-        <div><div class="sa-card-title">배척 위험 학생 (${rejected.length}명)</div>
-        <div class="sa-card-subtitle">부정 선택을 3회 이상 받은 학생 — 집중 관찰 대상</div></div>
-      </div>
-      ${rejected.map(n => `<div class="sa-student-row" style="background:#fef5f5;border-radius:10px;"><div class="sa-student-avatar" style="background:#fee;">${emo(n)}</div><div class="sa-student-info"><div class="sa-student-name">${esc(n)}</div><div class="sa-student-meta">부정 ${negIn[n]}회 받음 · 긍정 ${posIn[n]}회 받음</div></div></div>`).join('')}
-      <div class="sa-guide warn" style="margin-top:12px;">
-        <div class="sa-guide-label">🚨 집중 지도 필요</div>
-        다수의 학생이 불편하다고 느끼는 학생입니다. <strong>행동 특성을 면밀히 관찰</strong>하여 원인을 파악하세요. 공격적 행동, 사회적 기술 부족, 위생 문제 등 다양한 원인이 있을 수 있어요.<br><br>
-        · 해당 학생이 부정 선택을 받는 구체적 이유를 개별 면담으로 파악하세요<br>
-        · 사회성 기술 훈련 (경청, 양보, 공감 표현 등)을 해당 학생에게 제공하세요<br>
-        · 성급히 변화를 요구하지 말고, 작은 성공 경험을 쌓게 도와주세요<br>
-        · Wee클래스 연계 상담도 고려해보세요
-      </div>
-    </div>` : ''}
-
-    <!-- 양면적 학생 -->
-    ${controversial.length ? `
-    <div class="sa-card" style="border-color:var(--accent3);">
-      <div class="sa-card-header">
-        <div class="sa-card-icon" style="background:#ede8f8;">🔮</div>
-        <div><div class="sa-card-title">양면적 관계 학생 (${controversial.length}명)</div>
-        <div class="sa-card-subtitle">긍정·부정 선택을 모두 2회 이상 받은 학생</div></div>
-      </div>
-      ${controversial.map(n => `<div class="sa-student-row"><div class="sa-student-avatar" style="background:#ede8f8;">${emo(n)}</div><div class="sa-student-info"><div class="sa-student-name">${esc(n)}</div><div class="sa-student-meta">긍정 ${posIn[n]}회 · 부정 ${negIn[n]}회 받음</div></div></div>`).join('')}
-      <div class="sa-guide info" style="margin-top:12px;">
-        <div class="sa-guide-label">🔍 해석</div>
-        이 학생들은 <strong>누구에게는 인기 있고, 누구에게는 불편한 존재</strong>입니다. 리더십이 강하지만 독단적이거나, 유머가 있지만 때로 공격적일 수 있어요. 긍정적 특성을 살리되, 부정적으로 인식되는 행동에 대해 구체적 피드백을 주세요.
-      </div>
-    </div>` : ''}
-
-    <!-- 관계 미형성 학생 -->
-    ${noRelation.length ? `
-    <div class="sa-card">
-      <div class="sa-card-header">
-        <div class="sa-card-icon" style="background:var(--surface2);">📭</div>
-        <div><div class="sa-card-title">관계 미형성 학생 (${noRelation.length}명)</div>
-        <div class="sa-card-subtitle">선택하지도, 선택받지도 않은 학생 — '투명인간' 위험</div></div>
-      </div>
-      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;">${noRelation.map(n => `<div class="sa-student-row"><div class="sa-student-avatar" style="background:var(--surface2);">${emo(n)}</div><div class="sa-student-info"><div class="sa-student-name" style="color:var(--text-muted);">${esc(n)}</div></div></div>`).join('')}</div>
-      <div class="sa-guide" style="margin-top:12px;">
-        <div class="sa-guide-label">📌 지도 방향</div>
-        고립 위험 학생만큼 <strong>주의가 필요한 학생들</strong>입니다. 눈에 띄는 문제가 없어 놓치기 쉽지만, 학급 내 존재감이 없다는 것 자체가 문제예요.<br>
-        · 1:1 면담을 통해 학급 내 소속감을 느끼는지 확인하세요<br>
-        · 소규모 모둠 활동(2~3인)에서 역할을 부여해 자연스러운 관계 형성을 유도하세요<br>
-        · 설문 미참여자인지도 확인해주세요 (미참여라면 데이터 부족일 수 있어요)
-      </div>
-    </div>` : ''}
-
-    <!-- 전체 순위표 -->
+    ${mutualPos.length ? `<div class="sa-card" style="border-color:var(--green-border);"><div class="sa-card-header"><div class="sa-card-icon" style="background:var(--green-light);">💚</div><div><div class="sa-card-title">상호 친밀 관계 (${mutualPos.length}쌍)</div><div class="sa-card-subtitle">서로가 서로를 친한 친구로 선택한 관계</div></div></div><div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;">${mutualPos.map(([a, b]) => `<span class="sa-mutual-tag">${esc(a)} ↔ ${esc(b)}</span>`).join('')}</div><div class="sa-guide"><div class="sa-guide-label">📌 활용 방법</div>상호 친밀 관계는 <strong>안정적인 우정</strong>을 나타냅니다. 모둠 구성 시 이 쌍을 같은 모둠에 배치하면 심리적 안정감을 줄 수 있어요.</div></div>` : ''}
+    ${mutualNeg.length ? `<div class="sa-card" style="border-color:var(--amber-border);"><div class="sa-card-header"><div class="sa-card-icon" style="background:var(--amber-light);">⚡</div><div><div class="sa-card-title">상호 갈등 관계 (${mutualNeg.length}쌍)</div><div class="sa-card-subtitle">서로가 서로를 불편한 친구로 선택한 관계</div></div></div><div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;">${mutualNeg.map(([a, b]) => `<span style="display:inline-flex;align-items:center;gap:4px;padding:6px 14px;background:var(--amber-light);border:1.5px solid var(--amber-border);border-radius:20px;font-size:12px;font-weight:600;color:var(--amber);margin:3px;">${esc(a)} ⚡ ${esc(b)}</span>`).join('')}</div><div class="sa-guide warn"><div class="sa-guide-label">🚨 즉시 관심 필요</div>상호 부정 선택은 <strong>갈등이 심화된 관계</strong>입니다. 중재자 역할을 할 수 있는 학생을 사이에 배치해주세요.</div></div>` : ''}
+    ${popular.length ? `<div class="sa-card" style="border-color:var(--green-border);"><div class="sa-card-header"><div class="sa-card-icon" style="background:var(--green-light);">⭐</div><div><div class="sa-card-title">인기 학생 (${popular.length}명)</div><div class="sa-card-subtitle">긍정 선택을 3회 이상 받은 학생</div></div></div>${popular.map(n => `<div class="sa-student-row"><div class="sa-student-avatar" style="background:var(--green-light);">${emo(n)}</div><div class="sa-student-info"><div class="sa-student-name">${esc(n)}</div><div class="sa-student-meta">긍정 ${posIn[n]}회 · 부정 ${negIn[n]}회</div></div></div>`).join('')}<div class="sa-guide" style="margin-top:12px;"><div class="sa-guide-label">📌 활용</div>인기 학생은 학급 내 긍정적 영향력을 가집니다. 고립 위험 학생과 자연스럽게 접점을 만들어주는 역할을 부탁할 수도 있어요.</div></div>` : ''}
+    ${isolated.length ? `<div class="sa-card" style="border-color:var(--amber);background:var(--amber-light);"><div class="sa-card-header"><div class="sa-card-icon" style="background:white;">⚠️</div><div><div class="sa-card-title">고립 위험 학생 (${isolated.length}명)</div><div class="sa-card-subtitle">긍정 0회 + 부정 1회↑</div></div></div>${isolated.map(n => `<div class="sa-student-row" style="background:rgba(255,255,255,.6);border-radius:var(--radius);"><div class="sa-student-avatar" style="background:white;">${emo(n)}</div><div class="sa-student-info"><div class="sa-student-name">${esc(n)}</div><div class="sa-student-meta">긍정 0회 · 부정 ${negIn[n]}회 · 본인: 긍정 ${posOut[n]}명, 부정 ${negOut[n]}명</div></div></div>`).join('')}<div class="sa-guide warn" style="margin-top:12px;"><div class="sa-guide-label">🚨 우선 관심 대상</div><strong>가장 시급하게 관심이 필요한 학생들</strong>입니다. 개별 면담, 강점 발견, 수용적인 모둠 배치, 쉬는 시간 관찰을 진행하세요.</div></div>` : ''}
+    ${rejected.length ? `<div class="sa-card" style="border-color:var(--danger);background:var(--danger-light);"><div class="sa-card-header"><div class="sa-card-icon" style="background:white;">🔴</div><div><div class="sa-card-title">배척 위험 학생 (${rejected.length}명)</div><div class="sa-card-subtitle">부정 선택 3회↑ — 집중 관찰 대상</div></div></div>${rejected.map(n => `<div class="sa-student-row" style="background:rgba(255,255,255,.6);border-radius:var(--radius);"><div class="sa-student-avatar" style="background:white;">${emo(n)}</div><div class="sa-student-info"><div class="sa-student-name">${esc(n)}</div><div class="sa-student-meta">부정 ${negIn[n]}회 · 긍정 ${posIn[n]}회</div></div></div>`).join('')}<div class="sa-guide warn" style="margin-top:12px;"><div class="sa-guide-label">🚨 집중 지도</div>다수가 불편해하는 학생입니다. 행동 특성 관찰, 사회성 기술 훈련, Wee클래스 연계를 고려하세요.</div></div>` : ''}
+    ${controversial.length ? `<div class="sa-card" style="border-color:var(--purple-border);"><div class="sa-card-header"><div class="sa-card-icon" style="background:var(--purple-light);">🔮</div><div><div class="sa-card-title">양면적 관계 학생 (${controversial.length}명)</div><div class="sa-card-subtitle">긍정·부정 모두 2회↑</div></div></div>${controversial.map(n => `<div class="sa-student-row"><div class="sa-student-avatar" style="background:var(--purple-light);">${emo(n)}</div><div class="sa-student-info"><div class="sa-student-name">${esc(n)}</div><div class="sa-student-meta">긍정 ${posIn[n]}회 · 부정 ${negIn[n]}회</div></div></div>`).join('')}<div class="sa-guide info" style="margin-top:12px;"><div class="sa-guide-label">🔍 해석</div>긍정적 특성을 살리되, 부정적으로 인식되는 행동에 대해 구체적 피드백을 주세요.</div></div>` : ''}
+    ${noRelation.length ? `<div class="sa-card"><div class="sa-card-header"><div class="sa-card-icon" style="background:var(--surface2);">📭</div><div><div class="sa-card-title">관계 미형성 학생 (${noRelation.length}명)</div><div class="sa-card-subtitle">선택/피선택 모두 없음</div></div></div><div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;">${noRelation.map(n => `<div class="sa-student-row"><div class="sa-student-avatar" style="background:var(--surface2);">${emo(n)}</div><div class="sa-student-info"><div class="sa-student-name" style="color:var(--text-muted);">${esc(n)}</div></div></div>`).join('')}</div><div class="sa-guide" style="margin-top:12px;"><div class="sa-guide-label">📌 지도 방향</div>소규모 모둠 활동에서 역할을 부여해 자연스러운 관계 형성을 유도하세요.</div></div>` : ''}
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
-      <div class="sa-card">
-        <div class="sa-card-header">
-          <div class="sa-card-icon" style="background:#e8f4e8;">💚</div>
-          <div><div class="sa-card-title">긍정 선택 순위</div><div class="sa-card-subtitle">친한 친구로 받은 횟수</div></div>
-        </div>
-        ${rankByPos.map((n, i) => `<div class="sa-rank-row"><div class="sa-rank-num" style="${i < 3 ? 'background:var(--accent);color:white;' : ''}">${i + 1}</div><div style="flex:0 0 80px;font-weight:600;font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${esc(n)}</div><div class="sa-rank-bar"><div class="sa-rank-fill" style="width:${Math.round(posIn[n] / maxPos * 100)}%;background:var(--accent);"></div></div><div style="font-size:12px;font-weight:700;width:28px;text-align:right;color:var(--accent);">${posIn[n]}</div></div>`).join('')}
-      </div>
-      <div class="sa-card">
-        <div class="sa-card-header">
-          <div class="sa-card-icon" style="background:#fef3e2;">🟠</div>
-          <div><div class="sa-card-title">부정 선택 순위</div><div class="sa-card-subtitle">불편한 친구로 받은 횟수</div></div>
-        </div>
-        ${rankByNeg.filter(n => negIn[n] > 0).length
-          ? rankByNeg.filter(n => negIn[n] > 0).map((n, i) => `<div class="sa-rank-row"><div class="sa-rank-num" style="${i < 3 ? 'background:var(--accent2);color:white;' : ''}">${i + 1}</div><div style="flex:0 0 80px;font-weight:600;font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${esc(n)}</div><div class="sa-rank-bar"><div class="sa-rank-fill" style="width:${Math.round(negIn[n] / maxNeg * 100)}%;background:var(--accent2);"></div></div><div style="font-size:12px;font-weight:700;width:28px;text-align:right;color:var(--accent2);">${negIn[n]}</div></div>`).join('')
-          : '<div style="font-size:13px;color:var(--text-muted);padding:12px 0;text-align:center;">부정 선택이 없어요 👍</div>'}
-      </div>
+      <div class="sa-card"><div class="sa-card-header"><div class="sa-card-icon" style="background:var(--green-light);">💚</div><div><div class="sa-card-title">긍정 선택 순위</div></div></div>${rankByPos.map((n, i) => `<div class="sa-rank-row"><div class="sa-rank-num" style="${i < 3 ? 'background:var(--green);color:white;' : ''}">${i + 1}</div><div style="flex:0 0 80px;font-weight:600;font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${esc(n)}</div><div class="sa-rank-bar"><div class="sa-rank-fill" style="width:${Math.round(posIn[n] / maxPos * 100)}%;background:var(--green);"></div></div><div style="font-size:12px;font-weight:700;width:28px;text-align:right;color:var(--green);">${posIn[n]}</div></div>`).join('')}</div>
+      <div class="sa-card"><div class="sa-card-header"><div class="sa-card-icon" style="background:var(--amber-light);">🟠</div><div><div class="sa-card-title">부정 선택 순위</div></div></div>${rankByNeg.filter(n => negIn[n] > 0).length ? rankByNeg.filter(n => negIn[n] > 0).map((n, i) => `<div class="sa-rank-row"><div class="sa-rank-num" style="${i < 3 ? 'background:var(--amber);color:white;' : ''}">${i + 1}</div><div style="flex:0 0 80px;font-weight:600;font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${esc(n)}</div><div class="sa-rank-bar"><div class="sa-rank-fill" style="width:${Math.round(negIn[n] / maxNeg * 100)}%;background:var(--amber);"></div></div><div style="font-size:12px;font-weight:700;width:28px;text-align:right;color:var(--amber);">${negIn[n]}</div></div>`).join('') : '<div style="font-size:13px;color:var(--text-muted);padding:12px 0;text-align:center;">부정 선택이 없어요 👍</div>'}</div>
     </div>
-
-    <!-- 자리 배치·모둠 구성 가이드 -->
-    <div class="sa-card" style="border-color:var(--accent4);background:linear-gradient(135deg,#f5fafb,#f0f7f9);">
-      <div class="sa-card-header">
-        <div class="sa-card-icon" style="background:#e2f0f5;">💺</div>
-        <div><div class="sa-card-title">자리 배치 · 모둠 구성 제안</div>
-        <div class="sa-card-subtitle">관계 데이터를 기반으로 한 배치 원칙</div></div>
-      </div>
-      <div class="sa-guide info">
-        <div class="sa-guide-label">자리 배치 원칙</div>
-        <strong>1. 상호 갈등 쌍은 거리두기</strong> — 서로 불편해하는 학생들은 직접 시야가 닿지 않는 위치에 배치하세요.<br>
-        <strong>2. 고립 학생 옆에 수용적 학생 배치</strong> — 인기 학생 또는 사교적 성향의 학생을 옆에 배치해 자연스러운 접점을 만들어주세요.<br>
-        <strong>3. 상호 친밀 쌍은 적절히 분산</strong> — 같은 모둠에 매번 함께 두기보다, 새로운 관계를 형성할 기회도 주세요.<br>
-        <strong>4. 양면적 학생은 모둠 리더로</strong> — 에너지를 긍정적으로 발산할 수 있는 구조를 만들어주세요.
-      </div>
+    <div class="sa-card" style="border-color:var(--teal-border);background:var(--teal-light);">
+      <div class="sa-card-header"><div class="sa-card-icon" style="background:white;">💺</div><div><div class="sa-card-title">자리 배치 · 모둠 구성 제안</div></div></div>
+      <div class="sa-guide info"><div class="sa-guide-label">배치 원칙</div><strong>1. 상호 갈등 쌍은 거리두기</strong><br><strong>2. 고립 학생 옆에 수용적 학생 배치</strong><br><strong>3. 상호 친밀 쌍은 적절히 분산</strong><br><strong>4. 양면적 학생은 모둠 리더로</strong></div>
     </div>
-
-    <!-- 후속 조치 체크리스트 -->
-    <div class="sa-card" style="border-color:var(--accent3);background:linear-gradient(135deg,#faf7ff,#f8f5ff);">
-      <div class="sa-card-header">
-        <div class="sa-card-icon" style="background:#ede8f8;">✅</div>
-        <div><div class="sa-card-title">후속 조치 체크리스트</div>
-        <div class="sa-card-subtitle">관계조사 결과를 바탕으로 실천할 항목</div></div>
-      </div>
-      <div style="font-size:13px;line-height:2;color:var(--text);padding:4px 0;">
-        ${isolated.length ? `☐ 고립 위험 학생 (${isolated.map(n => esc(n)).join(', ')}) 개별 면담 진행<br>` : ''}
-        ${rejected.length ? `☐ 배척 위험 학생 (${rejected.map(n => esc(n)).join(', ')}) 행동 관찰 및 원인 파악<br>` : ''}
-        ${mutualNeg.length ? `☐ 갈등 관계 (${mutualNeg.map(([a,b]) => esc(a)+'-'+esc(b)).join(', ')}) 중재 계획 수립<br>` : ''}
-        ${noRelation.length ? `☐ 관계 미형성 학생 (${noRelation.map(n => esc(n)).join(', ')}) 소그룹 활동 배치<br>` : ''}
-        ☐ 다음 관계조사 일정 수립 (4~6주 후 권장)<br>
-        ☐ 자리 배치 / 모둠 재구성 반영<br>
-        ☐ 관찰 결과를 상담일지에 기록
+    <div class="sa-card" style="border-color:var(--purple-border);background:var(--purple-light);">
+      <div class="sa-card-header"><div class="sa-card-icon" style="background:white;">✅</div><div><div class="sa-card-title">후속 조치 체크리스트</div></div></div>
+      <div style="font-size:13px;line-height:2.1;color:var(--text);padding:4px 0;">
+        ${isolated.length ? `☐ 고립 위험 학생 (${isolated.map(n => esc(n)).join(', ')}) 개별 면담<br>` : ''}
+        ${rejected.length ? `☐ 배척 위험 학생 (${rejected.map(n => esc(n)).join(', ')}) 행동 관찰<br>` : ''}
+        ${mutualNeg.length ? `☐ 갈등 관계 (${mutualNeg.map(([a,b]) => esc(a)+'-'+esc(b)).join(', ')}) 중재 계획<br>` : ''}
+        ${noRelation.length ? `☐ 관계 미형성 (${noRelation.map(n => esc(n)).join(', ')}) 소그룹 활동<br>` : ''}
+        ☐ 다음 관계조사 일정 (4~6주 후)<br>☐ 자리/모둠 재구성 반영<br>☐ 관찰 결과 상담일지 기록
       </div>
     </div>`;
 }
 
-// ══════════════════════════════════════
-// ── 리포트 (unchanged) ──
-// ══════════════════════════════════════
 function getFilteredData(){const val=$('report-filter')?.value||'all';if(val==='all')return{recs:records,pars:parents};return{recs:records.filter(r=>r.date?.slice(0,7)===val),pars:parents.filter(p=>p.date?.slice(0,7)===val)};}
 function buildMonthOptions(){const months=new Set([...records.map(r=>r.date?.slice(0,7)),...parents.map(p=>p.date?.slice(0,7))].filter(Boolean));const sel=$('report-filter'),cur=sel.value;sel.innerHTML='<option value="all">전체 기간</option>';[...months].sort().reverse().forEach(m=>{const[y,mo]=m.split('-');const opt=document.createElement('option');opt.value=m;opt.textContent=`${y}년 ${parseInt(mo)}월`;sel.appendChild(opt);});sel.value=cur;}
 
@@ -1705,10 +2608,10 @@ window.renderReport=function(){
   const studentEntries=Object.entries(studentMap).sort((a,b)=>b[1].total-a[1].total);
   $('report-content').innerHTML=`
     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-bottom:24px;">
-      <div style="background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:18px 20px;"><div style="font-size:11px;color:var(--text-muted);font-weight:700;text-transform:uppercase;margin-bottom:8px;">전체 기록</div><div style="font-size:32px;font-weight:700;font-family:'Gowun Dodum',sans-serif;color:var(--accent);">${total}</div><div style="font-size:12px;color:var(--text-muted);margin-top:4px;">일반 ${recs.length} · 학부모 ${pars.length}</div></div>
-      <div style="background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:18px 20px;"><div style="font-size:11px;color:var(--text-muted);font-weight:700;text-transform:uppercase;margin-bottom:8px;">상담 학생</div><div style="font-size:32px;font-weight:700;font-family:'Gowun Dodum',sans-serif;color:var(--accent);">${students}</div><div style="font-size:12px;color:var(--text-muted);margin-top:4px;">중복 제외</div></div>
-      <div style="background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:18px 20px;"><div style="font-size:11px;color:var(--text-muted);font-weight:700;text-transform:uppercase;margin-bottom:8px;">가장 많은 유형</div><div style="font-size:22px;font-weight:700;font-family:'Gowun Dodum',sans-serif;color:var(--accent);">${total===0?'-':Object.entries(typeCounts).sort((a,b)=>b[1]-a[1])[0][0]}</div><div style="font-size:12px;color:var(--text-muted);margin-top:4px;">${total===0?'기록 없음':Object.entries(typeCounts).sort((a,b)=>b[1]-a[1])[0][1]+'건'}</div></div>
-      <div style="background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:18px 20px;"><div style="font-size:11px;color:var(--text-muted);font-weight:700;text-transform:uppercase;margin-bottom:8px;">학부모 상담</div><div style="font-size:32px;font-weight:700;font-family:'Gowun Dodum',sans-serif;color:var(--accent);">${pars.length}</div><div style="font-size:12px;color:var(--text-muted);margin-top:4px;">전체 대비 ${total?Math.round(pars.length/total*100):0}%</div></div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px;"><div style="font-size:11px;color:var(--text-muted);font-weight:700;margin-bottom:8px;">전체 기록</div><div style="font-size:32px;font-weight:800;color:var(--accent);letter-spacing:-1px;">${total}</div><div style="font-size:12px;color:var(--text-muted);margin-top:4px;">일반 ${recs.length} · 학부모 ${pars.length}</div></div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px;"><div style="font-size:11px;color:var(--text-muted);font-weight:700;margin-bottom:8px;">상담 학생</div><div style="font-size:32px;font-weight:800;color:var(--teal);letter-spacing:-1px;">${students}</div><div style="font-size:12px;color:var(--text-muted);margin-top:4px;">중복 제외</div></div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px;"><div style="font-size:11px;color:var(--text-muted);font-weight:700;margin-bottom:8px;">가장 많은 유형</div><div style="font-size:22px;font-weight:800;color:var(--green);letter-spacing:-0.5px;">${total===0?'-':Object.entries(typeCounts).sort((a,b)=>b[1]-a[1])[0][0]}</div><div style="font-size:12px;color:var(--text-muted);margin-top:4px;">${total===0?'기록 없음':Object.entries(typeCounts).sort((a,b)=>b[1]-a[1])[0][1]+'건'}</div></div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px;"><div style="font-size:11px;color:var(--text-muted);font-weight:700;margin-bottom:8px;">학부모 상담</div><div style="font-size:32px;font-weight:800;color:var(--purple);letter-spacing:-1px;">${pars.length}</div><div style="font-size:12px;color:var(--text-muted);margin-top:4px;">전체 대비 ${total?Math.round(pars.length/total*100):0}%</div></div>
     </div>
     <div class="bar-section"><div class="bar-section-title">📊 상담 유형별 현황</div>
       ${['학습','생활','교우관계'].map(t=>`<div class="bar-row"><div class="bar-label">${t}</div><div class="bar-track"><div class="bar-fill ${t}" style="width:${Math.round(typeCounts[t]/maxType*100)}%"></div></div><div class="bar-count">${typeCounts[t]}</div></div>`).join('')}
@@ -1717,7 +2620,7 @@ window.renderReport=function(){
     ${monthEntries.length>1?`<div class="bar-section"><div class="bar-section-title">📅 월별 상담 추이</div>${monthEntries.map(([m,cnt])=>{const[y,mo]=m.split('-');return`<div class="bar-row"><div class="bar-label">${y.slice(2)}년 ${parseInt(mo)}월</div><div class="bar-track"><div class="bar-fill month" style="width:${Math.round(cnt/maxMonth*100)}%"></div></div><div class="bar-count">${cnt}</div></div>`;}).join('')}</div>`:''}
     <div class="section-title">👦 학생별 상담 이력 요약</div>
     ${studentEntries.length===0?`<div class="empty"><div class="empty-icon">📭</div><p>데이터가 없어요</p></div>`:`
-      <div style="background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);overflow:hidden;">
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;">
         <table class="summary-table">
           <thead><tr><th>학생</th><th style="text-align:center;">총</th><th style="text-align:center;">학습</th><th style="text-align:center;">생활</th><th style="text-align:center;">교우</th><th style="text-align:center;">학부모</th></tr></thead>
           <tbody>${studentEntries.map(([name,c])=>`<tr><td><strong>${esc(name)}</strong></td><td style="text-align:center;font-weight:700;">${c.total}</td><td style="text-align:center;">${c.학습||'-'}</td><td style="text-align:center;">${c.생활||'-'}</td><td style="text-align:center;">${c.교우관계||'-'}</td><td style="text-align:center;">${c.학부모||'-'}</td></tr>`).join('')}</tbody>
@@ -1729,7 +2632,6 @@ window.exportCSV=()=>{const{recs,pars}=getFilteredData();const rows=[['유형','
 window.exportJSON=()=>{const{recs,pars}=getFilteredData();download(JSON.stringify({exportedAt:new Date().toISOString(),records:recs,parents:pars},null,2),`상담일지_${td()}.json`,'application/json');toast('📦 JSON 저장 완료');};
 function download(content,filename,type){const blob=new Blob([content],{type});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=filename;a.click();URL.revokeObjectURL(a.href);}
 
-// ── Autocomplete ──
 window.acInput=(inputId,listId)=>{
   const val=$(inputId).value.toLowerCase().trim(),list=$(listId);
   if(!roster.length){list.style.display='none';return;}
@@ -1746,7 +2648,6 @@ window.acSelect=(inputId,listId,val)=>{
   $(listId).style.display='none';
 };
 
-// ── Render ──
 function render(){ renderDashboard(); renderAll(); renderParent(); renderStudentGrid(); renderRoster(); renderSocioSessionList(); }
 
 window.renderAll=()=>{
@@ -1787,7 +2688,7 @@ function renderStudentGrid(){
     const total=recs.length+pars.length;
     return `<div class="student-card" onclick="openStudentDetail('${esc(name)}')">
       <div class="s-avatar">${emo(name)}</div><div class="s-name">${name}</div>
-      <div style="font-size:11px;color:var(--text-muted);margin-bottom:5px;">상담 ${total}건</div>
+      <div style="font-size:11px;color:var(--text-muted);margin-bottom:5px;font-weight:500;">상담 ${total}건</div>
       <div class="mini-tags">${types.map(t=>`<span class="mini-tag tag-${t}">${t}</span>`).join('')}${pars.length?`<span class="mini-tag tag-학부모">학부모 ${pars.length}</span>`:''}</div>
       <div style="font-size:11px;color:var(--text-muted);margin-top:6px;">클릭하여 생기부 작성 →</div>
     </div>`;
@@ -1805,7 +2706,6 @@ function renderRoster(){
     </div>`).join('');
 }
 
-// ── Tabs ──
 const ALL_TABS = ['dash','all','parent','student','roster','socio','report'];
 window.gotoTab=tab=>{
   ALL_TABS.forEach(t=>{
@@ -1827,7 +2727,6 @@ window.setFilter=(f)=>{filter=f;document.querySelectorAll('#filterPills .pill').
 window.pickChip=(el,kind)=>{const val=el.textContent.trim().replace(/📞\s*|🤝\s*|💬\s*/,'');if(kind==='type'){selType=val;document.querySelectorAll('#typeChips .chip').forEach(b=>b.className=b.textContent.trim()===val?`chip on-${val}`:'chip');}else{selMethod=val;document.querySelectorAll('#methodChips .chip').forEach(b=>{const v=b.textContent.trim().replace(/📞\s*|🤝\s*|💬\s*/,'');b.className=v===val?`chip on-${val}`:'chip';});}};
 window.pickGender=el=>{selGender=el.textContent.trim();document.querySelectorAll('#genderChips .chip').forEach(b=>b.className=b.textContent.trim()===selGender?'chip on-남':'chip');};
 
-// ── Record CRUD ──
 window.openAddModal=()=>{editId=null;selType='';$('modal-add-title').textContent='새 상담 기록';['f_name_input','f_content','f_followup'].forEach(id=>{const el=$(id);if(el)el.value='';});clearTags('f_name_tags');$('f_date').value=td();document.querySelectorAll('#typeChips .chip').forEach(b=>b.className='chip');const btn=$('btn-save-record');btn.textContent='저장';btn.disabled=false;openModal('modal-add');setTimeout(()=>$('f_name_input').focus(),60);};
 
 window.openEdit=id=>{const r=records.find(r=>r.id===id);if(!r)return;editId=id;selType=r.type;$('modal-add-title').textContent='상담 기록 수정';$('f_name_input').value='';clearTags('f_name_tags');r.name.split(',').map(n=>n.trim()).filter(Boolean).forEach(n=>addNameTag('f_name_tags',n));$('f_date').value=r.date;$('f_content').value=r.content;$('f_followup').value=r.followup||'';document.querySelectorAll('#typeChips .chip').forEach(b=>b.className=b.textContent.trim()===r.type?`chip on-${r.type}`:'chip');const btn=$('btn-save-record');btn.textContent='저장';btn.disabled=false;openModal('modal-add');};
@@ -1843,14 +2742,13 @@ window.saveRecord=async()=>{
     if(editId){await updateDoc(doc(rCol(),editId),{name,date,type:selType,content,followup});const i=records.findIndex(r=>r.id===editId);records[i]={...records[i],name,date,type:selType,content,followup};saved=records[i];toast('✅ 수정했어요');}
     else{const ref=await addDoc(rCol(),{name,date,type:selType,content,followup});saved={id:ref.id,name,date,type:selType,content,followup};records.unshift(saved);toast('✅ 저장했어요');}
     render();closeModal('modal-add');
-    if(saved){detailId=saved.id;detailIsParent=false;$('detail-body').innerHTML=buildDetailHtml(saved,false);$('detail-edit-btn').style.background='var(--accent2)';openModal('modal-detail');}
+    if(saved){detailId=saved.id;detailIsParent=false;$('detail-body').innerHTML=buildDetailHtml(saved,false);$('detail-edit-btn').style.background='var(--amber)';openModal('modal-detail');}
   }catch(e){toast('저장 실패: '+e.message);btn.disabled=false;btn.textContent='저장';}
   finally{loading(false);}
 };
 
 window.delRecord=async id=>{if(!confirm('이 상담 기록을 삭제할까요?'))return;loading(true);try{await deleteDoc(doc(rCol(),id));records=records.filter(r=>r.id!==id);render();}catch(e){toast('삭제 실패: '+e.message);}finally{loading(false);}};
 
-// ── Parent CRUD ──
 window.openParentModal=()=>{editPId=null;selMethod='';$('modal-parent-title').textContent='학부모 상담 기록';['p_name_input','p_content','p_followup'].forEach(id=>{const el=$(id);if(el)el.value='';});clearTags('p_name_tags');$('p_date').value=td();document.querySelectorAll('#methodChips .chip').forEach(b=>b.className='chip');openModal('modal-parent');setTimeout(()=>$('p_name_input').focus(),60);};
 
 window.openEditParent=id=>{const p=parents.find(p=>p.id===id);if(!p)return;editPId=id;selMethod=p.method;$('modal-parent-title').textContent='학부모 상담 수정';$('p_name_input').value='';clearTags('p_name_tags');p.name.split(',').map(n=>n.trim()).filter(Boolean).forEach(n=>addNameTag('p_name_tags',n));$('p_date').value=p.date;$('p_content').value=p.content;$('p_followup').value=p.followup||'';document.querySelectorAll('#methodChips .chip').forEach(b=>{const v=b.textContent.trim().replace(/📞\s*|🤝\s*|💬\s*/,'');b.className=v===p.method?`chip on-${p.method}`:'chip';});openModal('modal-parent');};
@@ -1859,7 +2757,6 @@ window.saveParent=async()=>{const names=getTagNames('p_name_tags');if(!names.len
 
 window.delParent=async id=>{if(!confirm('이 학부모 상담 기록을 삭제할까요?'))return;loading(true);try{await deleteDoc(doc(pCol(),id));parents=parents.filter(p=>p.id!==id);render();}catch(e){toast('삭제 실패: '+e.message);}finally{loading(false);}};
 
-// ── Roster CRUD ──
 window.openRosterModal=()=>{editRId=null;selGender='';$('modal-roster-title').textContent='학생 추가';$('r_num').value='';$('r_alias').value='';$('r_watch').checked=false;document.querySelectorAll('#genderChips .chip').forEach(b=>b.className='chip');openModal('modal-roster');setTimeout(()=>$('r_num').focus(),60);};
 
 window.openEditRoster=id=>{const s=roster.find(s=>s.id===id);if(!s)return;editRId=id;selGender=s.gender||'';$('modal-roster-title').textContent='학생 수정';$('r_num').value=s.num;$('r_alias').value=s.alias||'';$('r_watch').checked=!!s.watch;document.querySelectorAll('#genderChips .chip').forEach(b=>b.className=b.textContent.trim()===selGender?'chip on-남':'chip');openModal('modal-roster');};
@@ -1868,8 +2765,7 @@ window.saveRoster=async()=>{const num=$('r_num').value.trim(),alias=$('r_alias')
 
 window.delRoster=async id=>{if(!confirm('이 학생을 명부에서 삭제할까요?'))return;loading(true);try{await deleteDoc(doc(roCol(),id));roster=roster.filter(s=>s.id!==id);render();}catch(e){toast('삭제 실패: '+e.message);}finally{loading(false);}};
 
-// ── Detail ──
-window.openDetail=(id,isParent)=>{detailId=id;detailIsParent=isParent;const r=isParent?parents.find(p=>p.id===id):records.find(r=>r.id===id);if(!r)return;$('detail-body').innerHTML=buildDetailHtml(r,isParent);$('detail-edit-btn').style.background=isParent?'var(--accent4)':'var(--accent2)';openModal('modal-detail');};
+window.openDetail=(id,isParent)=>{detailId=id;detailIsParent=isParent;const r=isParent?parents.find(p=>p.id===id):records.find(r=>r.id===id);if(!r)return;$('detail-body').innerHTML=buildDetailHtml(r,isParent);$('detail-edit-btn').style.background=isParent?'var(--teal)':'var(--amber)';openModal('modal-detail');};
 window.editFromDetail=()=>{closeModal('modal-detail');if(detailIsParent)openEditParent(detailId);else openEdit(detailId);};
 
 document.querySelectorAll('.overlay').forEach(ov=>ov.addEventListener('click',e=>{if(e.target===ov)ov.classList.remove('open');}));
