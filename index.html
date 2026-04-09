@@ -285,46 +285,78 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 .toggle-label{font-size:13px;color:var(--text-muted);cursor:pointer;}
 
 /* ── 관계조사 (Sociometry) ── */
-.socio-steps{display:flex;gap:4px;background:var(--surface2);border-radius:10px;padding:4px;margin-bottom:20px;}
-.socio-step{flex:1;padding:9px 8px;border:none;background:none;border-radius:7px;font-size:12px;font-family:inherit;cursor:pointer;color:var(--text-muted);font-weight:500;transition:all .18s;text-align:center;}
-.socio-step.active{background:var(--surface);color:var(--text);box-shadow:0 1px 4px rgba(0,0,0,.07);font-weight:700;}
-.socio-step .step-num{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;background:var(--border);color:var(--text-muted);font-size:10px;font-weight:700;margin-right:4px;}
-.socio-step.active .step-num{background:var(--accent);color:white;}
-.socio-step.done .step-num{background:var(--accent);color:white;}
+.socio-steps{display:flex;gap:0;margin-bottom:24px;position:relative;}
+.socio-steps::before{content:'';position:absolute;top:50%;left:32px;right:32px;height:2px;background:var(--border);z-index:0;}
+.socio-step{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;border:none;background:none;font-size:11px;font-family:inherit;cursor:pointer;color:var(--text-muted);font-weight:500;transition:all .2s;position:relative;z-index:1;padding:0;}
+.socio-step .step-num{width:32px;height:32px;border-radius:50%;background:var(--surface);border:2px solid var(--border);color:var(--text-muted);font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+.socio-step.active{color:var(--text);font-weight:700;}
+.socio-step.active .step-num{background:var(--accent);border-color:var(--accent);color:white;box-shadow:0 2px 8px rgba(92,122,78,.3);}
+.socio-step.done .step-num{background:var(--accent);border-color:var(--accent);color:white;}
+.socio-step .step-label{font-size:11px;}
 
-.socio-panel{display:none;}
+.socio-panel{display:none;animation:fadeUp .25s ease;}
 .socio-panel.active{display:block;}
 
-.socio-session-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:16px 18px;margin-bottom:10px;cursor:pointer;transition:all .18s;display:flex;justify-content:space-between;align-items:center;}
-.socio-session-card:hover{border-color:var(--accent3);box-shadow:var(--shadow);}
-.socio-session-card.active-session{border-color:var(--accent3);background:#f8f5ff;}
+.socio-session-card{background:var(--surface);border:1.5px solid var(--border);border-radius:14px;padding:20px 22px;margin-bottom:10px;cursor:pointer;transition:all .2s;display:flex;justify-content:space-between;align-items:center;}
+.socio-session-card:hover{border-color:var(--accent3);box-shadow:var(--shadow);transform:translateY(-1px);}
+.socio-session-card.active-session{border-color:var(--accent3);background:linear-gradient(135deg,#faf7ff,#f8f5ff);}
+.socio-session-arrow{width:32px;height:32px;border-radius:50%;background:var(--surface2);display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--text-muted);transition:all .2s;flex-shrink:0;}
+.socio-session-card:hover .socio-session-arrow{background:var(--accent3);color:white;}
 
-.socio-survey-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:16px 18px;margin-bottom:10px;transition:all .18s;}
-.socio-survey-card .student-label{font-size:14px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:8px;}
-.socio-tag{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:600;margin:2px;}
-.socio-tag.positive{background:#e8f4e8;border:1.5px solid var(--accent);color:var(--accent);}
-.socio-tag.negative{background:#fef3e2;border:1.5px solid var(--accent2);color:var(--accent2);}
-.socio-tag button{background:none;border:none;cursor:pointer;font-size:13px;padding:0;line-height:1;color:inherit;}
-.socio-tag button:hover{color:var(--danger);}
+.socio-survey-card{background:var(--surface);border:1.5px solid var(--border);border-radius:14px;padding:20px;margin-bottom:12px;transition:all .18s;}
+.socio-survey-card:hover{border-color:#ccc5b8;}
+.socio-survey-card .student-label{font-size:15px;font-weight:700;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;}
+.socio-tag{display:inline-flex;align-items:center;gap:5px;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;margin:2px;transition:all .15s;}
+.socio-tag.positive{background:#e8f4e8;border:1.5px solid #b8d9b0;color:var(--accent);}
+.socio-tag.negative{background:#fef3e2;border:1.5px solid #e8cfa8;color:var(--accent2);}
+.socio-tag button{background:none;border:none;cursor:pointer;font-size:13px;padding:0;line-height:1;color:inherit;opacity:.6;transition:opacity .15s;}
+.socio-tag button:hover{opacity:1;color:var(--danger);}
 
-.socio-select{padding:8px 12px;border:1.5px solid var(--border);border-radius:9px;font-size:13px;font-family:inherit;background:var(--bg);color:var(--text);outline:none;cursor:pointer;min-width:140px;}
+.socio-select{padding:9px 14px;border:1.5px solid var(--border);border-radius:9px;font-size:13px;font-family:inherit;background:var(--surface);color:var(--text);outline:none;cursor:pointer;min-width:150px;transition:border-color .2s;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238a7d6e' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;padding-right:30px;}
 .socio-select:focus{border-color:var(--accent);}
 
-.socio-canvas-wrap{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);overflow:hidden;position:relative;}
+.socio-canvas-wrap{background:var(--surface);border:1.5px solid var(--border);border-radius:14px;overflow:hidden;position:relative;}
 .socio-canvas-wrap canvas{display:block;width:100%;cursor:grab;}
 .socio-canvas-wrap canvas:active{cursor:grabbing;}
 
-.socio-legend{display:flex;gap:16px;flex-wrap:wrap;padding:12px 16px;background:var(--surface2);border-top:1.5px solid var(--border);font-size:12px;color:var(--text-muted);}
-.socio-legend-item{display:flex;align-items:center;gap:5px;}
+.socio-legend{display:flex;gap:20px;flex-wrap:wrap;padding:14px 20px;background:linear-gradient(to right,var(--surface2),var(--surface));border-top:1.5px solid var(--border);font-size:12px;color:var(--text-muted);}
+.socio-legend-item{display:flex;align-items:center;gap:6px;}
 .socio-legend-line{width:24px;height:3px;border-radius:2px;}
 
-.socio-analysis-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:18px;margin-bottom:12px;}
-.socio-analysis-title{font-size:14px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
-.socio-rank-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px;}
-.socio-rank-row:last-child{border-bottom:none;}
-.socio-rank-num{width:24px;height:24px;border-radius:50%;background:var(--surface2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;}
-.socio-rank-bar{flex:1;height:8px;background:var(--surface2);border-radius:4px;overflow:hidden;}
-.socio-rank-fill{height:100%;border-radius:4px;}
+/* Analysis Cards — clean data dashboard */
+.sa-card{background:var(--surface);border:1.5px solid var(--border);border-radius:14px;padding:22px;margin-bottom:16px;transition:all .18s;}
+.sa-card:hover{box-shadow:var(--shadow);}
+.sa-card-header{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.sa-card-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.sa-card-title{font-size:15px;font-weight:700;font-family:'Gowun Dodum',sans-serif;}
+.sa-card-subtitle{font-size:11px;color:var(--text-muted);font-weight:400;margin-top:1px;}
+.sa-guide{font-size:13px;color:var(--text);line-height:1.75;padding:14px 16px;background:var(--bg);border-radius:10px;border-left:3px solid var(--accent);margin-bottom:14px;}
+.sa-guide.warn{border-left-color:var(--accent2);background:#fefaf5;}
+.sa-guide.info{border-left-color:var(--accent4);background:#f5fafb;}
+.sa-guide strong{color:var(--text);font-weight:700;}
+.sa-guide-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--text-muted);margin-bottom:6px;}
+
+.sa-stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px;}
+.sa-stat{background:var(--surface);border:1.5px solid var(--border);border-radius:12px;padding:20px 16px;text-align:center;transition:all .18s;}
+.sa-stat:hover{transform:translateY(-1px);box-shadow:var(--shadow);}
+.sa-stat-num{font-size:30px;font-weight:700;font-family:'Gowun Dodum',sans-serif;line-height:1;}
+.sa-stat-label{font-size:12px;color:var(--text-muted);font-weight:600;margin-top:6px;}
+.sa-stat-sub{font-size:10px;color:var(--text-muted);margin-top:2px;}
+
+.sa-student-row{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:10px;margin-bottom:6px;transition:background .15s;}
+.sa-student-row:hover{background:var(--surface2);}
+.sa-student-avatar{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;}
+.sa-student-info{flex:1;min-width:0;}
+.sa-student-name{font-size:13px;font-weight:700;}
+.sa-student-meta{font-size:11px;color:var(--text-muted);}
+
+.sa-rank-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--surface2);font-size:13px;}
+.sa-rank-row:last-child{border-bottom:none;}
+.sa-rank-num{width:26px;height:26px;border-radius:8px;background:var(--surface2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;}
+.sa-rank-bar{flex:1;height:6px;background:var(--surface2);border-radius:3px;overflow:hidden;}
+.sa-rank-fill{height:100%;border-radius:3px;transition:width .5s;}
+
+.sa-mutual-tag{display:inline-flex;align-items:center;gap:4px;padding:6px 14px;background:linear-gradient(135deg,#e8f4e8,#f0faf0);border:1.5px solid #b8d9b0;border-radius:20px;font-size:12px;font-weight:600;color:var(--accent);margin:3px;}
 
 /* Toast */
 .toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(60px);background:#2c2416;color:white;padding:10px 22px;border-radius:22px;font-size:13px;z-index:999;transition:transform .28s cubic-bezier(.34,1.3,.64,1);white-space:nowrap;}
@@ -342,7 +374,10 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
   .mobile-nav{display:flex;gap:2px;background:var(--surface2);border-radius:10px;padding:4px;margin-bottom:18px;flex-wrap:wrap;}
   .mobile-tab{flex:1;padding:8px 4px;border:none;background:none;border-radius:7px;font-size:9px;font-family:inherit;cursor:pointer;color:var(--text-muted);font-weight:500;transition:all .18s;min-width:0;}
   .mobile-tab.active{background:var(--surface);color:var(--text);box-shadow:0 1px 4px rgba(0,0,0,.07);}
-  .socio-steps{flex-wrap:wrap;}
+  .socio-steps{flex-wrap:wrap;gap:4px;}
+  .socio-steps::before{display:none;}
+  .sa-stat-grid{grid-template-columns:repeat(3,1fr);gap:8px;}
+  .sa-stat-num{font-size:24px;}
 }
 @media(min-width:701px){.mobile-nav{display:none;}}
 </style>
@@ -528,36 +563,42 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
           </div>
 
           <div class="socio-steps" id="socio-steps">
-            <button class="socio-step active" onclick="socioGotoStep(1)"><span class="step-num">1</span> 학생목록</button>
-            <button class="socio-step" onclick="socioGotoStep(2)"><span class="step-num">2</span> 설문입력</button>
-            <button class="socio-step" onclick="socioGotoStep(3)"><span class="step-num">3</span> 관계도</button>
-            <button class="socio-step" onclick="socioGotoStep(4)"><span class="step-num">4</span> 분석</button>
+            <button class="socio-step active" onclick="socioGotoStep(1)"><span class="step-num">1</span><span class="step-label">학생목록</span></button>
+            <button class="socio-step" onclick="socioGotoStep(2)"><span class="step-num">2</span><span class="step-label">설문입력</span></button>
+            <button class="socio-step" onclick="socioGotoStep(3)"><span class="step-num">3</span><span class="step-label">관계도</span></button>
+            <button class="socio-step" onclick="socioGotoStep(4)"><span class="step-num">4</span><span class="step-label">분석</span></button>
           </div>
 
           <!-- Step 1: 학생 목록 -->
           <div class="socio-panel active" id="socio-step-1">
-            <div class="bar-section">
-              <div class="bar-section-title">📋 조사 대상 학생 목록</div>
-              <p style="font-size:12px;color:var(--text-muted);margin-bottom:14px;">학생 명부에서 자동으로 불러옵니다. 필요하면 직접 추가/삭제할 수 있어요.</p>
-              <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;">
-                <button class="btn-primary" onclick="socioLoadFromRoster()" style="font-size:12px;padding:8px 14px;">📋 명부에서 불러오기</button>
+            <div class="sa-card">
+              <div class="sa-card-header">
+                <div class="sa-card-icon" style="background:#e8f4e8;">📋</div>
+                <div><div class="sa-card-title">조사 대상 학생 목록</div>
+                <div class="sa-card-subtitle">학생 명부에서 자동으로 불러오거나, 직접 추가할 수 있어요</div></div>
+              </div>
+              <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;">
+                <button class="btn-primary" onclick="socioLoadFromRoster()" style="font-size:12px;padding:9px 16px;">📋 명부에서 불러오기</button>
                 <div style="display:flex;gap:6px;align-items:center;">
-                  <input class="form-input" id="socio-add-name" placeholder="번호·이니셜 직접 추가" style="width:160px;padding:8px 10px;font-size:12px;margin:0;">
-                  <button class="btn-primary orange" onclick="socioAddStudent()" style="font-size:12px;padding:8px 14px;">추가</button>
+                  <input class="form-input" id="socio-add-name" placeholder="직접 추가 (번호·이니셜)" style="width:180px;padding:9px 12px;font-size:12px;margin:0;" onkeydown="if(event.key==='Enter')socioAddStudent()">
+                  <button class="btn-primary orange" onclick="socioAddStudent()" style="font-size:12px;padding:9px 16px;">추가</button>
                 </div>
               </div>
               <div id="socio-student-list" style="display:flex;flex-wrap:wrap;gap:6px;"></div>
-              <div style="font-size:12px;color:var(--text-muted);margin-top:10px;" id="socio-student-count"></div>
+              <div style="font-size:12px;color:var(--text-muted);margin-top:12px;padding-top:12px;border-top:1px solid var(--border);" id="socio-student-count"></div>
             </div>
           </div>
 
           <!-- Step 2: 설문 입력 -->
           <div class="socio-panel" id="socio-step-2">
-            <div class="bar-section">
-              <div class="bar-section-title">📝 설문 입력</div>
-              <p style="font-size:12px;color:var(--text-muted);margin-bottom:14px;">각 학생별로 친한 친구·불편한 친구를 선택하세요. 인원 제한 없음.</p>
-              <div id="socio-survey-list"></div>
+            <div class="sa-card" style="padding:16px 20px;">
+              <div class="sa-card-header" style="margin-bottom:8px;">
+                <div class="sa-card-icon" style="background:#ede8f8;">📝</div>
+                <div><div class="sa-card-title">설문 입력</div>
+                <div class="sa-card-subtitle">각 학생별로 친한 친구·불편한 친구를 선택하세요 (인원 제한 없음)</div></div>
+              </div>
             </div>
+            <div id="socio-survey-list" style="margin-top:12px;"></div>
           </div>
 
           <!-- Step 3: 관계도 -->
@@ -572,7 +613,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
                 <div class="socio-legend-item"><div style="width:14px;height:14px;border-radius:50%;background:#999;"></div> 중간</div>
               </div>
             </div>
-            <p style="font-size:11px;color:var(--text-muted);margin-top:8px;">💡 노드를 드래그하여 위치 조정 · 클릭하면 해당 학생 관계 강조</p>
+            <p style="font-size:11px;color:var(--text-muted);margin-top:10px;padding:8px 14px;background:var(--surface);border-radius:8px;border:1px solid var(--border);">💡 <strong>노드 드래그</strong>로 위치 조정 &nbsp;·&nbsp; <strong>노드 클릭</strong>으로 해당 학생 관계 강조 &nbsp;·&nbsp; <strong>빈 공간 클릭</strong>으로 강조 해제</p>
           </div>
 
           <!-- Step 4: 분석 -->
@@ -995,10 +1036,10 @@ function renderSocioSessionList() {
     const surveyDone = Object.keys(s.survey || {}).length;
     return `<div class="socio-session-card${s.id===currentSessionId?' active-session':''}" onclick="openSession('${s.id}')">
       <div>
-        <div style="font-size:14px;font-weight:700;">${esc(s.name)}</div>
-        <div style="font-size:11px;color:var(--text-muted);margin-top:3px;">${s.date} · 학생 ${cnt}명 · 설문 ${surveyDone}건</div>
+        <div style="font-size:15px;font-weight:700;">${esc(s.name)}</div>
+        <div style="font-size:12px;color:var(--text-muted);margin-top:4px;">📅 ${s.date} &nbsp;·&nbsp; 👤 학생 ${cnt}명 &nbsp;·&nbsp; 📝 설문 ${surveyDone}건</div>
       </div>
-      <div style="font-size:18px;">→</div>
+      <div class="socio-session-arrow">→</div>
     </div>`;
   }).join('');
 }
@@ -1365,11 +1406,12 @@ function renderSocioGraph() {
   };
 }
 
-// Step 4: Analysis
+// Step 4: Analysis with interpretation & guidance
 function renderSocioAnalysis() {
   const s = getCurrentSession(); if (!s) return;
   const students = s.students || [];
   const survey = s.survey || {};
+  const surveyCount = Object.keys(survey).length;
 
   if (!students.length) { $('socio-analysis').innerHTML = `<div class="empty"><div class="empty-icon">📊</div><p>학생 데이터가 없어요</p></div>`; return; }
 
@@ -1390,49 +1432,254 @@ function renderSocioAnalysis() {
     });
   });
 
+  // Mutual negative
+  const mutualNeg = [];
+  students.forEach(a => {
+    students.forEach(b => {
+      if (a < b && survey[a]?.negative?.includes(b) && survey[b]?.negative?.includes(a)) {
+        mutualNeg.push([a, b]);
+      }
+    });
+  });
+
   // Categories
   const popular = students.filter(n => posIn[n] >= 3).sort((a, b) => posIn[b] - posIn[a]);
   const isolated = students.filter(n => posIn[n] === 0 && negIn[n] >= 1);
   const noRelation = students.filter(n => posIn[n] === 0 && negIn[n] === 0 && posOut[n] === 0 && negOut[n] === 0);
+  const rejected = students.filter(n => negIn[n] >= 3).sort((a, b) => negIn[b] - negIn[a]);
+  const controversial = students.filter(n => posIn[n] >= 2 && negIn[n] >= 2);
   const maxPos = Math.max(...Object.values(posIn), 1);
   const maxNeg = Math.max(...Object.values(negIn), 1);
 
   const rankByPos = students.slice().sort((a, b) => posIn[b] - posIn[a]);
   const rankByNeg = students.slice().sort((a, b) => negIn[b] - negIn[a]);
 
+  // Completion rate
+  const completionPct = students.length ? Math.round(surveyCount / students.length * 100) : 0;
+
+  // Class cohesion score (ratio of mutual positive to total students)
+  const cohesionScore = students.length >= 2 ? Math.round(mutualPos.length / (students.length * (students.length - 1) / 2) * 100) : 0;
+
   $('socio-analysis').innerHTML = `
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:20px;">
-      <div class="socio-analysis-card" style="border-color:var(--accent);background:#f4faf2;text-align:center;">
-        <div style="font-size:28px;font-weight:700;color:var(--accent);font-family:'Gowun Dodum',sans-serif;">${popular.length}</div>
-        <div style="font-size:12px;color:var(--text-muted);font-weight:600;">인기 학생</div>
-        <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">긍정 선택 3회 이상</div>
+    <!-- 종합 요약 -->
+    <div class="sa-card" style="border-color:var(--accent);background:linear-gradient(135deg,#f8fbf6,#f4faf2);">
+      <div class="sa-card-header">
+        <div class="sa-card-icon" style="background:#e8f4e8;">📋</div>
+        <div><div class="sa-card-title">학급 관계 종합 분석</div>
+        <div class="sa-card-subtitle">설문 응답률 ${completionPct}% (${surveyCount}/${students.length}명)</div></div>
       </div>
-      <div class="socio-analysis-card" style="border-color:var(--accent2);background:#fdf6ee;text-align:center;">
-        <div style="font-size:28px;font-weight:700;color:var(--accent2);font-family:'Gowun Dodum',sans-serif;">${isolated.length}</div>
-        <div style="font-size:12px;color:var(--text-muted);font-weight:600;">고립 위험</div>
-        <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">긍정 0 + 부정 1↑</div>
+      ${completionPct < 80 ? `<div class="sa-guide info"><div class="sa-guide-label">💡 참고</div>설문 응답률이 ${completionPct}%입니다. <strong>80% 이상</strong> 응답을 확보해야 신뢰도 있는 분석이 가능해요. 미응답 학생의 설문을 추가로 입력해주세요.</div>` : ''}
+    </div>
+
+    <!-- 핵심 수치 -->
+    <div class="sa-stat-grid">
+      <div class="sa-stat" style="border-color:var(--accent);background:#f8fbf6;">
+        <div class="sa-stat-num" style="color:var(--accent);">${popular.length}</div>
+        <div class="sa-stat-label">인기 학생</div>
+        <div class="sa-stat-sub">긍정 선택 3회↑</div>
       </div>
-      <div class="socio-analysis-card" style="border-color:var(--border);text-align:center;">
-        <div style="font-size:28px;font-weight:700;color:var(--text-muted);font-family:'Gowun Dodum',sans-serif;">${noRelation.length}</div>
-        <div style="font-size:12px;color:var(--text-muted);font-weight:600;">관계 미형성</div>
-        <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">선택 없음</div>
+      <div class="sa-stat" style="border-color:var(--accent2);background:#fefaf5;">
+        <div class="sa-stat-num" style="color:var(--accent2);">${isolated.length}</div>
+        <div class="sa-stat-label">고립 위험</div>
+        <div class="sa-stat-sub">긍정 0 + 부정 1↑</div>
+      </div>
+      <div class="sa-stat" style="border-color:var(--border);">
+        <div class="sa-stat-num" style="color:var(--text-muted);">${noRelation.length}</div>
+        <div class="sa-stat-label">관계 미형성</div>
+        <div class="sa-stat-sub">선택/피선택 모두 없음</div>
       </div>
     </div>
 
-    ${mutualPos.length ? `<div class="socio-analysis-card" style="border-color:var(--accent);"><div class="socio-analysis-title">💚 상호 친밀 관계</div><div style="display:flex;flex-wrap:wrap;gap:6px;">${mutualPos.map(([a, b]) => `<span style="font-size:12px;padding:4px 10px;background:#e8f4e8;border:1px solid var(--accent);border-radius:20px;color:var(--accent);font-weight:600;">${esc(a)} ↔ ${esc(b)}</span>`).join('')}</div></div>` : ''}
-
-    ${popular.length ? `<div class="socio-analysis-card" style="border-color:var(--accent);"><div class="socio-analysis-title">⭐ 인기 학생</div>${popular.map(n => `<div style="font-size:13px;padding:4px 0;">${emo(n)} <strong>${esc(n)}</strong> — 긍정 선택 ${posIn[n]}회</div>`).join('')}</div>` : ''}
-
-    ${isolated.length ? `<div class="socio-analysis-card" style="border-color:var(--accent2);"><div class="socio-analysis-title">⚠️ 고립 위험 학생</div>${isolated.map(n => `<div style="font-size:13px;padding:4px 0;">${emo(n)} <strong>${esc(n)}</strong> — 부정 선택 ${negIn[n]}회, 긍정 선택 0회</div>`).join('')}</div>` : ''}
-
-    ${noRelation.length ? `<div class="socio-analysis-card"><div class="socio-analysis-title">📭 관계 미형성 학생</div><div style="display:flex;flex-wrap:wrap;gap:6px;">${noRelation.map(n => `<span class="name-tag" style="border-color:var(--border);background:var(--surface2);color:var(--text-muted);">${emo(n)} ${esc(n)}</span>`).join('')}</div></div>` : ''}
-
-    <div class="socio-analysis-card"><div class="socio-analysis-title">💚 긍정 선택 순위 (받은 횟수)</div>
-      ${rankByPos.map((n, i) => `<div class="socio-rank-row"><div class="socio-rank-num">${i + 1}</div><div style="flex:0 0 90px;font-weight:600;font-size:12px;">${esc(n)}</div><div class="socio-rank-bar"><div class="socio-rank-fill" style="width:${Math.round(posIn[n] / maxPos * 100)}%;background:var(--accent);"></div></div><div style="font-size:12px;font-weight:700;width:30px;text-align:right;">${posIn[n]}</div></div>`).join('')}
+    <!-- 학급 응집력 -->
+    <div class="sa-card">
+      <div class="sa-card-header">
+        <div class="sa-card-icon" style="background:#e2f0f5;">🤝</div>
+        <div><div class="sa-card-title">학급 응집력</div>
+        <div class="sa-card-subtitle">상호 친밀 관계 비율: ${cohesionScore}%</div></div>
+      </div>
+      <div style="height:8px;background:var(--surface2);border-radius:4px;overflow:hidden;margin-bottom:14px;">
+        <div style="height:100%;border-radius:4px;background:${cohesionScore >= 20 ? 'var(--accent)' : cohesionScore >= 10 ? 'var(--accent2)' : 'var(--danger)'};width:${Math.min(cohesionScore * 2, 100)}%;transition:width .5s;"></div>
+      </div>
+      <div class="sa-guide info">
+        <div class="sa-guide-label">🔍 해석</div>
+        ${cohesionScore >= 20
+          ? '<strong>응집력이 높은 학급</strong>입니다. 상호 신뢰를 바탕으로 한 긍정적인 관계가 다수 형성되어 있어요. 현재의 분위기를 유지하면서 소외되는 학생이 없는지 확인해주세요.'
+          : cohesionScore >= 10
+          ? '<strong>보통 수준의 응집력</strong>입니다. 일부 그룹 간 교류가 부족할 수 있어요. 다양한 모둠 활동과 협력 프로젝트를 통해 접점을 늘려보세요.'
+          : '<strong>응집력이 낮은 편</strong>입니다. 학생 간 교류가 제한적이고, 소그룹으로 분리되어 있을 가능성이 높아요. 학급 전체 활동, 서클 타임, 협동 게임 등을 적극 활용해 관계 형성을 도와주세요.'}
+      </div>
     </div>
 
-    <div class="socio-analysis-card"><div class="socio-analysis-title">🟠 부정 선택 순위 (받은 횟수)</div>
-      ${rankByNeg.filter(n => negIn[n] > 0).map((n, i) => `<div class="socio-rank-row"><div class="socio-rank-num">${i + 1}</div><div style="flex:0 0 90px;font-weight:600;font-size:12px;">${esc(n)}</div><div class="socio-rank-bar"><div class="socio-rank-fill" style="width:${Math.round(negIn[n] / maxNeg * 100)}%;background:var(--accent2);"></div></div><div style="font-size:12px;font-weight:700;width:30px;text-align:right;">${negIn[n]}</div></div>`).join('') || '<div style="font-size:13px;color:var(--text-muted);padding:8px 0;">부정 선택이 없어요 👍</div>'}
+    <!-- 상호 친밀 관계 -->
+    ${mutualPos.length ? `
+    <div class="sa-card" style="border-color:#b8d9b0;">
+      <div class="sa-card-header">
+        <div class="sa-card-icon" style="background:#e8f4e8;">💚</div>
+        <div><div class="sa-card-title">상호 친밀 관계 (${mutualPos.length}쌍)</div>
+        <div class="sa-card-subtitle">서로가 서로를 친한 친구로 선택한 관계</div></div>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;">${mutualPos.map(([a, b]) => `<span class="sa-mutual-tag">${esc(a)} ↔ ${esc(b)}</span>`).join('')}</div>
+      <div class="sa-guide">
+        <div class="sa-guide-label">📌 활용 방법</div>
+        상호 친밀 관계는 <strong>안정적인 우정</strong>을 나타냅니다. 모둠 구성 시 이 쌍을 같은 모둠에 배치하면 심리적 안정감을 줄 수 있어요. 다만 너무 의존적이 되지 않도록, 때때로 다른 친구와도 활동할 기회를 만들어주세요.
+      </div>
+    </div>` : ''}
+
+    <!-- 상호 갈등 관계 -->
+    ${mutualNeg.length ? `
+    <div class="sa-card" style="border-color:#e8cfa8;">
+      <div class="sa-card-header">
+        <div class="sa-card-icon" style="background:#fef3e2;">⚡</div>
+        <div><div class="sa-card-title">상호 갈등 관계 (${mutualNeg.length}쌍)</div>
+        <div class="sa-card-subtitle">서로가 서로를 불편한 친구로 선택한 관계</div></div>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;">${mutualNeg.map(([a, b]) => `<span style="display:inline-flex;align-items:center;gap:4px;padding:6px 14px;background:#fef3e2;border:1.5px solid #e8cfa8;border-radius:20px;font-size:12px;font-weight:600;color:var(--accent2);margin:3px;">${esc(a)} ⚡ ${esc(b)}</span>`).join('')}</div>
+      <div class="sa-guide warn">
+        <div class="sa-guide-label">🚨 즉시 관심 필요</div>
+        상호 부정 선택은 <strong>갈등이 심화된 관계</strong>를 의미합니다. 자리 배치 시 거리를 두되, 완전히 분리하기보다는 중재자 역할을 할 수 있는 학생을 사이에 배치해주세요. 개별 면담을 통해 갈등의 원인을 파악하고, 필요시 또래 중재 프로그램을 활용하세요.
+      </div>
+    </div>` : ''}
+
+    <!-- 인기 학생 -->
+    ${popular.length ? `
+    <div class="sa-card" style="border-color:#b8d9b0;">
+      <div class="sa-card-header">
+        <div class="sa-card-icon" style="background:#e8f4e8;">⭐</div>
+        <div><div class="sa-card-title">인기 학생 (${popular.length}명)</div>
+        <div class="sa-card-subtitle">긍정 선택을 3회 이상 받은 학생</div></div>
+      </div>
+      ${popular.map(n => `<div class="sa-student-row"><div class="sa-student-avatar" style="background:#e8f4e8;">${emo(n)}</div><div class="sa-student-info"><div class="sa-student-name">${esc(n)}</div><div class="sa-student-meta">긍정 ${posIn[n]}회 받음 · 부정 ${negIn[n]}회 받음</div></div></div>`).join('')}
+      <div class="sa-guide" style="margin-top:12px;">
+        <div class="sa-guide-label">📌 활용 방법</div>
+        인기 학생은 <strong>학급 내 긍정적 영향력</strong>을 가집니다. 모둠 리더, 학급 행사 진행 등에 활용하되, 지나치게 역할이 집중되지 않도록 주의하세요. 고립 위험 학생과 자연스럽게 접점을 만들어주는 '관계 다리' 역할을 부탁할 수도 있어요.
+      </div>
+    </div>` : ''}
+
+    <!-- 고립 위험 학생 -->
+    ${isolated.length ? `
+    <div class="sa-card" style="border-color:var(--accent2);background:#fefcf8;">
+      <div class="sa-card-header">
+        <div class="sa-card-icon" style="background:#fef3e2;">⚠️</div>
+        <div><div class="sa-card-title">고립 위험 학생 (${isolated.length}명)</div>
+        <div class="sa-card-subtitle">긍정 선택 0회 + 부정 선택 1회 이상 받은 학생</div></div>
+      </div>
+      ${isolated.map(n => `<div class="sa-student-row" style="background:#fef8f0;border-radius:10px;"><div class="sa-student-avatar" style="background:#fef3e2;">${emo(n)}</div><div class="sa-student-info"><div class="sa-student-name">${esc(n)}</div><div class="sa-student-meta">긍정 0회 · 부정 ${negIn[n]}회 받음 · 본인 선택: 긍정 ${posOut[n]}명, 부정 ${negOut[n]}명</div></div></div>`).join('')}
+      <div class="sa-guide warn" style="margin-top:12px;">
+        <div class="sa-guide-label">🚨 우선 관심 대상</div>
+        <strong>학급에서 가장 시급하게 관심이 필요한 학생들</strong>입니다. 또래에게 친한 친구로 선택받지 못하면서 불편한 존재로 인식되고 있어요.<br><br>
+        <strong>지도 방향:</strong><br>
+        · 개별 면담을 통해 학교생활 만족도와 교우관계 어려움을 파악하세요<br>
+        · 해당 학생의 강점(특기, 관심사)을 발견하여 학급 활동에서 빛날 기회를 만들어주세요<br>
+        · 모둠 구성 시 수용적인 성격의 학생들과 함께 배치하세요<br>
+        · 쉬는 시간 관찰을 통해 또래 괴롭힘 여부를 확인하세요<br>
+        · 필요시 학부모 상담과 연계하고, 상담일지에 지속적으로 기록하세요
+      </div>
+    </div>` : ''}
+
+    <!-- 배척 학생 (부정 3회 이상) -->
+    ${rejected.length ? `
+    <div class="sa-card" style="border-color:var(--danger);background:#fefafa;">
+      <div class="sa-card-header">
+        <div class="sa-card-icon" style="background:#fee;">🔴</div>
+        <div><div class="sa-card-title">배척 위험 학생 (${rejected.length}명)</div>
+        <div class="sa-card-subtitle">부정 선택을 3회 이상 받은 학생 — 집중 관찰 대상</div></div>
+      </div>
+      ${rejected.map(n => `<div class="sa-student-row" style="background:#fef5f5;border-radius:10px;"><div class="sa-student-avatar" style="background:#fee;">${emo(n)}</div><div class="sa-student-info"><div class="sa-student-name">${esc(n)}</div><div class="sa-student-meta">부정 ${negIn[n]}회 받음 · 긍정 ${posIn[n]}회 받음</div></div></div>`).join('')}
+      <div class="sa-guide warn" style="margin-top:12px;">
+        <div class="sa-guide-label">🚨 집중 지도 필요</div>
+        다수의 학생이 불편하다고 느끼는 학생입니다. <strong>행동 특성을 면밀히 관찰</strong>하여 원인을 파악하세요. 공격적 행동, 사회적 기술 부족, 위생 문제 등 다양한 원인이 있을 수 있어요.<br><br>
+        · 해당 학생이 부정 선택을 받는 구체적 이유를 개별 면담으로 파악하세요<br>
+        · 사회성 기술 훈련 (경청, 양보, 공감 표현 등)을 해당 학생에게 제공하세요<br>
+        · 성급히 변화를 요구하지 말고, 작은 성공 경험을 쌓게 도와주세요<br>
+        · Wee클래스 연계 상담도 고려해보세요
+      </div>
+    </div>` : ''}
+
+    <!-- 양면적 학생 -->
+    ${controversial.length ? `
+    <div class="sa-card" style="border-color:var(--accent3);">
+      <div class="sa-card-header">
+        <div class="sa-card-icon" style="background:#ede8f8;">🔮</div>
+        <div><div class="sa-card-title">양면적 관계 학생 (${controversial.length}명)</div>
+        <div class="sa-card-subtitle">긍정·부정 선택을 모두 2회 이상 받은 학생</div></div>
+      </div>
+      ${controversial.map(n => `<div class="sa-student-row"><div class="sa-student-avatar" style="background:#ede8f8;">${emo(n)}</div><div class="sa-student-info"><div class="sa-student-name">${esc(n)}</div><div class="sa-student-meta">긍정 ${posIn[n]}회 · 부정 ${negIn[n]}회 받음</div></div></div>`).join('')}
+      <div class="sa-guide info" style="margin-top:12px;">
+        <div class="sa-guide-label">🔍 해석</div>
+        이 학생들은 <strong>누구에게는 인기 있고, 누구에게는 불편한 존재</strong>입니다. 리더십이 강하지만 독단적이거나, 유머가 있지만 때로 공격적일 수 있어요. 긍정적 특성을 살리되, 부정적으로 인식되는 행동에 대해 구체적 피드백을 주세요.
+      </div>
+    </div>` : ''}
+
+    <!-- 관계 미형성 학생 -->
+    ${noRelation.length ? `
+    <div class="sa-card">
+      <div class="sa-card-header">
+        <div class="sa-card-icon" style="background:var(--surface2);">📭</div>
+        <div><div class="sa-card-title">관계 미형성 학생 (${noRelation.length}명)</div>
+        <div class="sa-card-subtitle">선택하지도, 선택받지도 않은 학생 — '투명인간' 위험</div></div>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;">${noRelation.map(n => `<div class="sa-student-row"><div class="sa-student-avatar" style="background:var(--surface2);">${emo(n)}</div><div class="sa-student-info"><div class="sa-student-name" style="color:var(--text-muted);">${esc(n)}</div></div></div>`).join('')}</div>
+      <div class="sa-guide" style="margin-top:12px;">
+        <div class="sa-guide-label">📌 지도 방향</div>
+        고립 위험 학생만큼 <strong>주의가 필요한 학생들</strong>입니다. 눈에 띄는 문제가 없어 놓치기 쉽지만, 학급 내 존재감이 없다는 것 자체가 문제예요.<br>
+        · 1:1 면담을 통해 학급 내 소속감을 느끼는지 확인하세요<br>
+        · 소규모 모둠 활동(2~3인)에서 역할을 부여해 자연스러운 관계 형성을 유도하세요<br>
+        · 설문 미참여자인지도 확인해주세요 (미참여라면 데이터 부족일 수 있어요)
+      </div>
+    </div>` : ''}
+
+    <!-- 전체 순위표 -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+      <div class="sa-card">
+        <div class="sa-card-header">
+          <div class="sa-card-icon" style="background:#e8f4e8;">💚</div>
+          <div><div class="sa-card-title">긍정 선택 순위</div><div class="sa-card-subtitle">친한 친구로 받은 횟수</div></div>
+        </div>
+        ${rankByPos.map((n, i) => `<div class="sa-rank-row"><div class="sa-rank-num" style="${i < 3 ? 'background:var(--accent);color:white;' : ''}">${i + 1}</div><div style="flex:0 0 80px;font-weight:600;font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${esc(n)}</div><div class="sa-rank-bar"><div class="sa-rank-fill" style="width:${Math.round(posIn[n] / maxPos * 100)}%;background:var(--accent);"></div></div><div style="font-size:12px;font-weight:700;width:28px;text-align:right;color:var(--accent);">${posIn[n]}</div></div>`).join('')}
+      </div>
+      <div class="sa-card">
+        <div class="sa-card-header">
+          <div class="sa-card-icon" style="background:#fef3e2;">🟠</div>
+          <div><div class="sa-card-title">부정 선택 순위</div><div class="sa-card-subtitle">불편한 친구로 받은 횟수</div></div>
+        </div>
+        ${rankByNeg.filter(n => negIn[n] > 0).length
+          ? rankByNeg.filter(n => negIn[n] > 0).map((n, i) => `<div class="sa-rank-row"><div class="sa-rank-num" style="${i < 3 ? 'background:var(--accent2);color:white;' : ''}">${i + 1}</div><div style="flex:0 0 80px;font-weight:600;font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${esc(n)}</div><div class="sa-rank-bar"><div class="sa-rank-fill" style="width:${Math.round(negIn[n] / maxNeg * 100)}%;background:var(--accent2);"></div></div><div style="font-size:12px;font-weight:700;width:28px;text-align:right;color:var(--accent2);">${negIn[n]}</div></div>`).join('')
+          : '<div style="font-size:13px;color:var(--text-muted);padding:12px 0;text-align:center;">부정 선택이 없어요 👍</div>'}
+      </div>
+    </div>
+
+    <!-- 자리 배치·모둠 구성 가이드 -->
+    <div class="sa-card" style="border-color:var(--accent4);background:linear-gradient(135deg,#f5fafb,#f0f7f9);">
+      <div class="sa-card-header">
+        <div class="sa-card-icon" style="background:#e2f0f5;">💺</div>
+        <div><div class="sa-card-title">자리 배치 · 모둠 구성 제안</div>
+        <div class="sa-card-subtitle">관계 데이터를 기반으로 한 배치 원칙</div></div>
+      </div>
+      <div class="sa-guide info">
+        <div class="sa-guide-label">자리 배치 원칙</div>
+        <strong>1. 상호 갈등 쌍은 거리두기</strong> — 서로 불편해하는 학생들은 직접 시야가 닿지 않는 위치에 배치하세요.<br>
+        <strong>2. 고립 학생 옆에 수용적 학생 배치</strong> — 인기 학생 또는 사교적 성향의 학생을 옆에 배치해 자연스러운 접점을 만들어주세요.<br>
+        <strong>3. 상호 친밀 쌍은 적절히 분산</strong> — 같은 모둠에 매번 함께 두기보다, 새로운 관계를 형성할 기회도 주세요.<br>
+        <strong>4. 양면적 학생은 모둠 리더로</strong> — 에너지를 긍정적으로 발산할 수 있는 구조를 만들어주세요.
+      </div>
+    </div>
+
+    <!-- 후속 조치 체크리스트 -->
+    <div class="sa-card" style="border-color:var(--accent3);background:linear-gradient(135deg,#faf7ff,#f8f5ff);">
+      <div class="sa-card-header">
+        <div class="sa-card-icon" style="background:#ede8f8;">✅</div>
+        <div><div class="sa-card-title">후속 조치 체크리스트</div>
+        <div class="sa-card-subtitle">관계조사 결과를 바탕으로 실천할 항목</div></div>
+      </div>
+      <div style="font-size:13px;line-height:2;color:var(--text);padding:4px 0;">
+        ${isolated.length ? `☐ 고립 위험 학생 (${isolated.map(n => esc(n)).join(', ')}) 개별 면담 진행<br>` : ''}
+        ${rejected.length ? `☐ 배척 위험 학생 (${rejected.map(n => esc(n)).join(', ')}) 행동 관찰 및 원인 파악<br>` : ''}
+        ${mutualNeg.length ? `☐ 갈등 관계 (${mutualNeg.map(([a,b]) => esc(a)+'-'+esc(b)).join(', ')}) 중재 계획 수립<br>` : ''}
+        ${noRelation.length ? `☐ 관계 미형성 학생 (${noRelation.map(n => esc(n)).join(', ')}) 소그룹 활동 배치<br>` : ''}
+        ☐ 다음 관계조사 일정 수립 (4~6주 후 권장)<br>
+        ☐ 자리 배치 / 모둠 재구성 반영<br>
+        ☐ 관찰 결과를 상담일지에 기록
+      </div>
     </div>`;
 }
 
