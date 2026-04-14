@@ -1534,44 +1534,131 @@ body {
 }
 
 @media (max-width: 700px) {
+  /* ── 핵심: 가로 오버플로 방지 ── */
+  html, body { overflow-x: hidden; width: 100%; }
+  .layout { flex-direction: column; min-width: 0; width: 100%; }
   .sidebar { display: none; }
-  .main { padding: 16px; }
-  .form-row { grid-template-columns: 1fr; }
-  .dash-summary-grid { grid-template-columns: repeat(2, 1fr); }
+  .main { padding: 14px; min-width: 0; width: 100%; max-width: 100vw; overflow-x: hidden; }
 
+  /* 페이지 헤더 */
+  .page-header { flex-direction: column; gap: 10px; }
+  .page-title { font-size: 18px; }
+  .page-desc { font-size: 12px; }
+  .btn-primary { width: 100%; justify-content: center; padding: 11px 16px; }
+
+  /* 폼 */
+  .form-row { grid-template-columns: 1fr; }
+
+  /* 모바일 네비 */
   .mobile-nav {
     display: flex;
     gap: 2px;
     background: var(--surface);
     border-radius: var(--radius);
     padding: 4px;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
+    margin-bottom: 16px;
+    flex-wrap: nowrap;
     box-shadow: var(--shadow-sm);
     border: 1px solid var(--border);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
   }
   .mobile-tab {
-    flex: 1;
-    padding: 9px 4px;
+    flex: 1 0 auto;
+    padding: 9px 8px;
     border: none;
     background: none;
     border-radius: 7px;
-    font-size: 10px;
+    font-size: 11px;
     font-family: inherit;
     cursor: pointer;
     color: var(--text-muted);
     font-weight: 600;
     transition: all .18s;
     min-width: 0;
+    white-space: nowrap;
   }
   .mobile-tab.active { background: var(--accent); color: white; }
 
+  /* 대시보드 요약 카드 — 2열 */
+  .dash-summary-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .dash-summary-card { padding: 14px 12px; }
+  .dash-num { font-size: 28px; }
+  .dash-label { font-size: 11px; }
+
+  /* 대시보드 2열 → 1열 */
+  #dash-two-col { grid-template-columns: 1fr !important; }
+
+  /* 유형별 비율 바 */
+  .type-ratio-bar { height: 26px; }
+  .type-ratio-seg { font-size: 10px; }
+  .type-ratio-legend { gap: 10px; font-size: 11px; }
+
+  /* 최근 상담 카드 */
+  .dash-recent-item { padding: 10px 12px; gap: 10px; }
+  .dash-recent-name { font-size: 12px; }
+  .dash-recent-preview { font-size: 11px; }
+
+  /* 주목 학생 그리드 */
+  .dash-watch-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .dash-watch-card { padding: 10px; font-size: 12px; }
+
+  /* 미상담 학생 */
+  .dash-no-counsel-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .dash-no-counsel-card { padding: 10px; }
+
+  /* 검색/필터 */
+  .controls-bar { flex-direction: column; gap: 8px; }
+  .search-wrap { min-width: 100%; }
+  .filter-pills { width: 100%; }
+
+  /* 카드 액션 항상 표시 (터치 기기) */
+  .rc-actions { opacity: 1; }
+
+  /* 학생 그리드 */
+  .student-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .student-card { padding: 14px 10px; }
+  .s-avatar { width: 40px; height: 40px; font-size: 18px; }
+  .s-name { font-size: 13px; }
+
+  /* 명부 */
+  .roster-grid { grid-template-columns: 1fr; }
+
+  /* 관계조사 */
   .socio-steps { flex-wrap: wrap; gap: 4px; }
   .socio-steps::before { display: none; }
-  .sa-stat-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; }
-  .sa-stat-num { font-size: 24px; }
-  #dash-two-col { grid-template-columns: 1fr !important; }
-  .page-title { font-size: 19px; }
+  .socio-survey-card .student-label { font-size: 14px; }
+  .socio-survey-card > div > div { grid-template-columns: 1fr !important; }
+
+  /* 분석 */
+  .sa-stat-grid { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  .sa-stat { padding: 14px 8px; }
+  .sa-stat-num { font-size: 22px; }
+  .sa-stat-label { font-size: 10px; }
+  .sa-card { padding: 16px; }
+  .sa-card-title { font-size: 14px; }
+  .sa-guide { font-size: 12px; padding: 12px 14px; }
+
+  /* 분석 순위표 2열 → 1열 */
+  .socio-rank-grid { grid-template-columns: 1fr !important; }
+  .socio-survey-grid { grid-template-columns: 1fr !important; }
+
+  /* 리포트 */
+  .report-toolbar { flex-direction: column; align-items: stretch; }
+  .report-btn-group { flex-direction: column; margin-left: 0; }
+  .report-btn-group .btn-primary { width: 100%; justify-content: center; }
+  .bar-label { width: 60px; font-size: 11px; }
+
+  /* 모달 */
+  .modal { padding: 20px; border-radius: 14px; }
+  .modal-title { font-size: 16px; }
+
+  /* 생기부 */
+  .segibu-box { padding: 16px; }
+
+  /* AI 가이드 */
+  .ai-guide-box { padding: 14px; }
+  .ai-prompt-box { font-size: 11px; }
 }
 
 @media (min-width: 701px) { .mobile-nav { display: none; } }
@@ -2340,7 +2427,7 @@ function renderSocioSurvey() {
     const negOpts = others.filter(n => !(data.negative || []).includes(n)).map(n => `<option value="${esc(n)}">${n}</option>`).join('');
     return `<div class="socio-survey-card">
       <div class="student-label">${emo(name)} ${esc(name)}</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+      <div class="socio-survey-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
         <div>
           <div style="font-size:11px;font-weight:700;color:var(--green);margin-bottom:6px;">💚 친한 친구</div>
           <div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px;">${positiveTags || '<span style="font-size:12px;color:var(--text-muted);">없음</span>'}</div>
@@ -2569,7 +2656,7 @@ function renderSocioAnalysis() {
     ${rejected.length ? `<div class="sa-card" style="border-color:var(--danger);background:var(--danger-light);"><div class="sa-card-header"><div class="sa-card-icon" style="background:white;">🔴</div><div><div class="sa-card-title">배척 위험 학생 (${rejected.length}명)</div><div class="sa-card-subtitle">부정 선택 3회↑ — 집중 관찰 대상</div></div></div>${rejected.map(n => `<div class="sa-student-row" style="background:rgba(255,255,255,.6);border-radius:var(--radius);"><div class="sa-student-avatar" style="background:white;">${emo(n)}</div><div class="sa-student-info"><div class="sa-student-name">${esc(n)}</div><div class="sa-student-meta">부정 ${negIn[n]}회 · 긍정 ${posIn[n]}회</div></div></div>`).join('')}<div class="sa-guide warn" style="margin-top:12px;"><div class="sa-guide-label">🚨 집중 지도</div>다수가 불편해하는 학생입니다. 행동 특성 관찰, 사회성 기술 훈련, Wee클래스 연계를 고려하세요.</div></div>` : ''}
     ${controversial.length ? `<div class="sa-card" style="border-color:var(--purple-border);"><div class="sa-card-header"><div class="sa-card-icon" style="background:var(--purple-light);">🔮</div><div><div class="sa-card-title">양면적 관계 학생 (${controversial.length}명)</div><div class="sa-card-subtitle">긍정·부정 모두 2회↑</div></div></div>${controversial.map(n => `<div class="sa-student-row"><div class="sa-student-avatar" style="background:var(--purple-light);">${emo(n)}</div><div class="sa-student-info"><div class="sa-student-name">${esc(n)}</div><div class="sa-student-meta">긍정 ${posIn[n]}회 · 부정 ${negIn[n]}회</div></div></div>`).join('')}<div class="sa-guide info" style="margin-top:12px;"><div class="sa-guide-label">🔍 해석</div>긍정적 특성을 살리되, 부정적으로 인식되는 행동에 대해 구체적 피드백을 주세요.</div></div>` : ''}
     ${noRelation.length ? `<div class="sa-card"><div class="sa-card-header"><div class="sa-card-icon" style="background:var(--surface2);">📭</div><div><div class="sa-card-title">관계 미형성 학생 (${noRelation.length}명)</div><div class="sa-card-subtitle">선택/피선택 모두 없음</div></div></div><div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;">${noRelation.map(n => `<div class="sa-student-row"><div class="sa-student-avatar" style="background:var(--surface2);">${emo(n)}</div><div class="sa-student-info"><div class="sa-student-name" style="color:var(--text-muted);">${esc(n)}</div></div></div>`).join('')}</div><div class="sa-guide" style="margin-top:12px;"><div class="sa-guide-label">📌 지도 방향</div>소규모 모둠 활동에서 역할을 부여해 자연스러운 관계 형성을 유도하세요.</div></div>` : ''}
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+    <div class="socio-rank-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
       <div class="sa-card"><div class="sa-card-header"><div class="sa-card-icon" style="background:var(--green-light);">💚</div><div><div class="sa-card-title">긍정 선택 순위</div></div></div>${rankByPos.map((n, i) => `<div class="sa-rank-row"><div class="sa-rank-num" style="${i < 3 ? 'background:var(--green);color:white;' : ''}">${i + 1}</div><div style="flex:0 0 80px;font-weight:600;font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${esc(n)}</div><div class="sa-rank-bar"><div class="sa-rank-fill" style="width:${Math.round(posIn[n] / maxPos * 100)}%;background:var(--green);"></div></div><div style="font-size:12px;font-weight:700;width:28px;text-align:right;color:var(--green);">${posIn[n]}</div></div>`).join('')}</div>
       <div class="sa-card"><div class="sa-card-header"><div class="sa-card-icon" style="background:var(--amber-light);">🟠</div><div><div class="sa-card-title">부정 선택 순위</div></div></div>${rankByNeg.filter(n => negIn[n] > 0).length ? rankByNeg.filter(n => negIn[n] > 0).map((n, i) => `<div class="sa-rank-row"><div class="sa-rank-num" style="${i < 3 ? 'background:var(--amber);color:white;' : ''}">${i + 1}</div><div style="flex:0 0 80px;font-weight:600;font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${esc(n)}</div><div class="sa-rank-bar"><div class="sa-rank-fill" style="width:${Math.round(negIn[n] / maxNeg * 100)}%;background:var(--amber);"></div></div><div style="font-size:12px;font-weight:700;width:28px;text-align:right;color:var(--amber);">${negIn[n]}</div></div>`).join('') : '<div style="font-size:13px;color:var(--text-muted);padding:12px 0;text-align:center;">부정 선택이 없어요 👍</div>'}</div>
     </div>
