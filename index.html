@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>📋 상담일지</title>
+<title>상담일지</title>
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#1e293b">
 <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -560,12 +560,7 @@ body {
 .pill.on-학습 { background: var(--green-light); border-color: var(--green); color: var(--green); }
 .pill.on-생활 { background: var(--amber-light); border-color: var(--amber); color: var(--amber); }
 .pill.on-교우관계 { background: var(--purple-light); border-color: var(--purple); color: var(--purple); }
-
-.pill.on-자존감 { background: var(--green-light); border-color: var(--green); color: var(--green); }
-.pill.on-불안   { background: var(--amber-light); border-color: var(--amber); color: var(--amber); }
-.pill.on-우울   { background: var(--purple-light); border-color: var(--purple); color: var(--purple); }
-.pill.on-또래관계{ background: var(--teal-light); border-color: var(--teal); color: var(--teal); }
-.pill.on-기타   { background: var(--surface2); border-color: var(--text-muted); color: var(--text-secondary); }
+.pill.on-집단상담 { background: var(--rose-light); border-color: var(--rose); color: var(--rose); }
 
 .sidebar-logo-btn {
   font-size: 17px;
@@ -652,6 +647,7 @@ body {
 .tag-생활 { background: var(--amber-light); color: var(--amber); }
 .tag-교우관계 { background: var(--purple-light); color: var(--purple); }
 .tag-학부모 { background: var(--teal-light); color: var(--teal); }
+.tag-집단상담 { background: var(--rose-light); color: var(--rose); }
 
 .method-badge {
   display: inline-flex;
@@ -1046,6 +1042,7 @@ body {
 .bar-fill.생활 { background: var(--amber); }
 .bar-fill.교우관계 { background: var(--purple); }
 .bar-fill.학부모 { background: var(--teal); }
+.bar-fill.집단상담 { background: var(--rose); }
 .bar-fill.month { background: var(--accent); }
 .bar-count { font-size: 12px; font-weight: 700; width: 24px; flex-shrink: 0; color: var(--text-secondary); }
 
@@ -1136,6 +1133,7 @@ body {
 .chip.on-학습 { background: var(--green-light); border-color: var(--green); color: var(--green); }
 .chip.on-생활 { background: var(--amber-light); border-color: var(--amber); color: var(--amber); }
 .chip.on-교우관계 { background: var(--purple-light); border-color: var(--purple); color: var(--purple); }
+.chip.on-집단상담 { background: var(--rose-light); border-color: var(--rose); color: var(--rose); }
 .chip.on-전화, .chip.on-대면, .chip.on-문자 { background: var(--teal-light); border-color: var(--teal); color: var(--teal); }
 .chip.on-남, .chip.on-여 { background: var(--accent-light); border-color: var(--accent); color: var(--accent); }
 
@@ -1754,7 +1752,6 @@ body {
       <div class="nav-label">메뉴</div>
       <button class="nav-item" id="nav-all" onclick="gotoTab('all')"><span class="nav-icon">📄</span> 전체 기록</button>
       <button class="nav-item" id="nav-parent" onclick="gotoTab('parent')"><span class="nav-icon">👨‍👩‍👧</span> 학부모 상담</button>
-      <button class="nav-item" id="nav-group" onclick="gotoTab('group')"><span class="nav-icon">🧪</span> 집단검사 결과</button>
       <button class="nav-item" id="nav-student" onclick="gotoTab('student')"><span class="nav-icon">👦</span> 학생별 보기</button>
       <button class="nav-item" id="nav-roster" onclick="gotoTab('roster')"><span class="nav-icon">📋</span> 학생 명부</button>
       <button class="nav-item" id="nav-socio" onclick="gotoTab('socio')"><span class="nav-icon">🔗</span> 관계조사</button>
@@ -1789,7 +1786,7 @@ body {
       <!-- 전체 기록 -->
       <div id="tab-all" style="display:none">
         <div class="page-header">
-          <div><div class="page-title">전체 상담 기록</div><div class="page-desc">학습 · 생활 · 교우관계 상담 기록을 관리합니다</div></div>
+          <div><div class="page-title">전체 상담 기록</div><div class="page-desc">학습 · 생활 · 교우관계 · 집단상담 기록을 관리합니다</div></div>
           <button class="btn-primary" onclick="openAddModal()">+ 새 상담 기록</button>
         </div>
         <div class="controls-bar">
@@ -1799,6 +1796,7 @@ body {
             <button class="pill" data-f="학습" onclick="setFilter('학습',this)">학습</button>
             <button class="pill" data-f="생활" onclick="setFilter('생활',this)">생활</button>
             <button class="pill" data-f="교우관계" onclick="setFilter('교우관계',this)">교우관계</button>
+            <button class="pill" data-f="집단상담" onclick="setFilter('집단상담',this)">집단상담</button>
           </div>
         </div>
         <div class="record-grid" id="allList"></div>
@@ -1916,26 +1914,6 @@ body {
         </div>
       </div>
 
-      <!-- 집단검사 결과 -->
-      <div id="tab-group" style="display:none">
-        <div class="page-header">
-          <div><div class="page-title">🧪 집단검사 결과</div><div class="page-desc">전문 상담사가 실시한 집단검사 결과를 학생별로 기록합니다</div></div>
-          <button class="btn-primary purple" onclick="openGroupModal()">+ 검사 결과 입력</button>
-        </div>
-        <div class="controls-bar">
-          <div class="search-wrap"><span class="search-icon">🔍</span><input class="search-input" id="searchGroup" placeholder="번호·이니셜 또는 검사명 검색..." oninput="renderGroup()"></div>
-          <div class="filter-pills" id="groupFilterPills">
-            <button class="pill on-all" onclick="setGroupFilter('all',this)">전체</button>
-            <button class="pill" data-gf="자존감" onclick="setGroupFilter('자존감',this)">자존감</button>
-            <button class="pill" data-gf="불안" onclick="setGroupFilter('불안',this)">불안</button>
-            <button class="pill" data-gf="우울" onclick="setGroupFilter('우울',this)">우울</button>
-            <button class="pill" data-gf="또래관계" onclick="setGroupFilter('또래관계',this)">또래관계</button>
-            <button class="pill" data-gf="기타" onclick="setGroupFilter('기타',this)">기타</button>
-          </div>
-        </div>
-        <div class="record-grid" id="groupList"></div>
-      </div>
-
       <!-- 리포트 -->
       <div id="tab-report" style="display:none">
         <div class="page-header"><div><div class="page-title">리포트</div><div class="page-desc">상담 데이터 요약 · 통계 · 내보내기</div></div></div>
@@ -1966,9 +1944,6 @@ body {
     <button class="mobile-tab" id="mnav-parent" onclick="gotoTab('parent')">
       <span class="tab-icon">👨‍👩‍👧</span>학부모
     </button>
-    <button class="mobile-tab" id="mnav-group" onclick="gotoTab('group')">
-      <span class="tab-icon">🧪</span>검사
-    </button>
     <button class="mobile-tab" id="mnav-student" onclick="gotoTab('student')">
       <span class="tab-icon">👦</span>학생별
     </button>
@@ -1982,44 +1957,6 @@ body {
       <span class="tab-icon">📊</span>리포트
     </button>
   </nav>
-</div>
-
-<!-- 집단검사 결과 입력 -->
-<div class="overlay" id="modal-group">
-  <div class="modal">
-    <div class="modal-title" id="modal-group-title">집단검사 결과 입력</div>
-    <div class="form-row">
-      <div class="form-group">
-        <label class="form-label">학생 선택 (여러 명 가능)</label>
-        <div class="autocomplete-wrap">
-          <input class="form-input" id="g_name_input" placeholder="번호·이니셜 입력 또는 선택" autocomplete="off" oninput="acInput('g_name_input','g_ac')" onfocus="acInput('g_name_input','g_ac')">
-          <div class="autocomplete-list" id="g_ac" style="display:none"></div>
-        </div>
-        <div id="g_name_tags" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;"></div>
-        <div class="form-hint">⚠️ 실명 입력 금지</div>
-      </div>
-      <div class="form-group"><label class="form-label">검사 날짜</label><input class="form-input" id="g_date" type="date"></div>
-    </div>
-    <div class="form-group"><label class="form-label">검사 분류</label>
-      <div class="chip-group" id="groupTypeChips">
-        <button class="chip" onclick="pickGroupType(this)">자존감</button>
-        <button class="chip" onclick="pickGroupType(this)">불안</button>
-        <button class="chip" onclick="pickGroupType(this)">우울</button>
-        <button class="chip" onclick="pickGroupType(this)">또래관계</button>
-        <button class="chip" onclick="pickGroupType(this)">기타</button>
-      </div>
-    </div>
-    <div class="form-group"><label class="form-label">검사명 <span style="color:var(--text-muted);font-weight:400;">(예: K-CBCL, RSES, CDI)</span></label>
-      <input class="form-input" id="g_testname" placeholder="검사명을 입력하세요"></div>
-    <div class="form-group"><label class="form-label">검사 결과 요약</label>
-      <textarea class="form-textarea" id="g_result" placeholder="수치, 등급, 특이사항 등을 기록하세요..."></textarea></div>
-    <div class="form-group"><label class="form-label">전문가 소견 / 후속 지도 방향</label>
-      <textarea class="form-textarea sm" id="g_opinion" placeholder="전문 상담사 소견 및 교사 후속 지도 방향..."></textarea></div>
-    <div class="modal-footer">
-      <button class="btn-ghost" onclick="closeModal('modal-group')">취소</button>
-      <button class="btn-primary purple" id="btn-save-group" onclick="saveGroup()">저장</button>
-    </div>
-  </div>
 </div>
 
 <!-- 상담 추가/수정 -->
@@ -2043,6 +1980,7 @@ body {
         <button class="chip" onclick="pickChip(this,'type')">학습</button>
         <button class="chip" onclick="pickChip(this,'type')">생활</button>
         <button class="chip" onclick="pickChip(this,'type')">교우관계</button>
+        <button class="chip" onclick="pickChip(this,'type')">집단상담</button>
       </div>
     </div>
     <div class="form-group"><label class="form-label">상담 내용</label><textarea class="form-textarea" id="f_content" placeholder="상담 내용을 기록해 주세요..."></textarea></div>
@@ -2167,9 +2105,9 @@ const auth = getAuth(app);
 const db   = getFirestore(app);
 
 const EMOJIS=['🌱','🌟','🐣','🦋','🌈','🍀','✨','🐥','🌻','🎈','🦊','🐬','🌺','🎀','🐸','🍁','🌙','⭐','🦜','🦔'];
-let currentUser=null, records=[], parents=[], roster=[], groups=[];
-let filter='all', selType='', selMethod='', selGender='', selGroupType='', groupFilter='all';
-let editId=null, editPId=null, editRId=null, editGId=null, detailId=null, detailIsParent=false;
+let currentUser=null, records=[], parents=[], roster=[];
+let filter='all', selType='', selMethod='', selGender='';
+let editId=null, editPId=null, editRId=null, detailId=null, detailIsParent=false;
 
 let socioSessions = [];
 let currentSessionId = null;
@@ -2186,7 +2124,7 @@ const esc = s  => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/
 function toast(msg){ const e=$('toast'); e.textContent=msg; e.classList.add('show'); clearTimeout(e._t); e._t=setTimeout(()=>e.classList.remove('show'),2500); }
 function loading(v){ $('loadingBar').style.display=v?'block':'none'; }
 function openModal(id){ $(id).classList.add('open'); }
-window.closeModal = id => { $(id).classList.remove('open'); ['f_ac','p_ac','g_ac'].forEach(i=>{ const el=$(i); if(el) el.style.display='none'; }); };
+window.closeModal = id => { $(id).classList.remove('open'); ['f_ac','p_ac'].forEach(i=>{ const el=$(i); if(el) el.style.display='none'; }); };
 
 function addNameTag(containerId, name) {
   const container=$(containerId); if(!container) return;
@@ -2216,7 +2154,7 @@ onAuthStateChanged(auth, async user => {
     $('sideYear').textContent=new Date().getFullYear()+'학년도 학급 상담';
     await loadData(); render();
   } else {
-    currentUser=null; records=[]; parents=[]; roster=[]; socioSessions=[]; groups=[];
+    currentUser=null; records=[]; parents=[]; roster=[]; socioSessions=[];
     $('authScreen').style.display='flex';
     $('appScreen').style.display='none';
   }
@@ -2258,7 +2196,7 @@ window.doWithdraw = async () => {
   loading(true);
   try{
     const deleteAll=async(col)=>{ const s=await getDocs(col); await Promise.all(s.docs.map(d=>deleteDoc(d.ref))); };
-    await deleteAll(rCol()); await deleteAll(pCol()); await deleteAll(roCol()); await deleteAll(socCol()); await deleteAll(gCol());
+    await deleteAll(rCol()); await deleteAll(pCol()); await deleteAll(roCol()); await deleteAll(socCol());
     await currentUser.delete(); toast('✅ 탈퇴 완료.');
   } catch(e){
     if(e.code==='auth/requires-recent-login'){ toast('⚠️ 로그아웃 후 다시 로그인하고 시도해주세요'); await signOut(auth); }
@@ -2270,23 +2208,20 @@ const rCol  = () => collection(db,'users',currentUser.uid,'records');
 const pCol  = () => collection(db,'users',currentUser.uid,'parents');
 const roCol = () => collection(db,'users',currentUser.uid,'roster');
 const socCol = () => collection(db,'users',currentUser.uid,'sociometry');
-const gCol  = () => collection(db,'users',currentUser.uid,'groups');
 
 async function loadData(){
   loading(true);
   try{
-    const [rs,ps,ros,socs,gs]=await Promise.all([
+    const [rs,ps,ros,socs]=await Promise.all([
       getDocs(query(rCol(),orderBy('date','desc'))),
       getDocs(query(pCol(),orderBy('date','desc'))),
       getDocs(roCol()),
-      getDocs(socCol()),
-      getDocs(query(gCol(),orderBy('date','desc')))
+      getDocs(socCol())
     ]);
     records=rs.docs.map(d=>({id:d.id,...d.data()}));
     parents=ps.docs.map(d=>({id:d.id,...d.data()}));
     roster=ros.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>Number(a.num)-Number(b.num));
     socioSessions=socs.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.date||'').localeCompare(a.date||''));
-    groups=gs.docs.map(d=>({id:d.id,...d.data()}));
   }catch(e){toast('데이터 로드 실패: '+e.message);}
   finally{loading(false);}
 }
@@ -2306,7 +2241,7 @@ function renderDashboard() {
   const monthRecs = records.filter(r=>r.date?.slice(0,7)===thisMonth);
   const monthPars = parents.filter(p=>p.date?.slice(0,7)===thisMonth);
   const monthTotal = monthRecs.length + monthPars.length;
-  const tc = {학습:0,생활:0,교우관계:0};
+  const tc = {학습:0,생활:0,교우관계:0,집단상담:0};
   records.forEach(r=>{if(tc[r.type]!==undefined) tc[r.type]++;});
 
   $('dash-summary').innerHTML=`
@@ -2316,7 +2251,7 @@ function renderDashboard() {
     <div class="dash-summary-card accent3"><div class="dash-num" style="color:var(--purple);">${roster.filter(s=>s.watch).length}</div><div class="dash-label">주목 학생</div><div class="dash-sub">⭐ 표시된 학생</div></div>`;
 
   const typeTotal = Object.values(tc).reduce((a,b)=>a+b,0);
-  const colors = {학습:'var(--green)',생활:'var(--amber)',교우관계:'var(--purple)'};
+  const colors = {학습:'var(--green)',생활:'var(--amber)',교우관계:'var(--purple)',집단상담:'var(--rose)'};
   $('dash-type-bar').innerHTML = typeTotal===0
     ? `<div style="font-size:13px;color:var(--text-muted);">상담 기록이 없어요</div>`
     : `<div class="type-ratio-bar">${Object.entries(tc).filter(([,v])=>v>0).map(([k,v])=>`<div class="type-ratio-seg" style="width:${Math.round(v/typeTotal*100)}%;background:${colors[k]};">${Math.round(v/typeTotal*100)}%</div>`).join('')}</div>
@@ -2792,14 +2727,14 @@ window.renderReport=function(){
   const{recs,pars}=getFilteredData();
   const total=recs.length+pars.length;
   const students=new Set([...recs.map(r=>r.name),...pars.map(p=>p.name)]).size;
-  const typeCounts={학습:0,생활:0,교우관계:0};
+  const typeCounts={학습:0,생활:0,교우관계:0,집단상담:0};
   recs.forEach(r=>{if(typeCounts[r.type]!==undefined)typeCounts[r.type]++;});
   const maxType=Math.max(...Object.values(typeCounts),1);
   const monthMap={};[...recs,...pars].forEach(r=>{const m=r.date?.slice(0,7);if(!m)return;monthMap[m]=(monthMap[m]||0)+1;});
   const monthEntries=Object.entries(monthMap).sort();const maxMonth=Math.max(...Object.values(monthMap),1);
   const studentMap={};
-  recs.forEach(r=>{if(!studentMap[r.name])studentMap[r.name]={학습:0,생활:0,교우관계:0,학부모:0,total:0};studentMap[r.name][r.type]=(studentMap[r.name][r.type]||0)+1;studentMap[r.name].total++;});
-  pars.forEach(p=>{if(!studentMap[p.name])studentMap[p.name]={학습:0,생활:0,교우관계:0,학부모:0,total:0};studentMap[p.name].학부모++;studentMap[p.name].total++;});
+  recs.forEach(r=>{if(!studentMap[r.name])studentMap[r.name]={학습:0,생활:0,교우관계:0,집단상담:0,학부모:0,total:0};studentMap[r.name][r.type]=(studentMap[r.name][r.type]||0)+1;studentMap[r.name].total++;});
+  pars.forEach(p=>{if(!studentMap[p.name])studentMap[p.name]={학습:0,생활:0,교우관계:0,집단상담:0,학부모:0,total:0};studentMap[p.name].학부모++;studentMap[p.name].total++;});
   const studentEntries=Object.entries(studentMap).sort((a,b)=>b[1].total-a[1].total);
   $('report-content').innerHTML=`
     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-bottom:24px;">
@@ -2809,7 +2744,7 @@ window.renderReport=function(){
       <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px;"><div style="font-size:11px;color:var(--text-muted);font-weight:700;margin-bottom:8px;">학부모 상담</div><div style="font-size:32px;font-weight:800;color:var(--purple);letter-spacing:-1px;">${pars.length}</div><div style="font-size:12px;color:var(--text-muted);margin-top:4px;">전체 대비 ${total?Math.round(pars.length/total*100):0}%</div></div>
     </div>
     <div class="bar-section"><div class="bar-section-title">📊 상담 유형별 현황</div>
-      ${['학습','생활','교우관계'].map(t=>`<div class="bar-row"><div class="bar-label">${t}</div><div class="bar-track"><div class="bar-fill ${t}" style="width:${Math.round(typeCounts[t]/maxType*100)}%"></div></div><div class="bar-count">${typeCounts[t]}</div></div>`).join('')}
+      ${['학습','생활','교우관계','집단상담'].map(t=>`<div class="bar-row"><div class="bar-label">${t}</div><div class="bar-track"><div class="bar-fill ${t}" style="width:${Math.round(typeCounts[t]/maxType*100)}%"></div></div><div class="bar-count">${typeCounts[t]}</div></div>`).join('')}
       <div class="bar-row"><div class="bar-label">학부모</div><div class="bar-track"><div class="bar-fill 학부모" style="width:${Math.round(pars.length/maxType*100)}%"></div></div><div class="bar-count">${pars.length}</div></div>
     </div>
     ${monthEntries.length>1?`<div class="bar-section"><div class="bar-section-title">📅 월별 상담 추이</div>${monthEntries.map(([m,cnt])=>{const[y,mo]=m.split('-');return`<div class="bar-row"><div class="bar-label">${y.slice(2)}년 ${parseInt(mo)}월</div><div class="bar-track"><div class="bar-fill month" style="width:${Math.round(cnt/maxMonth*100)}%"></div></div><div class="bar-count">${cnt}</div></div>`;}).join('')}</div>`:''}
@@ -2817,8 +2752,8 @@ window.renderReport=function(){
     ${studentEntries.length===0?`<div class="empty"><div class="empty-icon">📭</div><p>데이터가 없어요</p></div>`:`
       <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;">
         <table class="summary-table">
-          <thead><tr><th>학생</th><th style="text-align:center;">총</th><th style="text-align:center;">학습</th><th style="text-align:center;">생활</th><th style="text-align:center;">교우</th><th style="text-align:center;">학부모</th></tr></thead>
-          <tbody>${studentEntries.map(([name,c])=>`<tr><td><strong>${esc(name)}</strong></td><td style="text-align:center;font-weight:700;">${c.total}</td><td style="text-align:center;">${c.학습||'-'}</td><td style="text-align:center;">${c.생활||'-'}</td><td style="text-align:center;">${c.교우관계||'-'}</td><td style="text-align:center;">${c.학부모||'-'}</td></tr>`).join('')}</tbody>
+          <thead><tr><th>학생</th><th style="text-align:center;">총</th><th style="text-align:center;">학습</th><th style="text-align:center;">생활</th><th style="text-align:center;">교우</th><th style="text-align:center;">집단</th><th style="text-align:center;">학부모</th></tr></thead>
+          <tbody>${studentEntries.map(([name,c])=>`<tr><td><strong>${esc(name)}</strong></td><td style="text-align:center;font-weight:700;">${c.total}</td><td style="text-align:center;">${c.학습||'-'}</td><td style="text-align:center;">${c.생활||'-'}</td><td style="text-align:center;">${c.교우관계||'-'}</td><td style="text-align:center;">${c.집단상담||'-'}</td><td style="text-align:center;">${c.학부모||'-'}</td></tr>`).join('')}</tbody>
         </table>
       </div>`}`;
 };
@@ -2839,160 +2774,11 @@ window.acInput=(inputId,listId)=>{
 window.acSelect=(inputId,listId,val)=>{
   if(inputId==='f_name_input'){addNameTag('f_name_tags',val);$(inputId).value='';}
   else if(inputId==='p_name_input'){addNameTag('p_name_tags',val);$(inputId).value='';}
-  else if(inputId==='g_name_input'){addNameTag('g_name_tags',val);$(inputId).value='';}
   else{$(inputId).value=val;}
   $(listId).style.display='none';
 };
 
-function render(){ renderDashboard(); renderAll(); renderParent(); renderGroup(); renderStudentGrid(); renderRoster(); renderSocioSessionList(); }
-
-/* ── 집단검사 ── */
-const GROUP_COLORS = {
-  자존감: {bg:'var(--green-light)', border:'var(--green)', color:'var(--green)'},
-  불안:   {bg:'var(--amber-light)', border:'var(--amber)', color:'var(--amber)'},
-  우울:   {bg:'var(--purple-light)', border:'var(--purple)', color:'var(--purple)'},
-  또래관계:{bg:'var(--teal-light)', border:'var(--teal)', color:'var(--teal)'},
-  기타:   {bg:'var(--surface2)', border:'var(--border)', color:'var(--text-muted)'}
-};
-
-window.renderGroup = () => {
-  const q = ($('searchGroup')?.value||'').toLowerCase().trim();
-  const list = groups.filter(g =>
-    (groupFilter==='all' || g.gtype===groupFilter) &&
-    (!q || g.name.includes(q) || (g.testname||'').toLowerCase().includes(q))
-  );
-  const el = $('groupList');
-  if(!el) return;
-  if(!list.length){
-    el.innerHTML=`<div class="empty"><div class="empty-icon">🧪</div><p>검사 결과가 없어요</p></div>`;
-    return;
-  }
-  el.innerHTML = list.map(g => {
-    const c = GROUP_COLORS[g.gtype] || GROUP_COLORS['기타'];
-    return `<div class="record-card" onclick="openGroupDetail('${g.id}')">
-      <div class="rc-actions">
-        <button class="btn-icon" onclick="event.stopPropagation();openEditGroup('${g.id}')">✏️</button>
-        <button class="btn-icon del" onclick="event.stopPropagation();delGroup('${g.id}')">🗑️</button>
-      </div>
-      <div class="rc-top">
-        <div>
-          <div class="rc-name">${esc(g.name)}</div>
-          <div class="rc-date">${g.date}${g.testname ? ' · '+esc(g.testname) : ''}</div>
-        </div>
-        <span class="tag" style="background:${c.bg};color:${c.color};border:1px solid ${c.border};">${g.gtype||'기타'}</span>
-      </div>
-      <div class="rc-preview">${esc(g.result)}</div>
-    </div>`;
-  }).join('');
-};
-
-window.setGroupFilter = (f, el) => {
-  groupFilter = f;
-  document.querySelectorAll('#groupFilterPills .pill').forEach(b => {
-    const bf = b.dataset.gf || 'all';
-    b.className = 'pill' + (bf===f || (!b.dataset.gf && f==='all') ? ` on-${f==='all'?'all':f}` : '');
-  });
-  renderGroup();
-};
-
-window.pickGroupType = el => {
-  selGroupType = el.textContent.trim();
-  document.querySelectorAll('#groupTypeChips .chip').forEach(b => {
-    const v = b.textContent.trim();
-    const c = GROUP_COLORS[v] || GROUP_COLORS['기타'];
-    b.className = v===selGroupType ? `chip on-${v}` : 'chip';
-    if(v===selGroupType){
-      b.style.background = c.bg;
-      b.style.borderColor = c.border;
-      b.style.color = c.color;
-    } else {
-      b.style.background = ''; b.style.borderColor = ''; b.style.color = '';
-    }
-  });
-};
-
-window.openGroupModal = () => {
-  editGId = null; selGroupType = '';
-  $('modal-group-title').textContent = '집단검사 결과 입력';
-  ['g_name_input','g_testname','g_result','g_opinion'].forEach(id=>{const el=$(id);if(el)el.value='';});
-  clearTags('g_name_tags');
-  $('g_date').value = td();
-  document.querySelectorAll('#groupTypeChips .chip').forEach(b=>{b.className='chip';b.style.background='';b.style.borderColor='';b.style.color='';});
-  openModal('modal-group');
-  setTimeout(()=>$('g_name_input').focus(), 60);
-};
-
-window.openEditGroup = id => {
-  const g = groups.find(g=>g.id===id); if(!g) return;
-  editGId = id; selGroupType = g.gtype||'';
-  $('modal-group-title').textContent = '검사 결과 수정';
-  $('g_name_input').value = '';
-  clearTags('g_name_tags');
-  g.name.split(',').map(n=>n.trim()).filter(Boolean).forEach(n=>addNameTag('g_name_tags',n));
-  $('g_date').value = g.date;
-  $('g_testname').value = g.testname||'';
-  $('g_result').value = g.result||'';
-  $('g_opinion').value = g.opinion||'';
-  document.querySelectorAll('#groupTypeChips .chip').forEach(b=>{
-    const v=b.textContent.trim(); const c=GROUP_COLORS[v]||GROUP_COLORS['기타'];
-    if(v===selGroupType){b.className=`chip on-${v}`;b.style.background=c.bg;b.style.borderColor=c.border;b.style.color=c.color;}
-    else{b.className='chip';b.style.background='';b.style.borderColor='';b.style.color='';}
-  });
-  openModal('modal-group');
-};
-
-window.saveGroup = async () => {
-  const names = getTagNames('g_name_tags');
-  if(!names.length){const d=$('g_name_input').value.trim();if(d)names.push(d);}
-  const name=names.join(', '), date=$('g_date').value, result=$('g_result').value.trim();
-  if(!name||!date||!result||!selGroupType){toast('⚠️ 학생, 날짜, 분류, 결과 내용을 모두 입력해주세요');return;}
-  const testname=$('g_testname').value.trim(), opinion=$('g_opinion').value.trim();
-  const btn=$('btn-save-group'); btn.disabled=true; btn.textContent='저장 중...'; loading(true);
-  try{
-    const data={name,date,gtype:selGroupType,testname,result,opinion};
-    if(editGId){
-      await updateDoc(doc(gCol(),editGId),data);
-      const i=groups.findIndex(g=>g.id===editGId); groups[i]={...groups[i],...data};
-      toast('✅ 수정했어요');
-    } else {
-      const ref=await addDoc(gCol(),data);
-      groups.unshift({id:ref.id,...data});
-      toast('✅ 저장했어요');
-    }
-    render(); closeModal('modal-group');
-  }catch(e){toast('저장 실패: '+e.message); btn.disabled=false; btn.textContent='저장';}
-  finally{loading(false);}
-};
-
-window.delGroup = async id => {
-  if(!confirm('이 검사 결과를 삭제할까요?')) return;
-  loading(true);
-  try{
-    await deleteDoc(doc(gCol(),id));
-    groups = groups.filter(g=>g.id!==id);
-    render(); toast('✅ 삭제했어요');
-  }catch(e){toast('삭제 실패: '+e.message);}
-  finally{loading(false);}
-};
-
-window.openGroupDetail = id => {
-  const g = groups.find(g=>g.id===id); if(!g) return;
-  const c = GROUP_COLORS[g.gtype] || GROUP_COLORS['기타'];
-  $('detail-body').innerHTML = `
-    <div class="modal-title">🧪 ${esc(g.name)} 검사 결과</div>
-    <div style="display:flex;gap:8px;align-items:center;margin-bottom:20px;">
-      <span class="tag" style="background:${c.bg};color:${c.color};border:1px solid ${c.border};">${g.gtype||'기타'}</span>
-      ${g.testname?`<span style="font-size:12px;font-weight:600;color:var(--text-secondary);">${esc(g.testname)}</span>`:''}
-      <span style="font-size:12px;color:var(--text-muted);">${g.date}</span>
-    </div>
-    <div class="detail-label">검사 결과 요약</div>
-    <div class="detail-value">${esc(g.result)}</div>
-    ${g.opinion?`<div class="detail-label">전문가 소견 / 후속 지도</div><div class="detail-value">${esc(g.opinion)}</div>`:''}`;
-  detailId = id; detailIsParent = false;
-  $('detail-edit-btn').style.background = 'var(--purple)';
-  $('detail-edit-btn').onclick = () => { closeModal('modal-detail'); openEditGroup(id); };
-  openModal('modal-detail');
-};
+function render(){ renderDashboard(); renderAll(); renderParent(); renderStudentGrid(); renderRoster(); renderSocioSessionList(); }
 
 window.renderAll=()=>{
   const q=($('searchAll').value||'').toLowerCase().trim();
@@ -3050,7 +2836,7 @@ function renderRoster(){
     </div>`).join('');
 }
 
-const ALL_TABS = ['dash','all','parent','group','student','roster','socio','report'];
+const ALL_TABS = ['dash','all','parent','student','roster','socio','report'];
 window.gotoTab=tab=>{
   ALL_TABS.forEach(t=>{
     $(`tab-${t}`).style.display=t===tab?'block':'none';
@@ -3059,7 +2845,6 @@ window.gotoTab=tab=>{
   });
   if(tab==='report') renderReport();
   if(tab==='dash') renderDashboard();
-  if(tab==='group') renderGroup();
   if(tab==='student'){$('student-grid-view').style.display='block';$('student-detail-view').style.display='none';}
   if(tab==='socio'){
     renderSocioSessionList();
